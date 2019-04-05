@@ -1,3 +1,6 @@
 .bodybody {
   margin-top: 105px;
 }
+.heading {
+  min-height: 105px;
+}
