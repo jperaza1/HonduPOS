@@ -1,0 +1,17 @@
+{
+  "name": "posine-fullstack",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd Client && npm start",
+    "server": "cd Server && npm start",
+    "start": "concurrently - kill-others \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "David Mendoza",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "³.5.1"
+  }
+}
