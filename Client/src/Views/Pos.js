@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PosProduct from "../Components/PosProduct";
-import { Container, Grid } from "@material-ui/core";
+import { Grid, Container } from "semantic-ui-react";
 
 class Pos extends Component {
   constructor(props) {
@@ -17,28 +17,30 @@ class Pos extends Component {
   };
   render() {
     return (
-      <Grid container xs={12}>
-        <Grid item xs={4}>
-          <p>aqui va la calcu</p>
+      <Container style={{ width: "100%" }}>
+        <Grid style={{ margin: 0, padding: 0 }}>
+          <Grid.Column width={4} style={{ margin: 0, padding: 0 }}>
+            <Container text>
+              <p>aqui va la calcu</p>
+            </Container>
+          </Grid.Column>
+          <Grid.Column width={12} style={{ margin: 0, padding: 0 }}>
+            <Container
+              fluid
+              style={{
+                height: "100vh",
+                overflowY: "auto",
+                backgroundColor: "#ecf0f1",
+              }}>
+              <Grid>
+                {this.state.productos.map(value => {
+                  return <PosProduct product={value} />;
+                })}
+              </Grid>
+            </Container>
+          </Grid.Column>
         </Grid>
-        <Grid
-          item
-          xs={8}
-          style={{
-            backgroundColor: "lightgrey",
-            overflow: "auto",
-            height: "100%",
-            width: "100%",
-          }}>
-          <Container maxWidth="lg">
-            <Grid container xs={12} spacing={3}>
-              {this.state.productos.map(value => {
-                return <PosProduct product={value} />;
-              })}
-            </Grid>
-          </Container>
-        </Grid>
-      </Grid>
+      </Container>
     );
   }
 }
