@@ -1,7 +1,5 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Error404 from "./Views/Error404";
-import Home from "./Views/Home";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,7 +16,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
 import { mainListItems, secondaryListItems } from "./Components/ListItem";
+import Pos from "./Views/Pos";
+import Error404 from "./Views/Error404";
+import Home from "./Views/Home";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -168,6 +170,7 @@ class Dashboard extends React.Component {
             <div className={classes.appBarSpacer} />
             <Switch>
               <Route path="/" component={Home} exact />
+              <Route path="/POS" component={Pos} exact />
               <Route component={Error404} />
             </Switch>
           </main>
