@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import SimpleTable from "../Components/SimpleTable";
+import AllProducts from "../Components/AllProducts";
 class Home extends Component {
   render() {
     return (
       <div>
-        <p>home :v</p>
-        <SimpleTable />
+        <h1>Todos Los Productos</h1>
+        <AllProducts />
       </div>
     );
   }
