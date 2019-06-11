@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PosProduct from "../Components/PosProduct";
 import { Grid, Container } from "semantic-ui-react";
-
+import "../Styles/Pos.css";
 class Pos extends Component {
   constructor(props) {
     super(props);
@@ -17,22 +17,15 @@ class Pos extends Component {
   };
   render() {
     return (
-      <Container style={{ width: "100%" }}>
-        <Grid style={{ margin: 0, padding: 0 }}>
-          <Grid.Column width={4} style={{ margin: 0, padding: 0 }}>
+      <Container fluid>
+        <Grid id="nopaddingmargin">
+          <Grid.Column width={4} id="nopaddingmargin">
             <Container text>
               <p>aqui va la calcu</p>
             </Container>
           </Grid.Column>
-          <Grid.Column width={12} style={{ margin: 0, padding: 0 }}>
-            <Container
-              fluid
-              style={{
-                height: "100vh",
-                overflowY: "auto",
-                backgroundColor: "#ecf0f1",
-                padding: 25,
-              }}>
+          <Grid.Column width={12} id="nopaddingmargin">
+            <Container fluid id="productosContainer">
               <Grid>
                 {this.state.productos.map(value => {
                   return <PosProduct product={value} />;

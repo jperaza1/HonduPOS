@@ -1,30 +1,39 @@
-.icon-bar {
-  width: 12vw;
-  background-color: #3498db;
+.iconBar {
+  width: 10vw;
   height: 100vh;
-  float: left;
-}
-.site-content {
-  width: 88vw;
+  min-height: 100vh;
   position: absolute;
-  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #039be5;
 }
-.icon-bar a {
+
+.site-content {
+  width: 90vw;
+  position: static;
+  right: 0;
+  margin-left: 10vw;
+}
+
+.iconBar a {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 16px;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   color: white;
-  font-size: 25px;
+  font-size: 18px;
+  width: 100%;
 }
 
-.icon-bar a:hover {
-  background-color: #000;
+.iconBar > a:hover {
+  background-color: #0277bd;
 }
 
 .active {
-  background-color: #4caf50;
+  background-color: #01579b;
 }

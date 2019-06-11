@@ -1,0 +1,15 @@
+#productoContent {
+  word-wrap: break-word;
+}
+
+#productosContainer {
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #ecf0f1;
+  padding: 25px;
+}
+
+#nopaddingmargin {
+  padding: 0 !important;
+  margin: 0 !important;
+}

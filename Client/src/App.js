@@ -3,14 +3,14 @@ import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import Pos from "./Views/Pos";
 import Error404 from "./Views/Error404";
 import Home from "./Views/Home";
-import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
+import { Icon, Menu } from "semantic-ui-react";
 import "./Styles/App.css";
 class Dashboard extends React.Component {
   render() {
     return (
       <div>
         <BrowserRouter>
-          <div class="icon-bar">
+          <div class="iconBar">
             <NavLink className="item" exact to="/">
               <Menu.Item as="a">
                 <Icon name="home" />
