@@ -10,9 +10,9 @@ class Pos extends Component {
   componentDidMount = async () => {
     fetch("/getAllProducts")
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.setState({ productos: data.data });
+      .then(response => {
+        console.log(response);
+        this.setState({ productos: response.data });
       });
   };
   render() {
@@ -31,6 +31,7 @@ class Pos extends Component {
                 height: "100vh",
                 overflowY: "auto",
                 backgroundColor: "#ecf0f1",
+                padding: 25,
               }}>
               <Grid>
                 {this.state.productos.map(value => {
