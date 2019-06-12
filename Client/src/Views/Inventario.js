@@ -4,6 +4,9 @@ import "../Styles/Inventario.css";
 import CreateProductTabPane from "../Components/CreateProductTabPane";
 import CreateCategorieTabPane from "../Components/CreateCategorieTabPane";
 import CreatePaymentMethodTabPane from "../Components/CreatePaymentMethodTabPane";
+import ListProductTabPane from "../Components/ListProductTabPane";
+import ListCategorieTabPane from "../Components/ListCategorieTabPane";
+import ListPaymentMethodTabPane from "../Components/ListPaymentMethodTabPane";
 
 const CONTENT_STATE_CREATE = 0;
 const CONTENT_STATE_READ = 1;
@@ -14,7 +17,7 @@ class Inventario extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ContentState: 0,
+      ContentState: 1,
     };
   }
 
@@ -48,10 +51,25 @@ class Inventario extends Component {
         );
       }
       case CONTENT_STATE_READ: {
+        const panes = [
+          {
+            menuItem: "Productos",
+            render: () => <ListProductTabPane />,
+          },
+          {
+            menuItem: "Categorias",
+            render: () => <ListCategorieTabPane />,
+          },
+          {
+            menuItem: "Modos de pagos",
+            render: () => <ListPaymentMethodTabPane />,
+          },
+        ];
         return (
           <Container>
             <h1>read</h1>
             <hr />
+            <Tab menu={{ fluid: true }} panes={panes} />
           </Container>
         );
       }

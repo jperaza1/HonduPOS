@@ -6,6 +6,7 @@ const app = express();
 const port = 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//gets
 app.get("/GetAllProducts", async (req, res) => {
   const db = await dbPromise;
   db.all("SELECT * FROM PRODUCTO").then(data => {
@@ -20,6 +21,14 @@ app.get("/GetAllCategories", async (req, res) => {
   });
 });
 
+app.get("/GetAllPayments", async (req, res) => {
+  const db = await dbPromise;
+  db.all("SELECT * FROM MODO_PAGO").then(data => {
+    res.send({ data: data });
+  });
+});
+
+//posts
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
