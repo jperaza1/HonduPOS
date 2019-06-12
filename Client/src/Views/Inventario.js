@@ -1,55 +1,49 @@
 import React, { Component } from "react";
 import { Container, Button, Icon, Tab } from "semantic-ui-react";
 import "../Styles/Inventario.css";
+import CreateProductTabPane from "../Components/CreateProductTabPane";
+import CreateCategorieTabPane from "../Components/CreateCategorieTabPane";
+import CreatePaymentMethodTabPane from "../Components/CreatePaymentMethodTabPane";
+
 const CONTENT_STATE_CREATE = 0;
 const CONTENT_STATE_READ = 1;
 const CONTENT_STATE_UPDATE = 2;
 const CONTENT_STATE_DELETE = 3;
+
 class Inventario extends Component {
   constructor(props) {
     super(props);
-    this.state = { ContentState: 0 };
+    this.state = {
+      ContentState: 0,
+    };
   }
+
   updateContent = id => {
     this.setState({ ContentState: id });
   };
+
   getContent = () => {
     switch (this.state.ContentState) {
       case CONTENT_STATE_CREATE: {
         const panes = [
           {
             menuItem: "Producto",
-            render: () => (
-              <Tab.Pane>
-                <h1>Producto</h1>
-                <hr />
-              </Tab.Pane>
-            ),
+            render: () => <CreateProductTabPane />,
           },
           {
             menuItem: "Categoria",
-            render: () => (
-              <Tab.Pane>
-                <h1>Categoria</h1>
-                <hr />
-              </Tab.Pane>
-            ),
+            render: () => <CreateCategorieTabPane />,
           },
           {
             menuItem: "Modo de pago",
-            render: () => (
-              <Tab.Pane>
-                <h1>Modo de pago</h1>
-                <hr />
-              </Tab.Pane>
-            ),
+            render: () => <CreatePaymentMethodTabPane />,
           },
         ];
         return (
           <Container>
-            <h1>create</h1>
+            <h1>Crear</h1>
             <hr />
-            <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+            <Tab menu={{ fluid: true }} panes={panes} />
           </Container>
         );
       }
@@ -77,6 +71,8 @@ class Inventario extends Component {
           </Container>
         );
       }
+      default:
+        return 0;
     }
   };
 

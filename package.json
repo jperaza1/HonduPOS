@@ -12,6 +12,6 @@
   "author": "David Mendoza",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "³.5.1"
+    "concurrently": "3.5.1"
   }
 }
