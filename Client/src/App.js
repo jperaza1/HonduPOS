@@ -5,6 +5,7 @@ import Error404 from "./Views/Error404";
 import Home from "./Views/Home";
 import { Icon, Menu } from "semantic-ui-react";
 import "./Styles/App.css";
+import Inventario from "./Views/Inventario";
 class Dashboard extends React.Component {
   render() {
     return (
@@ -45,7 +46,8 @@ class Dashboard extends React.Component {
           <div className="site-content">
             <Switch>
               <Route path="/" component={Home} exact />
-              <Route path="/POS" component={Pos} />
+              <Route path="/pos" component={Pos} />
+              <Route path="/inventario" component={Inventario} />
               <Route component={Error404} />
             </Switch>
           </div>
