@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import { Icon, Menu } from "semantic-ui-react";
 import Pos from "./Views/Pos";
 import Error404 from "./Views/Error404";
 import Home from "./Views/Home";
-import { Icon, Menu } from "semantic-ui-react";
-import "./Styles/App.css";
+import Empresa from "./Views/Empresa";
 import Inventario from "./Views/Inventario";
+import "./Styles/App.css";
 class Dashboard extends React.Component {
   render() {
     return (
@@ -48,6 +49,7 @@ class Dashboard extends React.Component {
               <Route path="/" component={Home} exact />
               <Route path="/pos" component={Pos} />
               <Route path="/inventario" component={Inventario} />
+              <Route path="/empresa" component={Empresa} />
               <Route component={Error404} />
             </Switch>
           </div>

@@ -17,7 +17,7 @@ class Inventario extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ContentState: 1,
+      ContentState: 0,
     };
   }
 

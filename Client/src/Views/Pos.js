@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PosProduct from "../Components/PosProduct";
 import { Grid, Container } from "semantic-ui-react";
+import PosProduct from "../Components/PosProduct";
+import Calculator from "../Components/Calculator";
 import "../Styles/Pos.css";
+
 class Pos extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +22,8 @@ class Pos extends Component {
       <Container fluid>
         <Grid id="nopaddingmargin">
           <Grid.Column width={4} id="nopaddingmargin">
-            <Container text>
-              <p>aqui va la calcu</p>
+            <Container textAlign="center">
+              <Calculator />
             </Container>
           </Grid.Column>
           <Grid.Column width={12} id="nopaddingmargin">
