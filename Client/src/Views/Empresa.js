@@ -5,8 +5,7 @@ class Empresa extends Component {
     return (
       <Container fluid className="realContainer">
         <Container className="contentContainer">
-          <h1>wenas</h1>
-          <hr />
+          <h1>Perfil de la empresa</h1>
         </Container>
       </Container>
     );

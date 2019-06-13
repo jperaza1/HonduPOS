@@ -45,8 +45,7 @@ class Inventario extends Component {
         return (
           <Container>
             <h1>Crear</h1>
-            <hr />
-            <Tab menu={{ fluid: true }} panes={panes} />
+            <Tab panes={panes} />
           </Container>
         );
       }
@@ -67,9 +66,8 @@ class Inventario extends Component {
         ];
         return (
           <Container>
-            <h1>read</h1>
-            <hr />
-            <Tab menu={{ fluid: true }} panes={panes} />
+            <h1>Listar</h1>
+            <Tab panes={panes} />
           </Container>
         );
       }
@@ -84,7 +82,7 @@ class Inventario extends Component {
       case CONTENT_STATE_DELETE: {
         return (
           <Container>
-            <h1>delete</h1>
+            <h1>Eliminar</h1>
             <hr />
           </Container>
         );
@@ -97,49 +95,51 @@ class Inventario extends Component {
   render() {
     return (
       <Container fluid className="realContainer">
-        <Button.Group id="crudHeader">
-          <Button
-            animated="fade"
-            onClick={() => {
-              this.updateContent(CONTENT_STATE_CREATE);
-            }}>
-            <Button.Content visible>Crear</Button.Content>
-            <Button.Content hidden>
-              <Icon name="plus" />
-            </Button.Content>
-          </Button>
-          <Button
-            animated="fade"
-            onClick={() => {
-              this.updateContent(CONTENT_STATE_READ);
-            }}>
-            <Button.Content visible>Listar</Button.Content>
-            <Button.Content hidden>
-              <Icon name="list" />
-            </Button.Content>
-          </Button>
-          <Button
-            animated="fade"
-            onClick={() => {
-              this.updateContent(CONTENT_STATE_UPDATE);
-            }}>
-            <Button.Content visible>Actualizar</Button.Content>
-            <Button.Content hidden>
-              <Icon name="refresh" />
-            </Button.Content>
-          </Button>
-          <Button
-            animated="fade"
-            onClick={() => {
-              this.updateContent(CONTENT_STATE_DELETE);
-            }}>
-            <Button.Content visible>Borrar</Button.Content>
-            <Button.Content hidden>
-              <Icon name="minus" />
-            </Button.Content>
-          </Button>
-        </Button.Group>
-        <Container className="contentContainer">{this.getContent()}</Container>
+        <Container className="contentContainer">
+          <Button.Group id="crudHeader">
+            <Button
+              animated="fade"
+              onClick={() => {
+                this.updateContent(CONTENT_STATE_CREATE);
+              }}>
+              <Button.Content visible>Crear</Button.Content>
+              <Button.Content hidden>
+                Crear <Icon name="plus" />
+              </Button.Content>
+            </Button>
+            <Button
+              animated="fade"
+              onClick={() => {
+                this.updateContent(CONTENT_STATE_READ);
+              }}>
+              <Button.Content visible>Listar</Button.Content>
+              <Button.Content hidden>
+                Listar <Icon name="list" />
+              </Button.Content>
+            </Button>
+            <Button
+              animated="fade"
+              onClick={() => {
+                this.updateContent(CONTENT_STATE_UPDATE);
+              }}>
+              <Button.Content visible>Actualizar</Button.Content>
+              <Button.Content hidden>
+                Actualizar <Icon name="refresh" />
+              </Button.Content>
+            </Button>
+            <Button
+              animated="fade"
+              onClick={() => {
+                this.updateContent(CONTENT_STATE_DELETE);
+              }}>
+              <Button.Content visible>Eliminar</Button.Content>
+              <Button.Content hidden>
+                Eliminar <Icon name="minus" />
+              </Button.Content>
+            </Button>
+          </Button.Group>
+          {this.getContent()}
+        </Container>
       </Container>
     );
   }

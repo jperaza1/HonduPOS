@@ -5,7 +5,7 @@ class Reports extends Component {
     return (
       <Container fluid className="realContainer">
         <Container className="contentContainer">
-          <p>reportes :v</p>
+          <h1>Reportes</h1>
         </Container>
       </Container>
     );

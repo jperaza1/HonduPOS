@@ -23,7 +23,7 @@ class ListPaymentMethodTabPane extends Component {
   render() {
     return (
       <Tab.Pane>
-        <h1>Productos</h1>
+        <h1>Modos de pago</h1>
         <hr />
         {this.state.error ? <Alert error mensaje="Error al crear la categoria" /> : null}
         {this.state.succeed ? <Alert mensaje="Categoria creada con exito" /> : null}

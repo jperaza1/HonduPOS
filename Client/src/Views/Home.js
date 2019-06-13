@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { Container } from "semantic-ui-react";
 class Home extends Component {
   render() {
     return (
-      <div>
-        <h1>Todos Los Productos</h1>
-      </div>
+      <Container fluid className="realContainer">
+        <Container className="contentContainer">
+          <h1>Todos Los Productos</h1>
+        </Container>
+      </Container>
     );
   }
 }

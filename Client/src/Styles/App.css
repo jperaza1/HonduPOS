@@ -73,7 +73,7 @@
   font-weight: bold;
 }
 
-.errorstyle {
+#errorStyle {
   width: 25vw !important;
   height: 25vh !important;
   position: absolute;
