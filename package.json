@@ -1,12 +1,12 @@
 {
   "name": "posine-full",
   "version": "0.1.0",
-  "description": "",
+  "description": "Sistema de ventas hecho en react con un restful api hecho en nodejs y express",
   "main": "index.js",
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
-    "start": "concurrently - kill-others \"npm run server\" \"npm run client\""
+    "start": "concurrently --kill-others \"npm run server\" \"npm run client\""
   },
   "author": "David Mendoza",
   "license": "MIT",

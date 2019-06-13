@@ -96,7 +96,7 @@ class Inventario extends Component {
 
   render() {
     return (
-      <Container fluid id="realContainer">
+      <Container fluid className="realContainer">
         <Button.Group id="crudHeader">
           <Button
             animated="fade"
@@ -139,7 +139,7 @@ class Inventario extends Component {
             </Button.Content>
           </Button>
         </Button.Group>
-        <Container id="contentContainer">{this.getContent()}</Container>
+        <Container className="contentContainer">{this.getContent()}</Container>
       </Container>
     );
   }

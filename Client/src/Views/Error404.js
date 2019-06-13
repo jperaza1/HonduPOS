@@ -4,7 +4,7 @@ class Error404 extends Component {
   render() {
     return (
       <Container fluid id="realContainer">
-        <Container id="contentContainer" className="errorstyle">
+        <Container className="contentContainer" id="errorstyle">
           <div>
             <h1>Error 404</h1>
             <p>No puedo encontrar esta parte</p>

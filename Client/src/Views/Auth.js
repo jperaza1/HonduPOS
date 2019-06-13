@@ -24,7 +24,7 @@ class Auth extends Component {
     switch (this.state.estado) {
       case CONTEXT_STATE_LOGIN: {
         return (
-          <Container id="contentContainer">
+          <Container className="contentContainer">
             {this.state.error ? <Alert error mensaje="Hubo un problema al iniciar sesion" /> : null}
             {this.state.succeed ? <Alert mensaje="Sesion iniciada con exito" /> : null}
             <h1>Iniciar sesion</h1>
@@ -101,7 +101,7 @@ class Auth extends Component {
       }
       case CONTEXT_STATE_SINGUP: {
         return (
-          <Container id="contentContainer">
+          <Container className="contentContainer">
             {this.state.error ? <Alert error mensaje="Error al crear usuario" /> : null}
             {this.state.succeed ? <Alert mensaje="Usuario creado con exito" /> : null}
             <h1>Crear cuenta</h1>
@@ -209,7 +209,7 @@ class Auth extends Component {
   };
   render() {
     return (
-      <Container fluid id="realContainer">
+      <Container fluid className="realContainer">
         {this.getContext()}
       </Container>
     );

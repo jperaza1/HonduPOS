@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
-class Empresa extends Component {
+class Reports extends Component {
   render() {
     return (
       <Container fluid className="realContainer">
         <Container className="contentContainer">
-          <h1>wenas</h1>
-          <hr />
+          <p>reportes :v</p>
         </Container>
       </Container>
     );
   }
 }
 
-export default Empresa;
+export default Reports;

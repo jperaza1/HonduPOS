@@ -9,6 +9,7 @@ import Empresa from "./Views/Empresa";
 import Inventario from "./Views/Inventario";
 import Auth from "./Views/Auth";
 import "./Styles/App.css";
+import Reports from "./Views/Reports";
 
 const checkAuth = () => {
   const token = localStorage.getItem("jwtToken");
@@ -110,6 +111,7 @@ class App extends React.Component {
               <AuthRoute path="/pos" component={Pos} />
               <AuthRoute path="/inventario" component={Inventario} />
               <AuthRoute path="/empresa" component={Empresa} />
+              <AuthRoute path="/reports" component={Reports} />
               <JustLoggedOutRoute exact path="/Auth" component={Auth} />
               <Route component={Error404} />
             </Switch>
