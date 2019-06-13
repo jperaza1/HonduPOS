@@ -9,6 +9,7 @@ class Pos extends Component {
     super(props);
     this.state = { productos: [] };
   }
+
   componentDidMount = async () => {
     fetch("/getAllProducts")
       .then(response => response.json())
@@ -17,6 +18,7 @@ class Pos extends Component {
         this.setState({ productos: response.data });
       });
   };
+
   render() {
     return (
       <Container fluid>

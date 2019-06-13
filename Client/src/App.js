@@ -6,6 +6,7 @@ import Error404 from "./Views/Error404";
 import Home from "./Views/Home";
 import Empresa from "./Views/Empresa";
 import Inventario from "./Views/Inventario";
+import Login from "./Views/Login";
 import "./Styles/App.css";
 class Dashboard extends React.Component {
   render() {
@@ -50,6 +51,7 @@ class Dashboard extends React.Component {
               <Route path="/pos" component={Pos} />
               <Route path="/inventario" component={Inventario} />
               <Route path="/empresa" component={Empresa} />
+              <Route path="/login" component={Login} />
               <Route component={Error404} />
             </Switch>
           </div>
