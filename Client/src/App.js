@@ -1,14 +1,19 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import { Redirect } from "react-router";
 import { Icon, Menu } from "semantic-ui-react";
 import Pos from "./Views/Pos";
 import Error404 from "./Views/Error404";
 import Home from "./Views/Home";
 import Empresa from "./Views/Empresa";
 import Inventario from "./Views/Inventario";
-import Login from "./Views/Login";
+import Auth from "./Views/Auth";
 import "./Styles/App.css";
-class Dashboard extends React.Component {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { loggedin: null };
+  }
   render() {
     return (
       <div>
@@ -51,7 +56,7 @@ class Dashboard extends React.Component {
               <Route path="/pos" component={Pos} />
               <Route path="/inventario" component={Inventario} />
               <Route path="/empresa" component={Empresa} />
-              <Route path="/login" component={Login} />
+              <Route path="/auth" component={Auth} />
               <Route component={Error404} />
             </Switch>
           </div>
@@ -61,4 +66,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default App;

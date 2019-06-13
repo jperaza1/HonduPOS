@@ -8,11 +8,21 @@
   transition: 0.3s;
   border-radius: 5px;
   padding: 2px 16px;
-  height: 100vh;
+  height: 75vh;
+  width: 30vw;
+  position: absolute;
+  left: 30vw;
+  right: 30vw;
+  top: 12.5vh;
+  bottom: 12.5vh;
   background-color: white;
   overflow-y: visible !important;
 }
 
 #contentContainer:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#formulariologin .ui button {
+  text-align: center;
 }
