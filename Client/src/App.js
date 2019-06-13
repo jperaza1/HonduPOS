@@ -1,7 +1,7 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
-import { Redirect } from "react-router";
+import { BrowserRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import { Icon, Menu } from "semantic-ui-react";
+import decode from "jwt-decode";
 import Pos from "./Views/Pos";
 import Error404 from "./Views/Error404";
 import Home from "./Views/Home";
@@ -9,11 +9,65 @@ import Empresa from "./Views/Empresa";
 import Inventario from "./Views/Inventario";
 import Auth from "./Views/Auth";
 import "./Styles/App.css";
+
+const checkAuth = () => {
+  const token = localStorage.getItem("jwtToken");
+  console.log("token", token);
+  if (!token) {
+    return false;
+  }
+  try {
+    const { exp } = decode(token);
+    if (exp < new Date().getTime() / 1000) {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        checkAuth() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/Auth",
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+const JustLoggedOutRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        !checkAuth() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+            }}
+          />
+        )
+      }
+    />
+  );
+};
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { loggedin: null };
   }
+
   render() {
     return (
       <div>
@@ -52,11 +106,11 @@ class App extends React.Component {
           </div>
           <div className="site-content">
             <Switch>
-              <Route path="/" component={Home} exact />
-              <Route path="/pos" component={Pos} />
-              <Route path="/inventario" component={Inventario} />
-              <Route path="/empresa" component={Empresa} />
-              <Route path="/auth" component={Auth} />
+              <PrivateRoute path="/" component={Home} exact />
+              <PrivateRoute path="/pos" component={Pos} />
+              <PrivateRoute path="/inventario" component={Inventario} />
+              <PrivateRoute path="/empresa" component={Empresa} />
+              <JustLoggedOutRoute exact path="/Auth" component={Auth} />
               <Route component={Error404} />
             </Switch>
           </div>

@@ -37,3 +37,53 @@
 .active {
   background-color: #01579b;
 }
+
+#realContainer {
+  background-color: #ecf0f1;
+  height: 100vh;
+}
+
+#contentContainer {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 2px 16px;
+  height: 100vh;
+  background-color: white;
+  overflow-y: visible !important;
+}
+
+#contentContainer:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#AlertError {
+  background-color: #e5393595;
+  width: fit-content !important;
+  padding: 5px;
+  color: black;
+  font-weight: bold;
+}
+
+#AlertSuccess {
+  background-color: #43a04795;
+  width: fit-content !important;
+  padding: 5px;
+  color: black;
+  font-weight: bold;
+}
+
+.errorstyle {
+  width: 25vw !important;
+  height: 25vh !important;
+  position: absolute;
+  top: 25vh;
+  right: 25vw;
+  left: 25vw;
+  bottom: 25vh;
+  color: #e53935;
+  text-align: center;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}

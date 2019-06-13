@@ -1,9 +1,14 @@
 const express = require("express");
-var bodyParser = require("body-parser");
-var sqlite = require("sqlite");
+const bodyParser = require("body-parser");
+const sqlite = require("sqlite");
+const jwt = require("jsonwebtoken");
+const SHA512 = require("crypto-js/sha512");
 const dbPromise = sqlite.open("./Database/Dave.db", { Promise });
 const app = express();
 const port = 5000;
+const secret =
+  "rxzHqn9ZL3RfcdXkxHEiWO1RflzpK7BgkBzV9so4ktPmbMMenSUA3eQSrEGIomfpETiM763btgpDFCpsmt5sAgR4KmTOhwDYonZ4Tj5zz4PHHQ0u2tCtpsI1rzzVmTiDcqs6Px1L8bWrPbpVx5uPnDXInNWOVtGj9qwn2n8s2ATPZzGEi88CzkC8vHutBwpPwjcWzkvd";
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //gets
@@ -81,4 +86,47 @@ app.post("/CreatePaymentMethod", async (req, res) => {
   }
 });
 
+app.post("/Auth", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  console.log(body);
+  if (body.user !== "" && body.password !== "") {
+    db.all("SELECT * FROM EMPLEADO where user=? AND password=?", [
+      body.user,
+      SHA512(body.password).toString()
+    ]).then(data => {
+      if (data.length > 0) {
+        let user = data[0];
+        user.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 128;
+        var token = jwt.sign(user, secret);
+        res.send({ status: "OK", token });
+      } else {
+        res.send({ status: "FAILED" });
+      }
+    });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
+app.post("/CreateUser", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  console.log(body);
+  if (
+    body.identidad !== "" &&
+    body.nombre !== "" &&
+    body.user !== "" &&
+    body.password !== ""
+  ) {
+    db.run(
+      "INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)",
+      [body.identidad, body.nombre, body.user, SHA512(body.password).toString()]
+    ).then(data => {
+      res.send({ status: "OK" });
+    });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
 app.listen(port, () => console.log("App is Alive"));

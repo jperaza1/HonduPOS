@@ -96,7 +96,7 @@ class Inventario extends Component {
 
   render() {
     return (
-      <Container fluid id="crudContainer">
+      <Container fluid id="realContainer">
         <Button.Group id="crudHeader">
           <Button
             animated="fade"
