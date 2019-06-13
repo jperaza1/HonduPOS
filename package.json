@@ -8,9 +8,9 @@
     "server": "cd Server && npm start",
     "start": "concurrently - kill-others \"npm run server\" \"npm run client\""
   },
-  "keywords": [],
   "author": "David Mendoza",
   "license": "MIT",
+  "keywords": [],
   "devDependencies": {
     "concurrently": "3.5.1"
   }

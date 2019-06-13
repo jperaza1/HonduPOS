@@ -26,7 +26,7 @@ const checkAuth = () => {
   }
   return true;
 };
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const AuthRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -106,10 +106,10 @@ class App extends React.Component {
           </div>
           <div className="site-content">
             <Switch>
-              <PrivateRoute path="/" component={Home} exact />
-              <PrivateRoute path="/pos" component={Pos} />
-              <PrivateRoute path="/inventario" component={Inventario} />
-              <PrivateRoute path="/empresa" component={Empresa} />
+              <AuthRoute path="/" component={Home} exact />
+              <AuthRoute path="/pos" component={Pos} />
+              <AuthRoute path="/inventario" component={Inventario} />
+              <AuthRoute path="/empresa" component={Empresa} />
               <JustLoggedOutRoute exact path="/Auth" component={Auth} />
               <Route component={Error404} />
             </Switch>

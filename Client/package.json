@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000/",
+  "author": "David Mendoza",
+  "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.6",
     "eslint-config-universe": "^1.0.7",
