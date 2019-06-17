@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Tab, Container, List } from "semantic-ui-react";
 import { ClipLoader } from "react-spinners";
-import Alert from "../Components/Alert";
 
 class ListCategorieTabPane extends Component {
   constructor(props) {
@@ -25,8 +24,6 @@ class ListCategorieTabPane extends Component {
       <Tab.Pane>
         <h1>Categorias</h1>
         <hr />
-        {this.state.error ? <Alert error mensaje="Error al crear la categoria" /> : null}
-        {this.state.succeed ? <Alert mensaje="Categoria creada con exito" /> : null}
         {this.state.loading ? (
           <Container textAlign="center">
             <ClipLoader sizeUnit={"px"} size={150} color={"#123abc"} loading={this.state.loading} />

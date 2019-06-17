@@ -19,8 +19,8 @@ class CreatePaymentMethodTabPane extends Component {
       <Tab.Pane>
         <h1>Modo de pago</h1>
         <hr />
-        {this.state.error ? <Alert error mensaje="Error al crear la categoria" /> : null}
-        {this.state.succeed ? <Alert mensaje="Categoria creada con exito" /> : null}
+        {this.state.error ? <Alert error mensaje="Error al crear el modo de pago" /> : null}
+        {this.state.succeed ? <Alert mensaje="Modo de pago creado con exito" /> : null}
         {this.state.loading ? (
           <Container textAlign="center">
             <ClipLoader sizeUnit={"px"} size={150} color={"#123abc"} loading={this.state.loading} />

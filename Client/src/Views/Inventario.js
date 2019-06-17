@@ -7,6 +7,9 @@ import CreatePaymentMethodTabPane from "../Components/CreatePaymentMethodTabPane
 import ListProductTabPane from "../Components/ListProductTabPane";
 import ListCategorieTabPane from "../Components/ListCategorieTabPane";
 import ListPaymentMethodTabPane from "../Components/ListPaymentMethodTabPane";
+import DeleteProductTabPane from "../Components/DeleteProductTabPane";
+import DeleteCategorieTabPane from "../Components/DeleteCategorieTabPane";
+import DeletePaymentMethodTabPane from "../Components/DeletePaymentMethodTabPane";
 
 const CONTENT_STATE_CREATE = 0;
 const CONTENT_STATE_READ = 1;
@@ -80,10 +83,25 @@ class Inventario extends Component {
         );
       }
       case CONTENT_STATE_DELETE: {
+        const panes = [
+          {
+            menuItem: "Productos",
+            render: () => <DeleteProductTabPane />,
+          },
+          {
+            menuItem: "Categorias",
+            render: () => <DeleteCategorieTabPane />,
+          },
+          {
+            menuItem: "Modos de pagos",
+            render: () => <DeletePaymentMethodTabPane />,
+          },
+        ];
         return (
           <Container>
             <h1>Eliminar</h1>
             <hr />
+            <Tab panes={panes} />
           </Container>
         );
       }

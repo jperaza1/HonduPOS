@@ -33,7 +33,7 @@ app.get("/GetAllPayments", async (req, res) => {
   });
 });
 
-//posts
+//Create
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -86,6 +86,82 @@ app.post("/CreatePaymentMethod", async (req, res) => {
   }
 });
 
+app.post("/CreateUser", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  console.log(body);
+  if (
+    body.identidad !== "" &&
+    body.nombre !== "" &&
+    body.user !== "" &&
+    body.password !== ""
+  ) {
+    db.run(
+      "INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)",
+      [body.identidad, body.nombre, body.user, SHA512(body.password).toString()]
+    ).then(data => {
+      res.send({ status: "OK" });
+    });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
+//Delete
+app.post("/DeleteProduct", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  console.log(body);
+  if (body.id_producto !== "") {
+    db.run("DELETE FROM PRODUCTO WHERE id_producto=?", [body.id_producto])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
+app.post("/DeleteCategorie", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  if (body.id_categoria !== "") {
+    db.run("DELETE FROM CATEGORIA WHERE id_categoria=?", [body.id_categoria])
+      .then(data => {
+        console.log(data);
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        console.log(error);
+        res.send({ status: "FAILED" });
+      });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
+app.post("/DeletePaymentMethod", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  if (body.num_pago !== "") {
+    db.run("DELETE FROM MODO_PAGO WHERE num_pago=?", [body.num_pago])
+      .then(data => {
+        console.log(data);
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        console.log(error);
+        res.send({ status: "FAILED" });
+      });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
+//Auth
 app.post("/Auth", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -109,24 +185,4 @@ app.post("/Auth", async (req, res) => {
   }
 });
 
-app.post("/CreateUser", async (req, res) => {
-  const db = await dbPromise;
-  let body = req.body;
-  console.log(body);
-  if (
-    body.identidad !== "" &&
-    body.nombre !== "" &&
-    body.user !== "" &&
-    body.password !== ""
-  ) {
-    db.run(
-      "INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)",
-      [body.identidad, body.nombre, body.user, SHA512(body.password).toString()]
-    ).then(data => {
-      res.send({ status: "OK" });
-    });
-  } else {
-    res.send({ status: "FAILED" });
-  }
-});
-app.listen(port, () => console.log("App is Alive"));
+app.listen(port, () => console.log(`App is Alive in port: ${port}`));
