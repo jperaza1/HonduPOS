@@ -9,7 +9,7 @@
     "start": "concurrently --kill-others \"npm run server\" \"npm run client\""
   },
   "author": "David Mendoza",
-  "license": "MIT",
+  "license": "GNU GPLv3",
   "keywords": [],
   "devDependencies": {
     "concurrently": "3.5.1"

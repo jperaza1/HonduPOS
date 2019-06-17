@@ -38,15 +38,13 @@ app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
   console.log(body);
-  if (
-    (body.nombre !== "" && body.precio !== "",
-    body.stock !== "",
-    body.id_categoria !== "")
-  ) {
-    db.run(
-      "INSERT INTO PRODUCTO(nombre,precio,stock,id_categoria) VALUES(?,?,?,?)",
-      [body.nombre, body.precio, body.stock, body.id_categoria]
-    ).then(data => {
+  if ((body.nombre !== "" && body.precio !== "", body.stock !== "", body.id_categoria !== "")) {
+    db.run("INSERT INTO PRODUCTO(nombre,precio,stock,id_categoria) VALUES(?,?,?,?)", [
+      body.nombre,
+      body.precio,
+      body.stock,
+      body.id_categoria,
+    ]).then(data => {
       res.send({ status: "OK" });
     });
   } else {
@@ -61,7 +59,7 @@ app.post("/CreateCategorie", async (req, res) => {
   if (body.nombre !== "" && body.descripcion !== "") {
     db.run("INSERT INTO CATEGORIA(nombre,descripcion) VALUES(?,?)", [
       body.nombre,
-      body.descripcion
+      body.descripcion,
     ]).then(data => {
       res.send({ status: "OK" });
     });
@@ -77,7 +75,7 @@ app.post("/CreatePaymentMethod", async (req, res) => {
   if (body.nombre !== "" && body.otro_detalles !== "") {
     db.run("INSERT INTO MODO_PAGO(nombre,otros_detalles) VALUES(?,?)", [
       body.nombre,
-      body.otros_detalles
+      body.otros_detalles,
     ]).then(data => {
       res.send({ status: "OK" });
     });
@@ -90,16 +88,13 @@ app.post("/CreateUser", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
   console.log(body);
-  if (
-    body.identidad !== "" &&
-    body.nombre !== "" &&
-    body.user !== "" &&
-    body.password !== ""
-  ) {
-    db.run(
-      "INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)",
-      [body.identidad, body.nombre, body.user, SHA512(body.password).toString()]
-    ).then(data => {
+  if (body.identidad !== "" && body.nombre !== "" && body.user !== "" && body.password !== "") {
+    db.run("INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)", [
+      body.identidad,
+      body.nombre,
+      body.user,
+      SHA512(body.password).toString(),
+    ]).then(data => {
       res.send({ status: "OK" });
     });
   } else {
@@ -169,7 +164,7 @@ app.post("/Auth", async (req, res) => {
   if (body.user !== "" && body.password !== "") {
     db.all("SELECT * FROM EMPLEADO where user=? AND password=?", [
       body.user,
-      SHA512(body.password).toString()
+      SHA512(body.password).toString(),
     ]).then(data => {
       if (data.length > 0) {
         let user = data[0];

@@ -87,3 +87,29 @@
   justify-content: center !important;
   align-items: center !important;
 }
+
+#calculatorContainer {
+  height: 100vh !important;
+  border: 2px black solid;
+}
+
+#listaDeProductos {
+  height: 60% !important;
+  width: 100%;
+  padding: 5px;
+  overflow-y: auto;
+  border-bottom: 5px #039be5 solid;
+}
+
+#botones {
+  background-color: #e9ebee;
+  height: 40% !important;
+  padding: 5px;
+  width: 100%;
+}
+
+#botones .column {
+  border: 1px #999999 solid;
+  font-size: 25px;
+  font-weight: bold;
+}

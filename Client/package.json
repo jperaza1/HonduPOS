@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000/",
   "author": "David Mendoza",
-  "license": "MIT",
+  "license": "GNU GPLv3",
   "dependencies": {
     "classnames": "^2.2.6",
     "eslint-config-universe": "^1.0.7",
