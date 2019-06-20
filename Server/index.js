@@ -44,9 +44,13 @@ app.post("/CreateProduct", async (req, res) => {
       body.precio,
       body.stock,
       body.id_categoria,
-    ]).then(data => {
-      res.send({ status: "OK" });
-    });
+    ])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
   } else {
     res.send({ status: "FAILED" });
   }
@@ -57,12 +61,13 @@ app.post("/CreateCategorie", async (req, res) => {
   let body = req.body;
   console.log(body);
   if (body.nombre !== "" && body.descripcion !== "") {
-    db.run("INSERT INTO CATEGORIA(nombre,descripcion) VALUES(?,?)", [
-      body.nombre,
-      body.descripcion,
-    ]).then(data => {
-      res.send({ status: "OK" });
-    });
+    db.run("INSERT INTO CATEGORIA(nombre,descripcion) VALUES(?,?)", [body.nombre, body.descripcion])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
   } else {
     res.send({ status: "FAILED" });
   }
@@ -94,9 +99,13 @@ app.post("/CreateUser", async (req, res) => {
       body.nombre,
       body.user,
       SHA512(body.password).toString(),
-    ]).then(data => {
-      res.send({ status: "OK" });
-    });
+    ])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
   } else {
     res.send({ status: "FAILED" });
   }
@@ -130,7 +139,6 @@ app.post("/DeleteCategorie", async (req, res) => {
         res.send({ status: "OK" });
       })
       .catch(error => {
-        console.log(error);
         res.send({ status: "FAILED" });
       });
   } else {
