@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, List, Grid, Icon } from "semantic-ui-react";
+import { Container, List, Grid, Icon, Button } from "semantic-ui-react";
 class Calculator extends Component {
   getProducts = lista => {
     {
@@ -18,10 +18,10 @@ class Calculator extends Component {
           <List.Item>
             <List.Icon name="shopping bag" size="large" verticalAlign="middle" />
             <List.Content>
-              <List.Header>
-                {prod.nombre} X {prod.cant}
-              </List.Header>
-              <List.Description> Precio {prod.cant * prod.precio}</List.Description>
+              <List.Header>{prod.nombre}</List.Header>
+              <List.Description>
+                Cantidad {prod.cant} Precio {prod.cant * prod.precio}
+              </List.Description>
             </List.Content>
           </List.Item>
         );
@@ -35,11 +35,43 @@ class Calculator extends Component {
           <List>{this.getProducts(this.props.lista)}</List>
         </Container>
         <Container fluid id="botones">
-          <Grid>
-            <Grid.Column width={4}>1</Grid.Column>
-            <Grid.Column width={4}>2</Grid.Column>
-            <Grid.Column width={4}>3</Grid.Column>
-            <Grid.Column width={4}>4</Grid.Column>
+          <Grid columns="4" id="botonesGrid">
+            <Grid.Column>
+              <Button fluid>1</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>2</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>3</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>QTY</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>3</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>4</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>5</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>DESC</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>6</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>7</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>8</Button>
+            </Grid.Column>
+            <Grid.Column>
+              <Button fluid>$</Button>
+            </Grid.Column>
           </Grid>
         </Container>
       </Container>

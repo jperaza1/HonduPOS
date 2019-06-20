@@ -103,13 +103,20 @@
 
 #botones {
   background-color: #e9ebee;
-  height: 40% !important;
+  height: 100% !important;
   padding: 5px;
   width: 100%;
 }
+#botones .ui.button {
+  height: 100%;
+}
 
 #botones .column {
-  border: 1px #999999 solid;
+  padding: 0;
   font-size: 25px;
   font-weight: bold;
+}
+
+#botones .ui.grid {
+  margin: 0;
 }
