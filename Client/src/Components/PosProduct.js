@@ -5,7 +5,7 @@ class PosProduct extends Component {
   render() {
     return (
       <Grid.Column width={3}>
-        <Card style={{ height: "100%" }}>
+        <Card style={{ height: "100%" }} onClick={this.props.onClick}>
           <Image
             src={"https://robohash.org/" + this.props.product.id_producto}
             wrapped

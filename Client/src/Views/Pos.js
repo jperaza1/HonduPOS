@@ -7,7 +7,7 @@ import "../Styles/Pos.css";
 class Pos extends Component {
   constructor(props) {
     super(props);
-    this.state = { productos: [] };
+    this.state = { productos: [], lista: [] };
   }
 
   componentDidMount = async () => {
@@ -25,14 +25,21 @@ class Pos extends Component {
         <Grid id="nopaddingmargin">
           <Grid.Column width={4} id="nopaddingmargin">
             <Container textAlign="center">
-              <Calculator />
+              <Calculator lista={this.state.lista} />
             </Container>
           </Grid.Column>
           <Grid.Column width={12} id="nopaddingmargin">
             <Container fluid id="productosContainer">
               <Grid>
                 {this.state.productos.map(value => {
-                  return <PosProduct product={value} />;
+                  return (
+                    <PosProduct
+                      onClick={() => {
+                        this.setState({ lista: [...this.state.lista, value] });
+                      }}
+                      product={value}
+                    />
+                  );
                 })}
               </Grid>
             </Container>

@@ -94,17 +94,27 @@ app.post("/CreateUser", async (req, res) => {
   let body = req.body;
   console.log(body);
   if (body.identidad !== "" && body.nombre !== "" && body.user !== "" && body.password !== "") {
-    db.run("INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)", [
-      body.identidad,
-      body.nombre,
-      body.user,
-      SHA512(body.password).toString(),
-    ])
+    db.all("SELECT count(*) FROM EMPLEADO WHERE user=?", [body.user])
       .then(data => {
-        res.send({ status: "OK" });
+        if (data[0]["count(*)"] === 0) {
+          db.run("INSERT INTO EMPLEADO(identidad,nombre,user,password) VALUES(?,?,?,?)", [
+            body.identidad,
+            body.nombre,
+            body.user,
+            SHA512(body.password).toString(),
+          ])
+            .then(data => {
+              res.send({ status: "OK" });
+            })
+            .catch(error => {
+              res.send({ status: "FAILED" });
+            });
+        } else {
+          res.send({ status: "FAILED" });
+        }
       })
       .catch(error => {
-        res.send({ status: "FAILED" });
+        console.log(error);
       });
   } else {
     res.send({ status: "FAILED" });
