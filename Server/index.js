@@ -33,7 +33,7 @@ app.get("/GetAllPayments", async (req, res) => {
   });
 });
 
-//Create
+//Pos
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -121,7 +121,6 @@ app.post("/CreateUser", async (req, res) => {
   }
 });
 
-//Delete
 app.post("/DeleteProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -174,7 +173,6 @@ app.post("/DeletePaymentMethod", async (req, res) => {
   }
 });
 
-//Auth
 app.post("/Auth", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
