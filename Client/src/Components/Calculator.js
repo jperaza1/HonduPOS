@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, List, Grid, Icon, Button } from "semantic-ui-react";
+import { Container, List, Grid, Button } from "semantic-ui-react";
 class Calculator extends Component {
   getProducts = lista => {
     {
@@ -12,6 +12,7 @@ class Calculator extends Component {
           prod.cant = lista.filter(p => p === prod).length;
           reallista.push(prod);
         }
+        return 0;
       });
       return reallista.map(prod => {
         return (

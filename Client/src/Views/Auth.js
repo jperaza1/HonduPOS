@@ -205,6 +205,9 @@ class Auth extends Component {
           </Container>
         );
       }
+      default: {
+        return null;
+      }
     }
   };
   render() {
