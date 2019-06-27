@@ -1,6 +1,7 @@
-import Dashboard from "views/Dashboard.jsx";
-import UserProfile from "views/UserProfile.jsx";
-import TableList from "views/TableList.jsx";
+import Dashboard from "views/Dashboard";
+import Inventario from "views/Inventario";
+import Reporteria from "views/Reporteria";
+import Pos from "views/Pos";
 
 const dashboardRoutes = [
   {
@@ -14,21 +15,21 @@ const dashboardRoutes = [
     path: "/inventario",
     name: "Inventario",
     icon: "pe-7s-notebook",
-    component: UserProfile,
+    component: Inventario,
     layout: "/admin",
   },
   {
     path: "/reporteria",
     name: "Reporteria",
     icon: "pe-7s-graph",
-    component: TableList,
+    component: Reporteria,
     layout: "/admin",
   },
   {
     path: "/pos",
     name: "POS",
     icon: "pe-7s-calculator",
-    component: UserProfile,
+    component: Pos,
     layout: "/admin",
   },
 ];
