@@ -1,11 +1,21 @@
 import React, { Component } from "react";
-import { Grid, Row, Col, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
-
+import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 
 class Inventario extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { categories: [] };
+  }
+  componentDidMount = async () => {
+    fetch("/GetAllCategories")
+      .then(response => response.json())
+      .then(response => {
+        this.setState({ categories: response.data });
+      });
+  };
   render() {
     return (
       <div className="content">
@@ -13,222 +23,75 @@ class Inventario extends Component {
           <Row>
             <Col md={12}>
               <Card
-                title="Agregar"
+                title="Agregar Producto"
                 content={
-                  <form>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
+                    }}>
                     <FormInputs
-                      ncols={["col-md-5", "col-md-3", "col-md-4"]}
+                      ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
                       properties={[
                         {
-                          label: "Company (disabled)",
+                          label: "Categoria",
+                          type: "select",
+                          data: this.state.categories,
+                          bsClass: "form-control",
+                        },
+                        {
+                          label: "Nombre",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: "Creative Code Inc.",
-                          disabled: true,
+                          placeholder: "Nombre de producto",
                         },
                         {
-                          label: "Username",
-                          type: "text",
+                          label: "Precio",
+                          type: "number",
+                          MinValue: "0",
                           bsClass: "form-control",
-                          placeholder: "Username",
-                          defaultValue: "michael23",
+                          placeholder: "Precio de producto",
                         },
                         {
-                          label: "Email address",
-                          type: "email",
-                          bsClass: "form-control",
-                          placeholder: "Email",
-                        },
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
-                      properties={[
-                        {
-                          label: "First name",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "First name",
-                          defaultValue: "Mike",
-                        },
-                        {
-                          label: "Last name",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Last name",
-                          defaultValue: "Andrew",
-                        },
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Adress",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue: "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09",
-                        },
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      properties={[
-                        {
-                          label: "City",
-                          onChange: () => {
-                            console.log("PENE");
-                          },
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: "Mike",
-                        },
-                        {
-                          label: "Country",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: "Andrew",
-                        },
-                        {
-                          label: "Postal Code",
+                          label: "Cantidad",
                           type: "number",
                           bsClass: "form-control",
-                          placeholder: "ZIP Code",
+                          placeholder: "Cantidad de producto",
                         },
                       ]}
                     />
-
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                     <Button bsStyle="info" pullRight fill type="submit">
-                      Update Profile
+                      Crear
                     </Button>
                     <div className="clearfix" />
                   </form>
                 }
               />
               <Card
-                title="Listar"
+                title="Agregar Categoria"
                 content={
-                  <form>
-                    <FormInputs
-                      ncols={["col-md-5", "col-md-3", "col-md-4"]}
-                      properties={[
-                        {
-                          label: "Company (disabled)",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: "Creative Code Inc.",
-                          disabled: true,
-                        },
-                        {
-                          label: "Username",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Username",
-                          defaultValue: "michael23",
-                        },
-                        {
-                          label: "Email address",
-                          type: "email",
-                          bsClass: "form-control",
-                          placeholder: "Email",
-                        },
-                      ]}
-                    />
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
+                    }}>
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
                       properties={[
                         {
-                          label: "First name",
+                          label: "Nombre",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "First name",
-                          defaultValue: "Mike",
+                          placeholder: "Nombre de la categoria",
                         },
                         {
-                          label: "Last name",
+                          label: "Descripcion",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Last name",
-                          defaultValue: "Andrew",
+                          placeholder: "Descripcion de la categoria",
                         },
                       ]}
                     />
-                    <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Adress",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue: "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09",
-                        },
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      properties={[
-                        {
-                          label: "City",
-                          onChange: () => {
-                            console.log("PENE");
-                          },
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: "Mike",
-                        },
-                        {
-                          label: "Country",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: "Andrew",
-                        },
-                        {
-                          label: "Postal Code",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "ZIP Code",
-                        },
-                      ]}
-                    />
-
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                     <Button bsStyle="info" pullRight fill type="submit">
-                      Update Profile
+                      Crear
                     </Button>
                     <div className="clearfix" />
                   </form>

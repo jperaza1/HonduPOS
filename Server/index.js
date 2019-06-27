@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //gets
 app.get("/GetAllProducts", async (req, res) => {
+  console.log("wenas");
   const db = await dbPromise;
   db.all("SELECT * FROM PRODUCTO").then(data => {
     res.send({ data: data });
