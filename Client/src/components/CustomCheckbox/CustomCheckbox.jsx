@@ -4,7 +4,7 @@ class CustomCheckbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_checked: props.isChecked ? true : false
+      is_checked: props.isChecked ? true : false,
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -13,8 +13,7 @@ class CustomCheckbox extends Component {
   }
   render() {
     const { isChecked, number, label, inline, ...rest } = this.props;
-    const classes =
-      inline !== undefined ? "checkbox checkbox-inline" : "checkbox";
+    const classes = inline !== undefined ? "checkbox checkbox-inline" : "checkbox";
     return (
       <div className={classes}>
         <input

@@ -15,8 +15,7 @@ export class Card extends Component {
             (this.props.ctTableFullWidth ? " table-full-width" : "") +
             (this.props.ctTableResponsive ? " table-responsive" : "") +
             (this.props.ctTableUpgrade ? " table-upgrade" : "")
-          }
-        >
+          }>
           {this.props.content}
 
           <div className="footer">

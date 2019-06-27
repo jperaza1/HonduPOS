@@ -8,7 +8,7 @@ export class Tasks extends Component {
     const target = event.target;
     console.log(event.target);
     this.setState({
-      [target.name]: target.checked
+      [target.name]: target.checked,
     });
   };
   render() {
@@ -20,7 +20,7 @@ export class Tasks extends Component {
       "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroi",
       "Create 4 Invisible User Experiences you Never Knew About",
       'Read "Following makes Medium better"',
-      "Unfollow 5 enemies from twitter"
+      "Unfollow 5 enemies from twitter",
     ];
     var tasks = [];
     var number;
@@ -29,10 +29,7 @@ export class Tasks extends Component {
       tasks.push(
         <tr key={i}>
           <td>
-            <Checkbox
-              number={number}
-              isChecked={i === 1 || i === 2 ? true : false}
-            />
+            <Checkbox number={number} isChecked={i === 1 || i === 2 ? true : false} />
           </td>
           <td>{tasks_title[i]}</td>
           <td className="td-actions text-right">

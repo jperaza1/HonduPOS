@@ -8,13 +8,13 @@ class Header extends Component {
     super(props);
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.state = {
-      sidebarExists: false
+      sidebarExists: false,
     };
   }
   mobileSidebarToggle(e) {
     if (this.state.sidebarExists === false) {
       this.setState({
-        sidebarExists: true
+        sidebarExists: true,
       });
     }
     e.preventDefault();

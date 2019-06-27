@@ -5,23 +5,19 @@ import NotificationSystem from "react-notification-system";
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 import { style } from "variables/Variables.jsx";
 
 import routes from "routes.js";
-
-import image from "assets/img/sidebar-3.jpg";
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       _notificationSystem: null,
-      image: image,
-      color: "black",
-      hasImage: true,
-      fixedClasses: "dropdown show-dropdown open"
+      color: "blue",
+      hasImage: false,
+      fixedClasses: "dropdown show-dropdown open",
     };
   }
   handleNotificationClick = position => {
@@ -47,13 +43,12 @@ class Admin extends Component {
       title: <span data-notify="icon" className="pe-7s-gift" />,
       message: (
         <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
+          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
         </div>
       ),
       level: level,
       position: position,
-      autoDismiss: 15
+      autoDismiss: 15,
     });
   };
   getRoutes = routes => {
@@ -63,10 +58,7 @@ class Admin extends Component {
           <Route
             path={prop.layout + prop.path}
             render={props => (
-              <prop.component
-                {...props}
-                handleClick={this.handleNotificationClick}
-              />
+              <prop.component {...props} handleClick={this.handleNotificationClick} />
             )}
             key={key}
           />
@@ -78,31 +70,11 @@ class Admin extends Component {
   };
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
-      if (
-        this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path
-        ) !== -1
-      ) {
+      if (this.props.location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
         return routes[i].name;
       }
     }
     return "Brand";
-  };
-  handleImageClick = image => {
-    this.setState({ image: image });
-  };
-  handleColorClick = color => {
-    this.setState({ color: color });
-  };
-  handleHasImage = hasImage => {
-    this.setState({ hasImage: hasImage });
-  };
-  handleFixedClick = () => {
-    if (this.state.fixedClasses === "dropdown") {
-      this.setState({ fixedClasses: "dropdown show-dropdown open" });
-    } else {
-      this.setState({ fixedClasses: "dropdown" });
-    }
   };
   componentDidMount() {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
@@ -125,18 +97,6 @@ class Admin extends Component {
       default:
         break;
     }
-    _notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      ),
-      level: level,
-      position: "tr",
-      autoDismiss: 15
-    });
   }
   componentDidUpdate(e) {
     if (
@@ -156,9 +116,13 @@ class Admin extends Component {
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} routes={routes} image={this.state.image}
-        color={this.state.color}
-        hasImage={this.state.hasImage}/>
+        <Sidebar
+          {...this.props}
+          routes={routes}
+          image={this.state.image}
+          color={this.state.color}
+          hasImage={this.state.hasImage}
+        />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
             {...this.props}
@@ -166,16 +130,6 @@ class Admin extends Component {
           />
           <Switch>{this.getRoutes(routes)}</Switch>
           <Footer />
-          <FixedPlugin
-            handleImageClick={this.handleImageClick}
-            handleColorClick={this.handleColorClick}
-            handleHasImage={this.handleHasImage}
-            bgColor={this.state["color"]}
-            bgImage={this.state["image"]}
-            mini={this.state["mini"]}
-            handleFixedClick={this.handleFixedClick}
-            fixedClasses={this.state.fixedClasses}
-          />
         </div>
       </div>
     );

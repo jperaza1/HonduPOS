@@ -8,9 +8,7 @@ export class StatsCard extends Component {
         <div className="content">
           <Row>
             <Col xs={5}>
-              <div className="icon-big text-center icon-warning">
-                {this.props.bigIcon}
-              </div>
+              <div className="icon-big text-center icon-warning">{this.props.bigIcon}</div>
             </Col>
             <Col xs={7}>
               <div className="numbers">
