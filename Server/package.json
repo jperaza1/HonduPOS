@@ -5,9 +5,10 @@
   "license": "GNU GPLv3",
   "description": "Back-end para el Sistema de ventas",
   "private": true,
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "postinstall": "npx electron-builder install-app-deps"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -16,5 +17,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "sqlite": "^3.0.3"
+  },
+  "devDependencies": {
+    "electron-builder": "^20.44.4"
   }
 }

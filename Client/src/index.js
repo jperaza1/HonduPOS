@@ -13,7 +13,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" exact to="/admin/home" />
+      <Redirect from="/" exact to="/admin/inicio" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

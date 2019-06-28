@@ -9,10 +9,11 @@
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
-    "start": "concurrently --kill-others \"npm run client\" \"npm run server\""
+    "electron": "concurrently -k \"npm run client\" \"npm run server\" \"electron ./main.js\"",
+    "start": "concurrently -k \"npm run client\" \"npm run server\""
   },
   "keywords": [],
   "devDependencies": {
-    "concurrently": "3.5.1"
+    "concurrently": "^3.6.1"
   }
 }

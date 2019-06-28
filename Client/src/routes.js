@@ -5,8 +5,8 @@ import Pos from "views/Pos";
 
 const dashboardRoutes = [
   {
-    path: "/home",
-    name: "Home",
+    path: "/inicio",
+    name: "Inicio",
     icon: "pe-7s-piggy",
     component: Dashboard,
     layout: "/admin",
@@ -21,7 +21,7 @@ const dashboardRoutes = [
   {
     path: "/reporteria",
     name: "Reporteria",
-    icon: "pe-7s-graph",
+    icon: "pe-7s-graph2",
     component: Reporteria,
     layout: "/admin",
   },
