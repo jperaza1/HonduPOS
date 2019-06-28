@@ -4,7 +4,7 @@
 
 ## Hecho por [Dmendoza99](https://github.com/Dmendoza99)
 
-Esta webapp esta hecha en mi tiempo libre si hay algun problema por favor reportarlo, para poder arreglarlo lo mas rapido posible.
+Este electron app esta hecho en mi tiempo libre si hay algun problema por favor reportarlo, para poder arreglarlo lo mas rapido posible.
 
 ## Modelo Relacional
 
