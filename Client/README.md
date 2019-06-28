@@ -2,7 +2,7 @@
 
 ![version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![license](https://img.shields.io/badge/license-GNU_GPLv3-blue.svg)
 
-# Hecho con Light Bootstrap Dashboard React
+## Hecho con Light Bootstrap Dashboard React
 
 **[Light Bootstrap Dashboard React](https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/?ref=lbdr-readme)** es una plantilla de panel de administración diseñada para ser bella y simple. Está construido encima de [React Bootstrap](https://5c507d49471426000887a6a7--react-bootstrap.netlify.com/), utilizando [Light Bootstrap Dashboard](https://www.creative-tim.com/product/light-bootstrap?ref=lbdr-readme) y es totalmente responsive Viene con una gran colección de elementos que le ofrecerán múltiples posibilidades para crear la aplicación que mejor se adapte a sus necesidades. Se puede utilizar para crear paneles de administración, sistemas de gestión de proyectos, backend de aplicaciones web, CMS o CRM.
 
@@ -12,5 +12,5 @@ Viene con 6 colores de filtro para la barra lateral. (`black`, `azure`,`green`,`
 
 ## Licenciamiento
 
-- Derechos de autor 2018 Creative Tim (https://www.creative-tim.com?ref=lbdr-readme)
-- Licenciado bajo el MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
+- Derechos de autor 2018 [Creative Tim](https://www.creative-tim.com?ref=lbdr-readme)
+- Licenciado bajo el [MIT](https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
