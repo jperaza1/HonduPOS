@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //gets
 app.get("/GetAllProducts", async (req, res) => {
-  console.log("wenas");
   const db = await dbPromise;
   db.all("SELECT * FROM PRODUCTO").then(data => {
     res.send({ data: data });
@@ -38,7 +37,7 @@ app.get("/GetAllPayments", async (req, res) => {
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
+
   if ((body.nombre !== "" && body.precio !== "", body.stock !== "", body.id_categoria !== "")) {
     db.run("INSERT INTO PRODUCTO(nombre,precio,stock,id_categoria) VALUES(?,?,?,?)", [
       body.nombre,
@@ -60,7 +59,7 @@ app.post("/CreateProduct", async (req, res) => {
 app.post("/CreateCategorie", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
+
   if (body.nombre !== "" && body.descripcion !== "") {
     db.run("INSERT INTO CATEGORIA(nombre,descripcion) VALUES(?,?)", [body.nombre, body.descripcion])
       .then(data => {
@@ -77,14 +76,18 @@ app.post("/CreateCategorie", async (req, res) => {
 app.post("/CreatePaymentMethod", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
+
   if (body.nombre !== "" && body.otro_detalles !== "") {
     db.run("INSERT INTO MODO_PAGO(nombre,otros_detalles) VALUES(?,?)", [
       body.nombre,
       body.otros_detalles,
-    ]).then(data => {
-      res.send({ status: "OK" });
-    });
+    ])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
   } else {
     res.send({ status: "FAILED" });
   }
@@ -93,7 +96,7 @@ app.post("/CreatePaymentMethod", async (req, res) => {
 app.post("/CreateUser", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
+
   if (body.identidad !== "" && body.nombre !== "" && body.user !== "" && body.password !== "") {
     db.all("SELECT count(*) FROM EMPLEADO WHERE user=?", [body.user])
       .then(data => {
@@ -114,9 +117,7 @@ app.post("/CreateUser", async (req, res) => {
           res.send({ status: "FAILED" });
         }
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   } else {
     res.send({ status: "FAILED" });
   }
@@ -125,7 +126,7 @@ app.post("/CreateUser", async (req, res) => {
 app.post("/DeleteProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
+
   if (body.id_producto !== "") {
     db.run("DELETE FROM PRODUCTO WHERE id_producto=?", [body.id_producto])
       .then(data => {
@@ -145,7 +146,6 @@ app.post("/DeleteCategorie", async (req, res) => {
   if (body.id_categoria !== "") {
     db.run("DELETE FROM CATEGORIA WHERE id_categoria=?", [body.id_categoria])
       .then(data => {
-        console.log(data);
         res.send({ status: "OK" });
       })
       .catch(error => {
@@ -162,11 +162,9 @@ app.post("/DeletePaymentMethod", async (req, res) => {
   if (body.num_pago !== "") {
     db.run("DELETE FROM MODO_PAGO WHERE num_pago=?", [body.num_pago])
       .then(data => {
-        console.log(data);
         res.send({ status: "OK" });
       })
       .catch(error => {
-        console.log(error);
         res.send({ status: "FAILED" });
       });
   } else {
@@ -177,7 +175,7 @@ app.post("/DeletePaymentMethod", async (req, res) => {
 app.post("/Auth", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
+
   if (body.user !== "" && body.password !== "") {
     db.all("SELECT * FROM EMPLEADO where user=? AND password=?", [
       body.user,

@@ -1,67 +1,85 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import NotificationSystem from "react-notification-system";
-
+import { Route, Switch, Redirect } from "react-router-dom";
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 
-import { style } from "variables/Variables.jsx";
+import decode from "jwt-decode";
 
 import routes from "routes.js";
+import Auth from "views/Auth";
+
+const checkAuth = () => {
+  const token = localStorage.getItem("jwtToken");
+  if (!token) {
+    return false;
+  }
+  try {
+    const { exp } = decode(token);
+    if (exp < new Date().getTime() / 1000) {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
+const AuthRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        checkAuth() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/admin/Auth",
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+
+const NonAuthRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        !checkAuth() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/admin/Home",
+            }}
+          />
+        )
+      }
+    />
+  );
+};
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _notificationSystem: null,
       color: "blue",
       hasImage: false,
       fixedClasses: "dropdown show-dropdown open",
     };
   }
 
-  handleNotificationClick = position => {
-    var color = Math.floor(Math.random() * 4 + 1);
-    var level;
-    switch (color) {
-      case 1:
-        level = "success";
-        break;
-      case 2:
-        level = "warning";
-        break;
-      case 3:
-        level = "error";
-        break;
-      case 4:
-        level = "info";
-        break;
-      default:
-        break;
-    }
-    this.state._notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
-        </div>
-      ),
-      level: level,
-      position: position,
-      autoDismiss: 15,
-    });
-  };
-
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
-          <Route
+          <AuthRoute
             path={prop.layout + prop.path}
-            render={props => (
-              <prop.component {...props} handleClick={this.handleNotificationClick} />
-            )}
+            component={props => <prop.component {...props} />}
             key={key}
           />
         );
@@ -77,10 +95,9 @@ class Admin extends Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "";
   };
 
-  componentDidMount() {}
   componentDidUpdate(e) {
     if (
       window.innerWidth < 993 &&
@@ -98,7 +115,6 @@ class Admin extends Component {
   render() {
     return (
       <div className="wrapper">
-        <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar
           {...this.props}
           routes={routes}
@@ -111,7 +127,10 @@ class Admin extends Component {
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}
           />
-          <Switch>{this.getRoutes(routes)}</Switch>
+          <Switch>
+            {this.getRoutes(routes)}
+            <NonAuthRoute path="/admin/Auth" component={Auth} />
+          </Switch>
           <Footer />
         </div>
       </div>
