@@ -7,7 +7,7 @@
   "private": true,
   "proxy": "http://localhost:5000/",
   "dependencies": {
-    "bootstrap": "3.3.7",
+    "bootstrap": "^3.4.1",
     "chartist": "0.10.1",
     "eslint-config-universe": "^1.0.7",
     "jwt-decode": "^2.2.0",

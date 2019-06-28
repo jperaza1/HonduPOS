@@ -57,45 +57,47 @@ class Auth extends Component {
 
   render() {
     return (
-      <Grid fluid>
-        <NotificationSystem ref="notificationSystem" style={style} />
-        <Row>
-          <Col md={12}>
-            <Card
-              title="Iniciar sesión"
-              content={
-                <Form onSubmit={this.handleSubmit}>
-                  <FormInputs
-                    ncols={["col-md-6", "col-md-6"]}
-                    properties={[
-                      {
-                        label: "Usuario",
-                        type: "text",
-                        bsClass: "form-control",
-                        name: "usuario",
-                        onChange: this.handleChange,
-                        placeholder: "Usuario",
-                      },
-                      {
-                        label: "Contraseña",
-                        type: "password",
-                        bsClass: "form-control",
-                        name: "password",
-                        onChange: this.handleChange,
-                        placeholder: "Password",
-                      },
-                    ]}
-                  />
-                  <Button bsStyle="info" pullRight fill type="submit">
-                    Crear
-                  </Button>
-                  <div className="clearfix" />
-                </Form>
-              }
-            />
-          </Col>
-        </Row>
-      </Grid>
+      <div className="content">
+        <Grid fluid>
+          <NotificationSystem ref="notificationSystem" style={style} />
+          <Row>
+            <Col md={12}>
+              <Card
+                title="Iniciar sesión"
+                content={
+                  <Form onSubmit={this.handleSubmit}>
+                    <FormInputs
+                      ncols={["col-md-6", "col-md-6"]}
+                      properties={[
+                        {
+                          label: "Usuario",
+                          type: "text",
+                          bsClass: "form-control",
+                          name: "usuario",
+                          onChange: this.handleChange,
+                          placeholder: "Usuario",
+                        },
+                        {
+                          label: "Contraseña",
+                          type: "password",
+                          bsClass: "form-control",
+                          name: "password",
+                          onChange: this.handleChange,
+                          placeholder: "Password",
+                        },
+                      ]}
+                    />
+                    <Button bsStyle="info" pullRight fill type="submit">
+                      Crear
+                    </Button>
+                    <div className="clearfix" />
+                  </Form>
+                }
+              />
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }
