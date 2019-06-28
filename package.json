@@ -10,12 +10,13 @@
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
-    "electron": "concurrently -k \"npm run client\" \"npm run server\" \"electron ./main.js\"",
-    "start": "concurrently -k \"npm run client\" \"npm run server\""
+    "electron": "concurrently -k \"npm run client\" \"electron ./main.js\"",
+    "start": "concurrently -k \"npm run client\" \"npm run server\"",
+    "build": "electron-packager --overwrite ."
   },
   "keywords": [],
   "devDependencies": {
     "concurrently": "^3.6.1",
-    "electron": "^1.4.15"
+    "electron": "^5.0.6"
   }
 }
