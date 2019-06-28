@@ -54,7 +54,7 @@ const NonAuthRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/admin/Home",
+              pathname: "/admin/inicio",
             }}
           />
         )

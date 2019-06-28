@@ -5,7 +5,8 @@
   "license": "GNU GPLv3",
   "description": "Sistema de ventas hecho en react con un restful api hecho en nodejs y express",
   "private": true,
-  "main": "index.js",
+  "main": "main.js",
+  "productName": "POSine",
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
@@ -14,6 +15,7 @@
   },
   "keywords": [],
   "devDependencies": {
-    "concurrently": "^3.6.1"
+    "concurrently": "^3.6.1",
+    "electron": "^1.4.15"
   }
 }
