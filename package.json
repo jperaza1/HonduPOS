@@ -9,7 +9,7 @@
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
-    "start": "concurrently --kill-others \"npm run server\" \"npm run client\""
+    "start": "concurrently --kill-others \"npm run client\" \"npm run server\""
   },
   "keywords": [],
   "devDependencies": {
