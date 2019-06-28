@@ -1,13 +1,14 @@
 {
   "name": "server",
   "version": "0.1.0",
-  "description": "Servidor backend para posine",
+  "author": "David Mendoza",
+  "license": "GNU GPLv3",
+  "description": "Back-end para el Sistema de ventas",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "David Mendoza",
-  "license": "GNU GPLv3",
   "dependencies": {
     "body-parser": "^1.19.0",
     "crypto-js": "^3.1.9-1",

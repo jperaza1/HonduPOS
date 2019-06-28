@@ -1,8 +1,11 @@
 {
   "name": "client",
-  "proxy": "http://localhost:5000/",
-  "version": "1.3.0",
+  "version": "0.1.0",
+  "author": "David Mendoza",
+  "license": "GNU GPLv3",
+  "description": "Front-end para el Sistema de ventas",
   "private": true,
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "bootstrap": "3.3.7",
     "chartist": "0.10.1",
