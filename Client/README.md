@@ -1,50 +1,16 @@
-# [Light Bootstrap Dashboard React](https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/?ref=lbdr-readme) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fcreativetimofficial.github.io%2Flight-bootstrap-dashboard-react&text=Light%20Bootstrap%20Dashboard%20React%20-%20Free%20Bootstrap%20Admin%20Template&original_referer=https%3A%2F%2Fdemos.creative-tim.com%2Flight-bootstrap-dashboard-react%2F&via=creativetim&hashtags=react%2Cbootstrap%2Creact-bootstrap%2Ccreativetim%2Ccreative-tim)
+# Front-end para el sistema de ventas
 
+![version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![license](https://img.shields.io/badge/license-GNU_GPLv3-blue.svg)
 
+# Hecho con Light Bootstrap Dashboard React
 
-![version](https://img.shields.io/badge/version-1.3.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/light-bootstrap-dashboard-react.svg?maxAge=2592000)]() [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/light-bootstrap-dashboard-react.svg?maxAge=2592000)]()  [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
+**[Light Bootstrap Dashboard React](https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/?ref=lbdr-readme)** es una plantilla de panel de administración diseñada para ser bella y simple. Está construido encima de [React Bootstrap](https://5c507d49471426000887a6a7--react-bootstrap.netlify.com/), utilizando [Light Bootstrap Dashboard](https://www.creative-tim.com/product/light-bootstrap?ref=lbdr-readme) y es totalmente responsive Viene con una gran colección de elementos que le ofrecerán múltiples posibilidades para crear la aplicación que mejor se adapte a sus necesidades. Se puede utilizar para crear paneles de administración, sistemas de gestión de proyectos, backend de aplicaciones web, CMS o CRM.
 
-![Product Gif](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/light-bootstrap-dashboard-react/light-bootstrap-dashboard-react.gif)
+El producto representa un gran conjunto de herramientas para desarrolladores de aplicaciones para usuario que pueden ayudarlo a poner en marcha su proyecto. Lo hemos creado pensando en las cosas que realmente necesita en un panel de control. Light Bootstrap Dashboard React contiene múltiples complementos seleccionados y optimizados. Todo está diseñado para encajar unos con otros. Como podrá ver, el panel de control al que puede acceder en Creative Tim es una personalización de este producto.
 
+Viene con 6 colores de filtro para la barra lateral. (`black`, `azure`,`green`,`orange`,`red`,`purple`) y una opción para tener una imagen de fondo.
 
-**[Light Bootstrap Dashboard React](https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/?ref=lbdr-readme)** is an admin dashboard template designed to be beautiful and simple. It is built on top of [React Bootstrap](https://5c507d49471426000887a6a7--react-bootstrap.netlify.com/), using [Light Bootstrap Dashboard](https://www.creative-tim.com/product/light-bootstrap?ref=lbdr-readme) and it is fully responsive. It comes with a big collections of elements that will offer you multiple possibilities to create the app that best fits your needs. It can be used to create admin panels, project management systems, web applications backend, CMS or CRM.
+## Licenciamiento
 
-The product represents a big suite of front-end developer tools that can help you jump start your project. We have created it thinking about things you actually need in a dashboard. Light Bootstrap Dashboard React contains multiple handpicked and optimized plugins. Everything is designed to fit with one another. As you will be able to see, the dashboard you can access on Creative Tim is a customization of this product.
-
-It comes with 6 filter colors for the sidebar (`black`, `azure`,`green`,`orange`,`red`,`purple`) and an option to have a background image.
-
-## Resources
-- Demo: https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/admin/dashboard?ref=lbdr-readme
-- Download Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react?ref=lbdr-readme
-- Documentation: https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/documentation/tutorial?ref=lbdr-readme
-- License Agreement: https://www.creative-tim.com/license?ref=lbdr-readme
-- Support: https://www.creative-tim.com/contact-us?ref=lbdr-readme
-- Issues: [Github Issues Page](https://github.com/creativetimofficial/light-bootstrap-dashboard-react/issues)
-
-
-## Licensing
-
-- Copyright 2018 Creative Tim (https://www.creative-tim.com?ref=lbdr-readme)
-- Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-## Useful Links
-
-More products from Creative Tim: <https://www.creative-tim.com/products?ref=lbdr-readme>
-
-Tutorials: <https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w>
-
-Freebies: <https://www.creative-tim.com/products?ref=lbdr-readme>
-
-Affiliate Program (earn money): <https://www.creative-tim.com/affiliates/new?ref=lbdr-readme>
-
-Social Media:
-
-Twitter: <https://twitter.com/CreativeTim>
-
-Facebook: <https://www.facebook.com/CreativeTim>
-
-Dribbble: <https://dribbble.com/creativetim>
-
-Google+: <https://plus.google.com/+CreativetimPage>
-
-Instagram: <https://instagram.com/creativetimofficial>
+- Derechos de autor 2018 Creative Tim (https://www.creative-tim.com?ref=lbdr-readme)
+- Licenciado bajo el MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
