@@ -6,6 +6,10 @@
 
 Esta webapp esta hecha en mi tiempo libre si hay algun problema por favor reportarlo, para poder arreglarlo lo mas rapido posible.
 
+## Modelo Relacional
+
+![alt text](https://raw.githubusercontent.com/Dmendoza99/posine/master/Modelo%20de%20la%20base%20de%20datos.png?token=AHIBVQFMOIX3JEEXVITQL525D3BBQ "Modelo Relacional")
+
 ## Licenciamiento
 
 - Licenciado bajo [GNU GPLv3](https://github.com/Dmendoza99/posine/blob/master/LICENSE)
