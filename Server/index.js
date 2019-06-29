@@ -129,8 +129,7 @@ app.post("/CreateUser", async (req, res) => {
 app.post("/DeleteProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-
-  if (body.id_producto !== "") {
+  if (body.id_producto !== "" && body.id_producto !== undefined) {
     db.run("DELETE FROM PRODUCTO WHERE id_producto=?", [body.id_producto])
       .then(data => {
         res.send({ status: "OK" });
@@ -146,7 +145,7 @@ app.post("/DeleteProduct", async (req, res) => {
 app.post("/DeleteCategorie", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  if (body.id_categoria !== "") {
+  if (body.id_categoria !== "" && body.id_categoria !== undefined) {
     db.run("DELETE FROM CATEGORIA WHERE id_categoria=?", [body.id_categoria])
       .then(data => {
         res.send({ status: "OK" });
@@ -162,7 +161,7 @@ app.post("/DeleteCategorie", async (req, res) => {
 app.post("/DeletePaymentMethod", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  if (body.num_pago !== "") {
+  if (body.num_pago !== "" && body.num_pago !== undefined) {
     db.run("DELETE FROM MODO_PAGO WHERE num_pago=?", [body.num_pago])
       .then(data => {
         res.send({ status: "OK" });
