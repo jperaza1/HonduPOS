@@ -10,7 +10,6 @@
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
-    "electron": "electron .",
     "start": "concurrently -k \"npm run client\" \"npm run server\"",
     "package-mac": "electron-packager . --overwrite --platform=darwin --icon=assets/Icons/mac-icon.icns --prune --out=builds",
     "package-win": "electron-packager . --overwrite --platform=win32 --icon=assets/Icons/win-icon.ico --prune --out=builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"POSine\"",
@@ -21,5 +20,8 @@
     "concurrently": "^3.6.1",
     "electron": "^5.0.6",
     "electron-packager": "^14.0.0"
+  },
+  "dependencies": {
+    "electron-serve": "^0.3.0"
   }
 }

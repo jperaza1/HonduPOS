@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 
-import logo from "assets/img/reactlogo.png";
+// import logo from "../../assets/img/reactlogo.png";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -36,12 +36,12 @@ class Sidebar extends Component {
           <div className="sidebar-background" style={sidebarBackground} />
         ) : null}
         <div className="logo">
-          <a href="/admin/home" className="simple-text logo-mini">
+          <a href="/admin/inicio" className="simple-text logo-mini">
             <div className="logo-img">
-              <img src={logo} alt="logo_image" />
+              <img src={require("../../assets/img/reactlogo.png")} alt="logo_image" />
             </div>
           </a>
-          <a href="/admin/home" className="simple-text logo-normal">
+          <a href="/admin/inicio" className="simple-text logo-normal">
             POSINE
           </a>
         </div>

@@ -5,11 +5,12 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 import NotificationSystem from "react-notification-system";
 import { style } from "variables/Variables.jsx";
+import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
   constructor(props) {
     super(props);
-    this.state = { _notificationSystem: null };
+    this.state = { _notificationSystem: null, redirect: false };
   }
 
   componentDidMount = async () => {
@@ -48,7 +49,8 @@ class Auth extends Component {
         if (data.status === "OK") {
           localStorage.setItem("jwtToken", data.token);
           this.sendNotification("tr", "success", "Autenticacion exitosa", "fa fa-check");
-          window.location.reload();
+          this.setState({ redirect: true });
+          // window.location.reload();
         } else {
           this.sendNotification("tr", "error", "Error al autenticar", "fa fa-times");
         }
@@ -60,6 +62,8 @@ class Auth extends Component {
       <div className="content">
         <Grid fluid>
           <NotificationSystem ref="notificationSystem" style={style} />
+          {this.state.redirect ? <Redirect to="/admin/inicio" /> : null}
+
           <Row>
             <Col md={12}>
               <Card

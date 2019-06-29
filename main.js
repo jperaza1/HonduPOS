@@ -1,11 +1,12 @@
 const { app, BrowserWindow } = require("electron");
 require("./Server/index.js");
-const path = require("path");
-const url = require("url");
 let win;
+const serve = require("electron-serve");
+const loadURL = serve({ directory: "./Client/build" });
 
-app.on("ready", async () => {
-  win = new BrowserWindow({
+async function createWindow() {
+  await app.whenReady();
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     title: "POSine",
@@ -15,19 +16,14 @@ app.on("ready", async () => {
       nodeIntegration: true
     }
   });
-  const startUrl = url.format({
-    pathname: path.join(__dirname, "./Client/build/index.html"),
-    protocol: "file:",
-    slashes: true
+  mainWindow.maximize();
+  await loadURL(mainWindow);
+  mainWindow.on("closed", () => {
+    mainWindow = null;
   });
-  console.log(startUrl);
-  win.loadURL(startUrl);
-  win.maximize();
+}
 
-  win.on("closed", () => {
-    win = null;
-  });
-});
+app.on("ready", createWindow);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

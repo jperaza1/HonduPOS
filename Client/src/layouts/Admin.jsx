@@ -8,6 +8,7 @@ import decode from "jwt-decode";
 
 import routes from "routes.js";
 import Auth from "views/Auth";
+import Error404 from "views/Error404";
 
 const checkAuth = () => {
   const token = localStorage.getItem("jwtToken");
@@ -130,6 +131,7 @@ class Admin extends Component {
           <Switch>
             {this.getRoutes(routes)}
             <NonAuthRoute path="/admin/Auth" component={Auth} />
+            <Route component={Error404} />
           </Switch>
           <Footer />
         </div>

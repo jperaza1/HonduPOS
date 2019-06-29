@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavItem, Nav } from "react-bootstrap";
 import decode from "jwt-decode";
+import { Redirect } from "react-router-dom";
 
 const checkAuth = () => {
   const token = localStorage.getItem("jwtToken");
@@ -21,7 +22,7 @@ const checkAuth = () => {
 class AdminNavbarLinks extends Component {
   constructor(props) {
     super(props);
-    this.state = { nombre: "" };
+    this.state = { nombre: "", redirect: false };
   }
   componentDidMount() {
     if (checkAuth()) {
@@ -41,11 +42,13 @@ class AdminNavbarLinks extends Component {
               eventKey={3}
               onClick={() => {
                 localStorage.removeItem("jwtToken");
-                window.location.reload();
+                this.setState({ redirect: true });
               }}>
               Log out
             </NavItem>
           </Nav>
+        ) : this.state.redirect ? (
+          <Redirect to="/" />
         ) : null}
       </div>
     );
