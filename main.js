@@ -1,5 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 require("./Server/index.js");
+const path = require("path");
+const url = require("url");
 let win;
 
 app.on("ready", async () => {
@@ -13,8 +15,13 @@ app.on("ready", async () => {
       nodeIntegration: true
     }
   });
-
-  win.loadURL("http://localhost:3000/");
+  const startUrl = url.format({
+    pathname: path.join(__dirname, "./Client/build/index.html"),
+    protocol: "file:",
+    slashes: true
+  });
+  console.log(startUrl);
+  win.loadURL(startUrl);
   win.maximize();
 
   win.on("closed", () => {

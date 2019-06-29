@@ -33,7 +33,7 @@ class Auth extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch("/Auth", {
+    fetch("http://localhost:3001/Auth", {
       method: "post",
       body: JSON.stringify({
         user: this.state.usuario,
@@ -88,7 +88,7 @@ class Auth extends Component {
                       ]}
                     />
                     <Button bsStyle="info" pullRight fill type="submit">
-                      Crear
+                      Iniciar Sesión
                     </Button>
                     <div className="clearfix" />
                   </Form>

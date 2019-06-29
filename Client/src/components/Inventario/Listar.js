@@ -7,13 +7,13 @@ class Listar extends Component {
     this.state = { AllProducts: [], AllCategories: [], AllPayment: [] };
   }
   componentDidMount = async () => {
-    await fetch("/GetAllProducts")
+    await fetch("http://localhost:3001/GetAllProducts")
       .then(response => response.json())
       .then(response => this.setState({ AllProducts: response.data }));
-    await fetch("/GetAllCategories")
+    await fetch("http://localhost:3001/GetAllCategories")
       .then(response => response.json())
       .then(response => this.setState({ AllCategories: response.data }));
-    await fetch("/GetAllPayments")
+    await fetch("http://localhost:3001/GetAllPayments")
       .then(response => response.json())
       .then(response => this.setState({ AllPayment: response.data }));
   };

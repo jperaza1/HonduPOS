@@ -14,7 +14,7 @@ class Agregar extends Component {
 
   componentDidMount = async () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
-    fetch("/GetAllCategories")
+    fetch("http://localhost:3001/GetAllCategories")
       .then(response => response.json())
       .then(response => {
         this.setState({
@@ -42,7 +42,7 @@ class Agregar extends Component {
 
     switch (id) {
       case 0: {
-        fetch("/CreateProduct", {
+        fetch("http://localhost:3001/CreateProduct", {
           method: "post",
           headers: {
             "Content-Type": "application/json",
@@ -67,7 +67,7 @@ class Agregar extends Component {
         break;
       }
       case 1: {
-        fetch("/CreateCategorie", {
+        fetch("http://localhost:3001/CreateCategorie", {
           method: "post",
           headers: {
             "Content-Type": "application/json",
@@ -90,7 +90,7 @@ class Agregar extends Component {
         break;
       }
       case 2: {
-        fetch("/CreatePaymentMethod", {
+        fetch("http://localhost:3001/CreatePaymentMethod", {
           method: "post",
           headers: {
             "Content-Type": "application/json",

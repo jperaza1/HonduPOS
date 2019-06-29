@@ -4,12 +4,14 @@ const sqlite = require("sqlite");
 const jwt = require("jsonwebtoken");
 const SHA512 = require("crypto-js/sha512");
 const path = require("path");
+var cors = require("cors");
 const dbPromise = sqlite.open(path.join(__dirname, "/Database/Dave.db"), { Promise });
 const app = express();
 const port = 3001;
 const secret =
   "rxzHqn9ZL3RfcdXkxHEiWO1RflzpK7BgkBzV9so4ktPmbMMenSUA3eQSrEGIomfpETiM763btgpDFCpsmt5sAgR4KmTOhwDYonZ4Tj5zz4PHHQ0u2tCtpsI1rzzVmTiDcqs6Px1L8bWrPbpVx5uPnDXInNWOVtGj9qwn2n8s2ATPZzGEi88CzkC8vHutBwpPwjcWzkvd";
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //gets
