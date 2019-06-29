@@ -4,19 +4,9 @@ import { Card } from "components/Card/Card.jsx";
 class Listar extends Component {
   constructor(props) {
     super(props);
-    this.state = { AllProducts: [], AllCategories: [], AllPayment: [] };
+    this.props = { AllProducts: [], AllCategories: [], AllPayments: [] };
   }
-  componentDidMount = async () => {
-    await fetch("http://localhost:3001/GetAllProducts")
-      .then(response => response.json())
-      .then(response => this.setState({ AllProducts: response.data }));
-    await fetch("http://localhost:3001/GetAllCategories")
-      .then(response => response.json())
-      .then(response => this.setState({ AllCategories: response.data }));
-    await fetch("http://localhost:3001/GetAllPayments")
-      .then(response => response.json())
-      .then(response => this.setState({ AllPayment: response.data }));
-  };
+
   render() {
     return (
       <Row>
@@ -28,17 +18,16 @@ class Listar extends Component {
             content={
               <Table striped hover>
                 <thead>
-                  {this.state.AllProducts.length > 0 ? (
+                  {this.props.AllProducts.length > 0 ? (
                     <tr>
-                      {Object.keys(this.state.AllProducts[0]).map((prop, key) => {
+                      {Object.keys(this.props.AllProducts[0]).map((prop, key) => {
                         return <th key={key}>{prop.replace("_", " ")}</th>;
                       })}
                     </tr>
                   ) : null}
                 </thead>
                 <tbody>
-                  {this.state.AllProducts.map((prop, key) => {
-                    console.log("Todo", prop, key);
+                  {this.props.AllProducts.map((prop, key) => {
                     return (
                       <tr key={key}>
                         {Object.keys(prop).map((props, keys) => {
@@ -58,17 +47,16 @@ class Listar extends Component {
             content={
               <Table striped hover>
                 <thead>
-                  {this.state.AllCategories.length > 0 ? (
+                  {this.props.AllCategories.length > 0 ? (
                     <tr>
-                      {Object.keys(this.state.AllCategories[0]).map((prop, key) => {
+                      {Object.keys(this.props.AllCategories[0]).map((prop, key) => {
                         return <th key={key}>{prop.replace("_", " ")}</th>;
                       })}
                     </tr>
                   ) : null}
                 </thead>
                 <tbody>
-                  {this.state.AllCategories.map((prop, key) => {
-                    console.log("Todo", prop, key);
+                  {this.props.AllCategories.map((prop, key) => {
                     return (
                       <tr key={key}>
                         {Object.keys(prop).map((props, keys) => {
@@ -88,16 +76,16 @@ class Listar extends Component {
             content={
               <Table striped hover>
                 <thead>
-                  {this.state.AllPayment.length > 0 ? (
+                  {this.props.AllPayments.length > 0 ? (
                     <tr>
-                      {Object.keys(this.state.AllPayment[0]).map((prop, key) => {
+                      {Object.keys(this.props.AllPayments[0]).map((prop, key) => {
                         return <th key={key}>{prop.replace("_", " ")}</th>;
                       })}
                     </tr>
                   ) : null}
                 </thead>
                 <tbody>
-                  {this.state.AllPayment.map((prop, key) => {
+                  {this.props.AllPayments.map((prop, key) => {
                     return (
                       <tr key={key}>
                         {Object.keys(prop).map((props, keys) => {

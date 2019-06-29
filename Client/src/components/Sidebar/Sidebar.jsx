@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
-
 // import logo from "../../assets/img/reactlogo.png";
 
 class Sidebar extends Component {
@@ -36,14 +35,14 @@ class Sidebar extends Component {
           <div className="sidebar-background" style={sidebarBackground} />
         ) : null}
         <div className="logo">
-          <a href="/admin/inicio" className="simple-text logo-mini">
+          <NavLink to="/admin/inicio" className="nav-link simple-text logo-mini">
             <div className="logo-img">
-              <img src={require("../../assets/img/reactlogo.png")} alt="logo_image" />
+              <img src="/logo.png" alt="logo_image" />
             </div>
-          </a>
-          <a href="/admin/inicio" className="simple-text logo-normal">
+          </NavLink>
+          <NavLink to="/admin/inicio" className="nav-link simple-text logo-normal">
             POSINE
-          </a>
+          </NavLink>
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">

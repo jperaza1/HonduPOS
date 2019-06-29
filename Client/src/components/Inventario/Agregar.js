@@ -14,15 +14,8 @@ class Agregar extends Component {
 
   componentDidMount = async () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
-    fetch("http://localhost:3001/GetAllCategories")
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          categories: response.data,
-          categoriaProducto: response.data[0].id_categoria,
-        });
-      });
   };
+
   sendNotification = (position, color, message, icon) => {
     var level = color; // 'success', 'warning', 'error' or 'info'
     this.state._notificationSystem.addNotification({
@@ -33,13 +26,13 @@ class Agregar extends Component {
       autoDismiss: 15,
     });
   };
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = (e, id) => {
     e.preventDefault();
-
     switch (id) {
       case 0: {
         fetch("http://localhost:3001/CreateProduct", {
@@ -119,6 +112,7 @@ class Agregar extends Component {
       default:
         break;
     }
+    this.props.update();
   };
 
   render() {
@@ -139,7 +133,7 @@ class Agregar extends Component {
                     {
                       componentClass: "select",
                       label: "Categoria",
-                      children: this.state.categories.map(prod => (
+                      children: this.props.AllCategories.map(prod => (
                         <option value={prod.id_categoria}>{prod.nombre}</option>
                       )),
                       bsClass: "form-control",
