@@ -1,9 +1,8 @@
 const { app, BrowserWindow } = require("electron");
-
 require("./Server/index.js");
 let win;
 
-function createWindow() {
+app.on("ready", async () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -17,14 +16,11 @@ function createWindow() {
 
   win.loadURL("http://localhost:3000/");
   win.maximize();
-  win.show();
 
   win.on("closed", () => {
     win = null;
   });
-}
-
-app.on("ready", createWindow);
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

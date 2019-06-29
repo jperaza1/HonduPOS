@@ -10,11 +10,11 @@
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
-    "electron": "concurrently -k \"npm run client\" \"electron ./main.js\"",
+    "electron": "concurrently -k \"npm run client\" \"electron .\"",
     "start": "concurrently -k \"npm run client\" \"npm run server\"",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --icon=Client/public/Icons/mac-icon.icns --prune --out=builds",
-    "package-win": "electron-packager . --overwrite --asar --platform=win32 --icon=Client/public/Icons/win-icon.ico --prune --out=builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"POSine\"",
-    "package-lin": "electron-packager . --overwrite --asar --platform=linux --icon=Client/public/Icons/lin-icon.png --prune --out=builds"
+    "package-mac": "electron-packager . --overwrite --platform=darwin --icon=assets/Icons/mac-icon.icns --prune --out=builds",
+    "package-win": "electron-packager . --overwrite --platform=win32 --icon=assets/Icons/win-icon.ico --prune --out=builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"POSine\"",
+    "package-lin": "electron-packager . --overwrite --platform=linux --icon=assets/Icons/lin-icon.png --prune --out=builds"
   },
   "keywords": [],
   "devDependencies": {
