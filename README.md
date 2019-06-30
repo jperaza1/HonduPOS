@@ -65,7 +65,7 @@ npm install
 
 ## Database Model
 
-![ER](https://raw.githubusercontent.com/Dmendoza99/posine/master/Modelo%20de%20la%20base%20de%20datos.png?token=AHIBVQFMOIX3JEEXVITQL525D3BBQ "Modelo Relacional")
+![ER](https://i.ibb.co/ZSLStfP/Modelo-de-la-base-de-datos.png "Modelo Relacional")
 
 ## Bugs 🐛
 
