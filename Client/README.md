@@ -1,8 +1,8 @@
-# POSine Client
+# Front-end
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
 
-This is the UI for the whole POS system.
+This is the front-end for the whole POS system.
 
 ## Motivation
 
@@ -81,7 +81,7 @@ npm install
 
 ## Bugs 🐛
 
-This UI is getting upgrades in my free time if there is a problem please create a bug report in the issues section.
+This front-end is getting upgrades in my free time if there is a problem please create a bug report in the issues section.
 
 ## License
 

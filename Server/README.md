@@ -1,13 +1,73 @@
-# Back-end para el sistema de ventas
+# Back-end
 
-![version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![license](https://img.shields.io/badge/license-GNU_GPLv3-blue.svg)
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
 
-## Hecho con Express y SQLITE
+This is the back-end for the whole POS system.
 
-- **[Express](https://expressjs.com/)** es un Framework rápido, no motivado y minimalista para Node.js
-- **[SQLITE](https://github.com/kriasoft/node-sqlite)** SQLite es una biblioteca en lenguaje C que implementa un motor de base de datos SQL pequeño, rápido, autónomo, de alta fiabilidad y completo.
-  Se utilizo esta combinacion para tener un back-end relacional necesario para el sistema y rapido para le cliente, asi que la opcion mas obvia fueron estas dos librerias.
+## Motivation
 
-## Licenciamiento
+This project exists because of the need of cheap open source solutions in Honduras.
 
-- Express Licenciado bajo el [MIT](https://github.com/expressjs/express/blob/master/LICENSE)
+## Code style
+
+I'm using just using [Expo's](https://github.com/expo) eslint-config-universe for linting and prettier for style
+
+![Style](https://img.shields.io/badge/Coding_Style-eslint--config--unverse-blue.svg)
+
+### Eslint
+
+```js
+This is the .eslintrc.js
+module.exports = {
+  extends: ["universe/web", "prettier"],
+  parserOptions: {
+    es6: true,
+  },
+};
+```
+
+### Prettier
+
+```json
+this is the .prettierrc
+{
+  "printWidth": 100,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "jsxBracketSameLine": true,
+  "trailingComma": "es5"
+}
+```
+
+## Tech/framework used
+
+### Dependecies
+
+- body-parser
+- cors
+- crypto-js
+- eslint-config-universe
+- express
+- jsonwebtoken
+- sqlite
+
+### Dev dependecies
+
+- electron-builder
+
+## Installation
+
+```bash
+git clone https://github.com/Dmendoza99/posine
+cd posine
+cd Server
+npm install
+```
+
+## Bugs 🐛
+
+This Back-end is getting upgrades in my free time if there is a problem please create a bug report in the issues section.
+
+## License
+
+- Licensed under [GNU GPLv3](https://github.com/Dmendoza99/posine/blob/master/LICENSE)
