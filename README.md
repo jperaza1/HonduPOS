@@ -2,7 +2,7 @@
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
 
-This is small Point Of Sales (POS) for Honduran market with RTN Clients and CAI receipts.
+This is a small Point Of Sales (POS) for Honduran market with RTN Clients and CAI receipts.
 
 ## Motivation
 
@@ -65,7 +65,7 @@ npm install
 
 ## Database Model
 
-![ER](https://i.ibb.co/ZSLStfP/Modelo-de-la-base-de-datos.png "Modelo Relacional")
+![ER](https://raw.githubusercontent.com/Dmendoza99/posine/master/Modelo%20de%20la%20base%20de%20datos.png?token=AHIBVQFMOIX3JEEXVITQL525D3BBQ "Modelo Relacional")
 
 ## Bugs 🐛
 

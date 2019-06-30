@@ -1,16 +1,89 @@
-# Front-end para el sistema de ventas
+# POSine Client
 
-![version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![license](https://img.shields.io/badge/license-GNU_GPLv3-blue.svg)
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
 
-## Hecho con Light Bootstrap Dashboard React
+This is the UI for the whole POS system.
 
-**[Light Bootstrap Dashboard React](https://demos.creative-tim.com/light-bootstrap-dashboard-react/#/?ref=lbdr-readme)** es una plantilla de panel de administración diseñada para ser bella y simple. Está construido encima de [React Bootstrap](https://5c507d49471426000887a6a7--react-bootstrap.netlify.com/), utilizando [Light Bootstrap Dashboard](https://www.creative-tim.com/product/light-bootstrap?ref=lbdr-readme) y es totalmente responsive Viene con una gran colección de elementos que le ofrecerán múltiples posibilidades para crear la aplicación que mejor se adapte a sus necesidades. Se puede utilizar para crear paneles de administración, sistemas de gestión de proyectos, backend de aplicaciones web, CMS o CRM.
+## Motivation
 
-El producto representa un gran conjunto de herramientas para desarrolladores de aplicaciones para usuario que pueden ayudarlo a poner en marcha su proyecto. Lo hemos creado pensando en las cosas que realmente necesita en un panel de control. Light Bootstrap Dashboard React contiene múltiples complementos seleccionados y optimizados. Todo está diseñado para encajar unos con otros. Como podrá ver, el panel de control al que puede acceder en Creative Tim es una personalización de este producto.
+This project exists because of the need of cheap open source solutions in Honduras.
 
-Viene con 6 colores de filtro para la barra lateral. (`black`, `azure`,`green`,`orange`,`red`,`purple`) y una opción para tener una imagen de fondo.
+## Code style
 
-## Licenciamiento
+I'm using just using [Expo's](https://github.com/expo) eslint-config-universe for linting and prettier for style
 
-- Derechos de autor 2018 [Creative Tim](https://www.creative-tim.com?ref=lbdr-readme)
-- Licenciado bajo el [MIT](https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
+![Style](https://img.shields.io/badge/Coding_Style-eslint--config--unverse-blue.svg)
+
+### Eslint
+
+```js
+This is the .eslintrc.js
+module.exports = {
+  extends: ["universe/web", "prettier"],
+  parserOptions: {
+    es6: true,
+  },
+};
+```
+
+### Prettier
+
+```json
+this is the .prettierrc
+{
+  "printWidth": 100,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "jsxBracketSameLine": true,
+  "trailingComma": "es5"
+}
+```
+
+## Screenshots
+
+![Main Dashboard](https://i.ibb.co/QmXT5hN/image.png "Main Dashboard")
+
+## Tech/framework used
+
+### Dependecies
+
+- bootstrap
+- chartist
+- eslint-config-universe
+- jwt-decode
+- node-sass
+- react
+- react-bootstrap
+- react-chartist
+- react-dom
+- react-google-maps
+- react-notification-system
+- react-router
+- react-router-dom
+- react-scripts
+- react-toggle
+
+### Dev dependecies
+
+- @types/googlemaps
+- @types/markerclustererplus
+- @types/react
+- typescript
+
+## Installation
+
+```bash
+git clone https://github.com/Dmendoza99/posine
+cd posine
+cd Client
+npm install
+```
+
+## Bugs 🐛
+
+This UI is getting upgrades in my free time if there is a problem please create a bug report in the issues section.
+
+## License
+
+- Copyright 2018 [Creative Tim](https://www.creative-tim.com?ref=lbdr-readme)
+- Licensed under [GNU GPLv3](https://github.com/Dmendoza99/posine/blob/master/LICENSE)
