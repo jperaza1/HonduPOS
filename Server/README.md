@@ -6,11 +6,11 @@ This is the back-end for the whole POS system.
 
 ## Motivation
 
-This project exists because of the need of cheap open source solutions in Honduras.
+This back-end exits because i need a safe connection with sqlite and with the auth tokens.
 
 ## Code style
 
-I'm using just using [Expo's](https://github.com/expo) eslint-config-universe for linting and prettier for style
+I'm using just using [Expo's](https://github.com/expo) eslint-config-universe for linting and prettier for style.
 
 ![Style](https://img.shields.io/badge/Coding_Style-eslint--config--unverse-blue.svg)
 

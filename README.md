@@ -10,7 +10,7 @@ This project exists because of the need of cheap open source solutions in Hondur
 
 ## Code style
 
-I'm using just using [Expo's](https://github.com/expo) eslint-config-universe for linting and prettier for style
+I'm using just using [Expo's](https://github.com/expo) eslint-config-universe for linting and prettier for style.
 
 ![Style](https://img.shields.io/badge/Coding_Style-eslint--config--unverse-blue.svg)
 
