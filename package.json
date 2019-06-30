@@ -19,7 +19,9 @@
   "devDependencies": {
     "concurrently": "^3.6.1",
     "electron": "^5.0.6",
-    "electron-packager": "^14.0.0",
+    "electron-packager": "^14.0.0"
+  },
+  "dependencies": {
     "electron-serve": "^0.3.0"
   }
 }
