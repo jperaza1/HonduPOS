@@ -6,7 +6,7 @@ This is the back-end for the whole POS system.
 
 ## Motivation
 
-This back-end exits because i need a safe connection with sqlite and with the auth tokens.
+This back-end exits because I needed a safe connection with sqlite and with the auth tokens.
 
 ## Code style
 
