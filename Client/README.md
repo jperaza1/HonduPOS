@@ -6,7 +6,7 @@ This is the front-end for the whole POS system.
 
 ## Motivation
 
-This front-end exists because I obviously need a GUI for the end user.
+This front-end exists because I obviously needed a GUI for the end user.
 
 ## Code style
 
