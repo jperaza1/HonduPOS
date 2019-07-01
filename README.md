@@ -75,8 +75,6 @@ This electron app is getting upgrades in my free time if there is a problem plea
 
 Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/commit-message-emoji)
 
-See also [gitmoji](https://gitmoji.carloscuesta.me/).
-
 | Commit type                | Emoji                                                     |
 | :------------------------- | :-------------------------------------------------------- |
 | Initial commit             | :tada: `:tada:`                                           |
