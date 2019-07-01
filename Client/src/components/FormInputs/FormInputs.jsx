@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { FormGroup, ControlLabel, FormControl, Row } from "react-bootstrap";
+import MaskedInput from "react-text-mask";
 
 function FieldGroup({ label, ...props }) {
   return (
     <FormGroup>
       <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
+      {!props.masked ? <FormControl {...props} /> : <MaskedInput {...props} />}
     </FormGroup>
   );
 }
