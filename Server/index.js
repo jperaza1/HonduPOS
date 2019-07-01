@@ -6,12 +6,12 @@ const SHA512 = require("crypto-js/sha512");
 const path = require("path");
 var cors = require("cors");
 // on production
-const dbPromise = sqlite.open(
-  path.join(__dirname, "/Database/Dave.db").replace("app.asar", "app.asar.unpacked"),
-  { Promise }
-);
+// const dbPromise = sqlite.open(
+//   path.join(__dirname, "/Database/Dave.db").replace("app.asar", "app.asar.unpacked"),
+//   { Promise }
+// );
 // on dev
-// const dbPromise = sqlite.open(path.join(__dirname, "/Database/Dave.db"), { Promise });
+const dbPromise = sqlite.open(path.join(__dirname, "/Database/Dave.db"), { Promise });
 const app = express();
 const port = 3001;
 const secret =
