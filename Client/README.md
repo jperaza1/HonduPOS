@@ -62,6 +62,7 @@ this is the .prettierrc
 - react-router-dom
 - react-scripts
 - react-toggle
+- react-text-mask
 
 ### Dev dependecies
 
