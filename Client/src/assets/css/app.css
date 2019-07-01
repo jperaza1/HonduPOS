@@ -29,6 +29,12 @@
   height: 75vh !important;
 }
 
+.searchInput {
+  width: 100%;
+  border-width: 2px;
+  padding-bottom: 2%;
+}
+
 .products {
   padding: 2%;
   height: 90%;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Grid, Table, Form, FormGroup, FormControl, InputGroup } from "react-bootstrap";
+import { Row, Col, Grid, Table, FormControl, InputGroup } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
@@ -10,6 +10,7 @@ class Pos extends Component {
     super(props);
     this.state = {
       products: [],
+      filteredproducts: [],
       readyproducts: [],
       listproducts: [],
       subtotal: 0,
@@ -22,7 +23,7 @@ class Pos extends Component {
     fetch("http://localhost:3001/GetAllProducts")
       .then(resp => resp.json())
       .then(prods => {
-        this.setState({ products: prods.data });
+        this.setState({ products: prods.data, filteredproducts: prods.data });
       });
   };
 
@@ -52,7 +53,15 @@ class Pos extends Component {
     total = total.toFixed(2);
     this.setState({ readyproducts: readyproducts, subtotal, isv, total });
   };
-
+  searchProduct = value => {
+    if (value === "") {
+      this.setState({ filteredproducts: this.state.products });
+    } else {
+      let products = this.state.products;
+      products = products.filter(p => p.nombre.toLowerCase().includes(value.toLowerCase()));
+      this.setState({ filteredproducts: products });
+    }
+  };
   render() {
     return (
       <div className="content">
@@ -99,26 +108,22 @@ class Pos extends Component {
                     </Col>
                     <Col md={6} className="productsContainer">
                       <Row>
-                        <Form
-                          className="search"
-                          onSubmit={e => {
-                            e.preventDefault();
-                          }}>
-                          <FormGroup>
-                            <InputGroup>
-                              <FormControl type="text" placeholder="Busqueda por nombre" />
-                              <InputGroup.Button>
-                                <Button bsStyle="info" pullRight fill type="submit">
-                                  <i className="fa fa-search" />
-                                </Button>
-                              </InputGroup.Button>
-                            </InputGroup>
-                          </FormGroup>
-                        </Form>
+                        <InputGroup className="searchInput">
+                          <FormControl
+                            type="text"
+                            onChange={e => {
+                              this.searchProduct(e.target.value);
+                            }}
+                            placeholder="Busqueda por nombre"
+                          />
+                          <InputGroup.Addon>
+                            <i className="fa fa-search" />
+                          </InputGroup.Addon>
+                        </InputGroup>
                       </Row>
                       <div className="products">
                         <Row>
-                          {this.state.products.map(prod => {
+                          {this.state.filteredproducts.map(prod => {
                             return (
                               <Product
                                 onClick={async () => {
