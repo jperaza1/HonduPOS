@@ -1,26 +1,62 @@
 {
-  "name": "posine-full",
+  "name": "posine",
   "version": "0.1.0",
   "author": "David Mendoza",
   "license": "GNU GPLv3",
   "description": "Sistema de ventas hecho en react con un restful api hecho en nodejs y express",
   "private": true,
   "main": "main.js",
-  "productName": "POSine",
+  "build": {
+    "appId": "tech.sinewave.posine",
+    "productName": "POSine",
+    "asarUnpack": [
+      "Server/Database/**"
+    ],
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/Icons/mac-icon.icns"
+    },
+    "linux": {
+      "icon": "assets/Icons/lin-icon.png"
+    },
+    "win": {
+      "icon": "assets/Icons/win-icon.ico"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      {
+        "from": "./Server/",
+        "to": "Server/",
+        "filter": [
+          "index.js",
+          "Database/*",
+          "!README.md",
+          "!.prettierrc",
+          "!.eslintrc.js"
+        ]
+      },
+      {
+        "from": "./Server/node_modules",
+        "to": "Server/node_modules"
+      },
+      "node_modules/**/*"
+    ]
+  },
   "scripts": {
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
     "start": "concurrently -k \"npm run client\" \"npm run server\"",
-    "package-mac": "node pack . --overwrite --platform=mac --icon=assets/Icons/mac-icon.icns --prune --out=builds",
-    "package-win": "node pack . --overwrite --platform=win --icon=assets/Icons/win-icon.ico --prune --out=builds ",
-    "package-lin": "node pack . --overwrite --platform=lin --icon=assets/Icons/lin-icon.png --prune --out=builds"
+    "package-win": "build -w",
+    "package-lin": "build -l",
+    "package-mac": "build -m"
   },
   "keywords": [],
   "devDependencies": {
     "concurrently": "^3.6.1",
     "electron": "^5.0.6",
-    "electron-packager": "^14.0.0",
-    "yargs": "^13.2.4"
+    "electron-builder": "^20.44.4"
   },
   "dependencies": {
     "electron-serve": "^0.3.0"
