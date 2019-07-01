@@ -3,7 +3,9 @@ import React, { Component } from "react";
 export class Card extends Component {
   render() {
     return (
-      <div className={"card" + (this.props.plain ? " card-plain" : "")}>
+      <div
+        onClick={this.props.onClick ? this.props.onClick : null}
+        className={"card" + (this.props.plain ? " card-plain" : "")}>
         <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
           <h4 className="title">{this.props.title}</h4>
           <p className="category">{this.props.category}</p>

@@ -1,36 +1,42 @@
-.calculator {
+.calculatorContainer {
   height: 75vh !important;
-  background-color: #f7f7f8 !important;
-  overflow-y: scroll;
 }
 
-.products {
+.items {
   overflow-y: scroll;
-  overflow-x: hidden;
-  height: 75vh !important;
-  padding: 1%;
-  border-left: lightgray 5px solid;
-  background-color: #f7f7f8 !important;
-}
-
-.productImage {
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 75%;
+  padding: 2%;
 }
 
 .dinero {
-  height: 25vh !important;
-  border: black 2px dotted;
+  height: 25%;
+  border: black 2px solid;
+  padding: 2%;
   position: relative;
-  background-color: #f7f7f8 !important;
-
   bottom: 20px !important;
   right: 0;
   left: 0;
+  margin-top: 5%;
 }
+
 .dinero > p {
-  font-size: xx-large;
+  font-size: large;
   font-weight: bold;
+}
+
+.productsContainer {
+  padding: 2%;
+  height: 75vh !important;
+}
+
+.products {
+  padding: 2%;
+  height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.productImage {
+  height: 75%;
+  width: 75%;
 }

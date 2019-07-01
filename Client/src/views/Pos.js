@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, Grid, Table } from "react-bootstrap";
+import { Row, Col, Grid, Table, Form, FormGroup, FormControl, InputGroup } from "react-bootstrap";
+import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
 import "../assets/css/app.css";
@@ -37,10 +38,12 @@ class Pos extends Component {
         prod.cant = lista.filter(p => p === prod).length;
         readyproducts.push(prod);
       }
+      return 0;
     });
     let subtotal = 0;
     readyproducts.map(prod => {
       subtotal += prod.precio * prod.cant;
+      return 0;
     });
     subtotal = subtotal.toFixed(2);
     let isv = subtotal * ISV;
@@ -59,14 +62,9 @@ class Pos extends Component {
               <Card
                 content={
                   <Row>
-                    <Col md={4}>
-                      <div className="dinero">
-                        <p>Subtotal: {this.state.subtotal}</p>
-                        <p> ISV: {this.state.isv}</p>
-                        <p>Total: {this.state.total}</p>
-                      </div>
-                      <div className="calculator">
-                        <Table ctTableFullWidth ctTableResponsive>
+                    <Col md={6} className="calculatorContainer">
+                      <div className="items">
+                        <Table striped hover>
                           <thead>
                             {this.state.products.length > 0 ? (
                               <tr>
@@ -74,6 +72,7 @@ class Pos extends Component {
                                   (prop, key) => {
                                     if (prop !== "id_categoria" && prop !== "stock")
                                       return <th key={key}>{prop.replace("_", " ")}</th>;
+                                    return null;
                                   }
                                 )}
                               </tr>
@@ -92,24 +91,53 @@ class Pos extends Component {
                           </tbody>
                         </Table>
                       </div>
+                      <div className="dinero">
+                        <p>Subtotal: {this.state.subtotal}</p>
+                        <p> ISV: {this.state.isv}</p>
+                        <p>Total: {this.state.total}</p>
+                      </div>
                     </Col>
-                    <Col md={8} className="products">
+                    <Col md={6} className="productsContainer">
                       <Row>
-                        {this.state.products.map(prod => {
-                          return (
-                            <Product
-                              onClick={async () => {
-                                await this.setState({
-                                  listproducts: [...this.state.listproducts, prod],
-                                });
-                                this.prepareProducts(this.state.listproducts);
-                              }}
-                              prod={prod}
-                            />
-                          );
-                        })}
+                        <Form
+                          className="search"
+                          onSubmit={e => {
+                            e.preventDefault();
+                          }}>
+                          <FormGroup>
+                            <InputGroup>
+                              <FormControl type="text" placeholder="Busqueda por nombre" />
+                              <InputGroup.Button>
+                                <Button bsStyle="info" pullRight fill type="submit">
+                                  <i className="fa fa-search" />
+                                </Button>
+                              </InputGroup.Button>
+                            </InputGroup>
+                          </FormGroup>
+                        </Form>
                       </Row>
+                      <div className="products">
+                        <Row>
+                          {this.state.products.map(prod => {
+                            return (
+                              <Product
+                                onClick={async () => {
+                                  await this.setState({
+                                    listproducts: [...this.state.listproducts, prod],
+                                  });
+                                  this.prepareProducts(this.state.listproducts);
+                                }}
+                                prod={prod}
+                              />
+                            );
+                          })}
+                        </Row>
+                      </div>
                     </Col>
+                    <Button bsStyle="primary" pullRight fill type="submit">
+                      Procesar compra
+                    </Button>
+                    <div className="clearfix" />
                   </Row>
                 }
               />
