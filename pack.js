@@ -57,12 +57,24 @@ switch (argv.platform) {
     opts.icon = "assets/Icons/mac-icon.icns";
   }
   default:
+    console.log("This is not an acepted platform");
     process.exit();
     break;
 }
 
 if (argv.out) {
   opts.out = argv.out;
+}
+
+if (argv.overwrite) {
+  opts.overwrite = argv.overwrite;
+}
+
+if (argv.prune) {
+  opts.prune = argv.prune;
+}
+if (argv.arch) {
+  opts.arch = argv.arch;
 }
 
 async function bundleElectronApp(options) {
