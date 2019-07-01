@@ -2,7 +2,7 @@ const { app, BrowserWindow } = require("electron");
 require("./Server/index.js");
 let win;
 const serve = require("electron-serve");
-const loadURL = serve({ directory: "./Client/build" });
+const loadURL = serve({ directory: "./build" });
 
 async function createWindow() {
   await app.whenReady();
