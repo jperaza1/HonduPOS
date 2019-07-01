@@ -105,7 +105,6 @@ app.post("/CreatePaymentMethod", async (req, res) => {
 app.post("/CreateUser", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-
   if (body.identidad !== "" && body.nombre !== "" && body.user !== "" && body.password !== "") {
     db.all("SELECT count(*) FROM EMPLEADO WHERE user=?", [body.user])
       .then(data => {
