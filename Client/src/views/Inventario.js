@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Grid } from "react-bootstrap";
-import Agregar from "components/Inventario/Agregar";
-import Listar from "components/Inventario/Listar";
-import Eliminar from "components/Inventario/Eliminar";
+import Agregar from "components/Inventario/Agregar.jsx";
+import Listar from "components/Inventario/Listar.jsx";
+import Eliminar from "components/Inventario/Eliminar.jsx";
 
 class Inventario extends Component {
   constructor(props) {
