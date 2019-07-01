@@ -41,7 +41,7 @@ this is the .prettierrc
 
 ## Screenshots
 
-![Main Dashboard](.\assets\Images\screenshot.PNG "Main Dashboard")
+![Main Dashboard](assets/Images/screenshot.PNG "Main Dashboard")
 
 ## Tech/framework used
 
@@ -65,7 +65,7 @@ npm install
 
 ## Database Model
 
-![ER](.\assets\Images\Modelodelabasededatos.png "Modelo Relacional")
+![ER](assets/Images/Modelodelabasededatos.png "Modelo Relacional")
 
 ## Bugs 🐛
 
