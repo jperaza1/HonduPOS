@@ -11,7 +11,7 @@
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
     "start": "concurrently -k \"npm run client\" \"npm run server\"",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --icon=assets/Icons/mac-icon.icns --prune --out=builds",
+    "package-mac": "node pack . --overwrite --platform=darwin --icon=assets/Icons/mac-icon.icns --prune --out=builds",
     "package-win": "electron-packager . --overwrite --platform=win32 --icon=assets/Icons/win-icon.ico --prune --out=builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"POSine\"",
     "package-lin": "electron-packager . --overwrite --platform=linux --icon=assets/Icons/lin-icon.png --prune --out=builds"
   },
