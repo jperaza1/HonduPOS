@@ -46,3 +46,9 @@
   height: 75%;
   width: 75%;
 }
+
+.authSubtext {
+  text-decoration-line: underline;
+  color: lightgray;
+  cursor: pointer;
+}
