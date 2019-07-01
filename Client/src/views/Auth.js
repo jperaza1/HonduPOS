@@ -10,7 +10,7 @@ import { Redirect } from "react-router-dom";
 class Auth extends Component {
   constructor(props) {
     super(props);
-    this.state = { _notificationSystem: null, redirect: false };
+    this.state = { _notificationSystem: null, redirect: false, context: 0 };
   }
 
   componentDidMount = async () => {
@@ -18,6 +18,7 @@ class Auth extends Component {
   };
 
   handleChange = e => {
+    console.log(e.target.value + " a " + [e.target.name]);
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -32,71 +33,187 @@ class Auth extends Component {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e, id) => {
     e.preventDefault();
-    fetch("http://localhost:3001/Auth", {
-      method: "post",
-      body: JSON.stringify({
-        user: this.state.usuario,
-        password: this.state.password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === "OK") {
-          localStorage.setItem("jwtToken", data.token);
-          this.sendNotification("tr", "success", "Autenticacion exitosa", "fa fa-check");
-          this.setState({ redirect: true });
-          // window.location.reload();
-        } else {
-          this.sendNotification("tr", "error", "Error al autenticar", "fa fa-times");
-        }
-      });
+    switch (id) {
+      case 0: {
+        fetch("http://localhost:3001/Auth", {
+          method: "post",
+          body: JSON.stringify({
+            user: this.state.usuario,
+            password: this.state.password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === "OK") {
+              localStorage.setItem("jwtToken", data.token);
+              this.sendNotification("tr", "success", "Autenticacion exitosa", "fa fa-check");
+              this.setState({ redirect: true });
+              // window.location.reload();
+            } else {
+              this.sendNotification("tr", "error", "Error al autenticar", "fa fa-times");
+            }
+          });
+        break;
+      }
+      case 1: {
+        fetch("http://localhost:3001/CreateUser", {
+          method: "post",
+          body: JSON.stringify({
+            identidad: this.state.identidadR,
+            nombre: this.state.nombreR,
+            user: this.state.usuarioR,
+            password: this.state.passwordR,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === "OK") {
+              this.sendNotification("tr", "success", "Usuario creado con exito", "fa fa-check");
+            } else {
+              this.sendNotification("tr", "error", "Error al crear usuario", "fa fa-times");
+            }
+          });
+        break;
+      }
+      default:
+        break;
+    }
   };
 
+  getContext = () => {
+    switch (this.state.context) {
+      case 0: {
+        return (
+          <Form onSubmit={e => this.handleSubmit(e, 0)}>
+            <FormInputs
+              ncols={["col-md-6", "col-md-6"]}
+              properties={[
+                {
+                  label: "Usuario",
+                  type: "text",
+                  bsClass: "form-control",
+                  name: "usuario",
+                  onChange: this.handleChange,
+                  placeholder: "Usuario",
+                  required: true,
+                },
+                {
+                  label: "Contraseña",
+                  type: "password",
+                  bsClass: "form-control",
+                  name: "password",
+                  onChange: this.handleChange,
+                  placeholder: "Password",
+                  required: true,
+                },
+              ]}
+            />
+            <Button bsStyle="info" pullRight fill type="submit">
+              Iniciar Sesión
+            </Button>
+            <p
+              className="authSubtext"
+              onClick={() => {
+                this.setState(state => {
+                  let val = state.context === 1 ? 0 : 1;
+                  return {
+                    context: val,
+                  };
+                });
+              }}>
+              No tengo cuenta
+            </p>
+            <div className="clearfix" />
+          </Form>
+        );
+      }
+      case 1: {
+        return (
+          <Form onSubmit={e => this.handleSubmit(e, 1)}>
+            <FormInputs
+              ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
+              properties={[
+                {
+                  label: "No. de identidad",
+                  type: "text",
+                  bsClass: "form-control",
+                  name: "identidadR",
+                  onChange: this.handleChange,
+                  placeholder: "No. de identidad Del Empleado",
+                  required: true,
+                },
+                {
+                  label: "Nombre",
+                  type: "text",
+                  bsClass: "form-control",
+                  name: "nombreR",
+                  onChange: this.handleChange,
+                  placeholder: "Nombre Del Empleado",
+                  required: true,
+                },
+                {
+                  label: "Usuario",
+                  type: "text",
+                  bsClass: "form-control",
+                  name: "usuarioR",
+                  onChange: this.handleChange,
+                  placeholder: "Usuario",
+                  required: true,
+                },
+                {
+                  label: "Contraseña",
+                  type: "password",
+                  bsClass: "form-control",
+                  name: "passwordR",
+                  onChange: this.handleChange,
+                  placeholder: "Password",
+                  required: true,
+                },
+              ]}
+            />
+            <Button bsStyle="info" pullRight fill type="submit">
+              Crear Cuenta
+            </Button>
+            <p
+              className="authSubtext"
+              onClick={() => {
+                this.setState(state => {
+                  let val = state.context === 1 ? 0 : 1;
+                  return {
+                    context: val,
+                  };
+                });
+              }}>
+              Tengo cuenta
+            </p>
+            <div className="clearfix" />
+          </Form>
+        );
+      }
+
+      default:
+        break;
+    }
+  };
   render() {
     return (
       <div className="content">
         <Grid fluid>
           <NotificationSystem ref="notificationSystem" style={style} />
           {this.state.redirect ? <Redirect to="/admin/inicio" /> : null}
-
           <Row>
             <Col md={12}>
               <Card
-                title="Iniciar sesión"
-                content={
-                  <Form onSubmit={this.handleSubmit}>
-                    <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
-                      properties={[
-                        {
-                          label: "Usuario",
-                          type: "text",
-                          bsClass: "form-control",
-                          name: "usuario",
-                          onChange: this.handleChange,
-                          placeholder: "Usuario",
-                        },
-                        {
-                          label: "Contraseña",
-                          type: "password",
-                          bsClass: "form-control",
-                          name: "password",
-                          onChange: this.handleChange,
-                          placeholder: "Password",
-                        },
-                      ]}
-                    />
-                    <Button bsStyle="info" pullRight fill type="submit">
-                      Iniciar Sesión
-                    </Button>
-                    <div className="clearfix" />
-                  </Form>
-                }
+                title={this.state.context === 0 ? "Iniciar sesión" : "Registrate"}
+                content={this.getContext()}
               />
             </Col>
           </Row>
