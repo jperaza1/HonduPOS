@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
 
 This is a small Point Of Sales (POS) for Honduran market with RTN Clients and CAI receipts.
-made with ♥ , ☕ and some 🍺
+made with ❤ , ☕ and some 🍺
 
 ## Motivation
 
