@@ -202,4 +202,4 @@ app.post("/Auth", async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`App is Alive in port: ${port}`));
+let server = app.listen(port, () => console.log(`App is Alive in port: ${port}`));
