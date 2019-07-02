@@ -16,6 +16,11 @@ class Agregar extends Component {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
   };
 
+  componentWillReceiveProps = props => {
+    if (props.AllCategories.length > 0) {
+      this.setState({ categoriaProducto: props.AllCategories[0].id_categoria });
+    }
+  };
   sendNotification = (position, color, message, icon) => {
     var level = color; // 'success', 'warning', 'error' or 'info'
     this.state._notificationSystem.addNotification({
