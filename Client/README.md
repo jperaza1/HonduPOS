@@ -84,6 +84,48 @@ npm install
 
 This front-end is getting upgrades in my free time if there is a problem please create a bug report in the issues section.
 
+## Commits
+
+Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/commit-message-emoji)
+
+| Commit type              | Emoji                                                     |
+| :----------------------- | :-------------------------------------------------------- |
+| Initial commit           | :tada: `:tada:`                                           |
+| Version tag              | :bookmark: `:bookmark:`                                   |
+| New feature              | :sparkles: `:sparkles:`                                   |
+| Bugfix                   | :bug: `:bug:`                                             |
+| Documenting source code  | :bulb: `:bulb:`                                           |
+| Performance              | :racehorse: `:racehorse:`                                 |
+| Cosmetic                 | :lipstick: `:lipstick:`                                   |
+| General update           | :zap: `:zap:`                                             |
+| Improve format/structure | :art: `:art:`                                             |
+| Refactor code            | :hammer: `:hammer:`                                       |
+| Removing code/files      | :fire: `:fire:`                                           |
+| Security                 | :lock: `:lock:`                                           |
+| Upgrading dependencies   | :arrow_up: `:arrow_up:`                                   |
+| Downgrading dependencies | :arrow_down: `:arrow_down:`                               |
+| Lint                     | :shirt: `:shirt:`                                         |
+| Translation              | :alien: `:alien:`                                         |
+| Text                     | :pencil: `:pencil:`                                       |
+| Critical hotfix          | :ambulance: `:ambulance:`                                 |
+| Deploying stuff          | :rocket: `:rocket:`                                       |
+| Fixing on MacOS          | :apple: `:apple:`                                         |
+| Fixing on Linux          | :penguin: `:penguin:`                                     |
+| Fixing on Windows        | :checkered_flag: `:checkered_flag:`                       |
+| Work in progress         | :construction: `:construction:`                           |
+| Removing a dependency    | :heavy_minus_sign: `:heavy_minus_sign:`                   |
+| Adding a dependency      | :heavy_plus_sign: `:heavy_plus_sign:`                     |
+| Configuration files      | :wrench: `:wrench:`                                       |
+| Package.json in JS       | :package: `:package:`                                     |
+| Merging branches         | :twisted_rightwards_arrows: `:twisted_rightwards_arrows:` |
+| Bad code / need improv.  | :hankey: `:hankey:`                                       |
+| Reverting changes        | :rewind: `:rewind:`                                       |
+| Breaking changes         | :boom: `:boom:`                                           |
+| Code review changes      | :ok_hand: `:ok_hand:`                                     |
+| Accessibility            | :wheelchair: `:wheelchair:`                               |
+| Move/rename repository   | :truck: `:truck:`                                         |
+| Other                    | [Be creative](http://www.emoji-cheat-sheet.com/)          |
+
 ## License
 
 - Copyright 2018 [Creative Tim](https://www.creative-tim.com?ref=lbdr-readme)
