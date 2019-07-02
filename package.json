@@ -24,8 +24,8 @@
       "icon": "assets/Icons/win-icon.ico"
     },
     "files": [
-      "build/**/*",
       "main.js",
+      "node_modules/**/*",
       {
         "from": "./Server/",
         "to": "Server/",
@@ -41,7 +41,10 @@
         "from": "./Server/node_modules",
         "to": "Server/node_modules"
       },
-      "node_modules/**/*"
+      {
+        "from": "./Client/build",
+        "to": "./build"
+      }
     ]
   },
   "scripts": {
