@@ -49,8 +49,7 @@
   },
   "scripts": {
     "client": "cd Client && npm start",
-    "server": "cd Server && npm start",
-    "start": "concurrently -k \"npm run client\" \"npm run server\"",
+    "start": "concurrently \"npm run client \" \"wait-on http://localhost:3000 && electron .\"",
     "package-win": "build -w",
     "package-lin": "build -l",
     "package-mac": "build -m"
@@ -59,9 +58,11 @@
   "devDependencies": {
     "concurrently": "^3.6.1",
     "electron": "^5.0.6",
-    "electron-builder": "^20.44.4"
+    "electron-builder": "^20.44.4",
+    "wait-on": "^3.2.0"
   },
   "dependencies": {
+    "electron-is-dev": "^1.1.0",
     "electron-serve": "^0.3.0"
   }
 }
