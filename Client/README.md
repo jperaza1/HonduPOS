@@ -1,4 +1,4 @@
-# Front-end
+# Front-end made with ❤, ☕ and some 🍺
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
 
