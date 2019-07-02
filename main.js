@@ -1,9 +1,12 @@
 const { app, BrowserWindow } = require("electron");
-require("./Server/index.js");
+const createServer = require("./Server/index.js").createServer;
 let win;
+const path = require("path");
 const serve = require("electron-serve");
+const isDev = require("electron-is-dev");
 const loadURL = serve({ directory: "./build" });
 
+createServer(isDev);
 async function createWindow() {
   await app.whenReady();
   mainWindow = new BrowserWindow({
@@ -17,7 +20,11 @@ async function createWindow() {
     }
   });
   mainWindow.maximize();
-  await loadURL(mainWindow);
+  if (isDev) {
+    mainWindow.loadURL("http://localhost:3000/");
+  } else {
+    await loadURL(mainWindow);
+  }
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
