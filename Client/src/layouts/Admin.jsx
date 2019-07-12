@@ -68,7 +68,7 @@ class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: "blue",
+      color: "red",
       hasImage: false,
       fixedClasses: "dropdown show-dropdown open",
     };
