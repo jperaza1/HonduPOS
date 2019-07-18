@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { Grid } from "react-bootstrap";
+import { Grid, Tabs, Tab } from "react-bootstrap";
 import Agregar from "components/Inventario/Agregar.jsx";
 import Listar from "components/Inventario/Listar.jsx";
 import Eliminar from "components/Inventario/Eliminar.jsx";
-
+const styles = {
+  tab: {
+    backgroundColor: "white",
+    margin: 2,
+  },
+};
 class Inventario extends Component {
   constructor(props) {
     super(props);
@@ -26,20 +31,26 @@ class Inventario extends Component {
   render() {
     return (
       <div className="content">
-        <Grid fluid>
-          <Agregar update={this.getData} AllCategories={this.state.AllCategories} />
-          <Listar
-            AllProducts={this.state.AllProducts}
-            AllCategories={this.state.AllCategories}
-            AllPayments={this.state.AllPayments}
-          />
-          <Eliminar
-            update={this.getData}
-            AllProducts={this.state.AllProducts}
-            AllCategories={this.state.AllCategories}
-            AllPayments={this.state.AllPayments}
-          />
-        </Grid>
+        <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+          <Tab style={styles.tab} eventKey={1} title="Agregar">
+            <Agregar update={this.getData} AllCategories={this.state.AllCategories} />
+          </Tab>
+          <Tab style={styles.tab} eventKey={2} title="Listar">
+            <Listar
+              AllProducts={this.state.AllProducts}
+              AllCategories={this.state.AllCategories}
+              AllPayments={this.state.AllPayments}
+            />
+          </Tab>
+          <Tab style={styles.tab} eventKey={3} title="Eliminar">
+            <Eliminar
+              update={this.getData}
+              AllProducts={this.state.AllProducts}
+              AllCategories={this.state.AllCategories}
+              AllPayments={this.state.AllPayments}
+            />
+          </Tab>
+        </Tabs>
       </div>
     );
   }

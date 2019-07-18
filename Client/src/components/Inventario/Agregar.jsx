@@ -48,7 +48,6 @@ class Agregar extends Component {
           body: JSON.stringify({
             nombre: this.state.nombreProducto,
             precio: this.state.precioProducto,
-            stock: this.state.cantidadProducto,
             id_categoria: this.state.categoriaProducto,
           }),
         })
@@ -133,7 +132,7 @@ class Agregar extends Component {
                   this.handleSubmit(e, 0);
                 }}>
                 <FormInputs
-                  ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
+                  ncols={["col-md-4", "col-md-4", "col-md-4"]}
                   properties={[
                     {
                       componentClass: "select",
@@ -162,15 +161,6 @@ class Agregar extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Precio de producto",
-                    },
-                    {
-                      label: "Cantidad",
-                      name: "cantidadProducto",
-                      type: "number",
-                      min: 1,
-                      bsClass: "form-control",
-                      onChange: this.handleChange,
-                      placeholder: "Cantidad de producto",
                     },
                   ]}
                 />

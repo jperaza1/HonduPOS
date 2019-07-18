@@ -126,6 +126,7 @@ class Eliminar extends Component {
       default:
         break;
     }
+    this.props.update();
   };
 
   render() {
