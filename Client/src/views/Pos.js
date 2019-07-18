@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Grid, Table, FormControl, InputGroup } from "react-bootstrap";
+import { Row, Col, Grid, Table, FormControl, InputGroup, Modal } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
@@ -16,6 +16,9 @@ class Pos extends Component {
       subtotal: 0,
       isv: 0,
       total: 0,
+      show: false,
+      addClientShow: false,
+      modalFlow: 0,
     };
   }
 
@@ -62,10 +65,89 @@ class Pos extends Component {
       this.setState({ filteredproducts: products });
     }
   };
+  handlePurchase = () => {
+    this.setState({ show: true });
+  };
+  getState = () => {
+    switch (this.state.modalFlow) {
+      case 0: {
+        return (
+          <div>
+            <Modal.Header closeButton>
+              <Modal.Title>Confirmar Compra</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Grid fluid>
+                <p>Se puede continuar con esta compra?</p>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    this.setState({ modalFlow: 1 });
+                  }}
+                  fill
+                  pullLeft>
+                  Confirmar
+                </Button>
+                <Button
+                  bsStyle="danger"
+                  onClick={() => {
+                    this.setState({ show: false });
+                  }}
+                  fill
+                  pullRight>
+                  Cancelar
+                </Button>
+              </Grid>
+            </Modal.Body>
+          </div>
+        );
+      }
+      case 1: {
+        return (
+          <div>
+            <Modal.Header closeButton>
+              <Modal.Title>Informacion del pago</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Grid fluid>
+                <p>Se puede continuar con esta compra?</p>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    this.setState({ show2: true });
+                  }}
+                  fill
+                  pullRight>
+                  <i className="fa fa-plus" />
+                  Agregar cliente
+                </Button>
+              </Grid>
+            </Modal.Body>
+          </div>
+        );
+      }
+      default:
+        break;
+    }
+  };
   render() {
     return (
       <div className="content">
         <Grid fluid>
+          <Modal
+            show={this.state.show}
+            onHide={() => {
+              this.setState({ show: false });
+            }}>
+            {this.getState()}
+          </Modal>
+          <Modal
+            show={this.state.addClientShow}
+            onHide={() => {
+              this.setState({ addClientShow: false });
+            }}>
+            {this.getState()}
+          </Modal>
           <Row>
             <Col md={12}>
               <Card
@@ -139,7 +221,12 @@ class Pos extends Component {
                         </Row>
                       </div>
                     </Col>
-                    <Button bsStyle="primary" pullRight fill type="submit">
+                    <Button
+                      bsStyle="primary"
+                      onClick={this.handlePurchase}
+                      pullRight
+                      fill
+                      type="submit">
                       Procesar compra
                     </Button>
                     <div className="clearfix" />

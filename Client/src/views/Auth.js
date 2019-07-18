@@ -139,7 +139,7 @@ class Auth extends Component {
         return (
           <Form onSubmit={e => this.handleSubmit(e, 1)}>
             <FormInputs
-              ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
+              ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
               properties={[
                 {
                   label: "No. de identidad",
@@ -175,6 +175,15 @@ class Auth extends Component {
                   name: "nombreR",
                   onChange: this.handleChange,
                   placeholder: "Nombre Del Empleado",
+                  required: true,
+                },
+                {
+                  label: "Apellido",
+                  type: "text",
+                  bsClass: "form-control",
+                  name: "apellidoR",
+                  onChange: this.handleChange,
+                  placeholder: "Apellido Del Empleado",
                   required: true,
                 },
                 {

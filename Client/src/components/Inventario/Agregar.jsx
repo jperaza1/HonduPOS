@@ -33,7 +33,11 @@ class Agregar extends Component {
   };
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    if ([e.target.name] === "fotoProducto") {
+      this.setState({ [e.target.name]: this.getBase64FromImageUrl(e.target.value) });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   handleSubmit = (e, id) => {
@@ -118,7 +122,26 @@ class Agregar extends Component {
     }
     this.props.update();
   };
+  getBase64FromImageUrl = url => {
+    var img = new Image();
 
+    img.setAttribute("crossOrigin", "anonymous");
+
+    img.onload = function() {
+      var canvas = document.createElement("canvas");
+      canvas.width = this.width;
+      canvas.height = this.height;
+
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(this, 0, 0);
+
+      var dataURL = canvas.toDataURL("image/png");
+
+      alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+    };
+
+    img.src = url;
+  };
   render() {
     return (
       <Row>
@@ -132,7 +155,7 @@ class Agregar extends Component {
                   this.handleSubmit(e, 0);
                 }}>
                 <FormInputs
-                  ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                  ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
                   properties={[
                     {
                       componentClass: "select",
@@ -158,6 +181,14 @@ class Agregar extends Component {
                       name: "precioProducto",
                       type: "number",
                       min: 0,
+                      bsClass: "form-control",
+                      onChange: this.handleChange,
+                      placeholder: "Precio de producto",
+                    },
+                    {
+                      label: "Foto",
+                      name: "fotoProducto",
+                      type: "file",
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Precio de producto",
