@@ -51,7 +51,6 @@
     "client": "cd Client && npm start",
     "server": "cd Server && npm start",
     "start": "concurrently \"npm run client \" \"wait-on http://localhost:3000 && electron .\"",
-    "dev": "concurrently \"npm run client \" \"npm run server\"",
     "package-win": "build -w",
     "package-lin": "build -l",
     "package-mac": "build -m"
