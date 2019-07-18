@@ -16,9 +16,9 @@ class Pos extends Component {
       subtotal: 0,
       isv: 0,
       total: 0,
-      show: false,
-      addClientShow: false,
-      modalFlow: 0,
+      flow: 0,
+      cardTitle: "",
+      selectedItem: undefined,
     };
   }
 
@@ -66,64 +66,130 @@ class Pos extends Component {
     }
   };
   handlePurchase = () => {
-    this.setState({ show: true });
+    this.setState({ flow: 1, cardTitle: "Cliente" });
   };
   getState = () => {
-    switch (this.state.modalFlow) {
+    switch (this.state.flow) {
       case 0: {
         return (
-          <div>
-            <Modal.Header closeButton>
-              <Modal.Title>Confirmar Compra</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Grid fluid>
-                <p>Se puede continuar con esta compra?</p>
-                <Button
-                  bsStyle="success"
-                  onClick={() => {
-                    this.setState({ modalFlow: 1 });
-                  }}
-                  fill
-                  pullLeft>
-                  Confirmar
+          <Row>
+            <Col md={6} className="calculatorContainer">
+              <div className="items">
+                <Table striped hover>
+                  <thead>
+                    {this.state.products.length > 0 ? (
+                      <tr>
+                        {Object.keys({ ...this.state.products[0], cant: 1 }).map((prop, key) => {
+                          if (prop !== "id_categoria" && prop !== "stock" && prop !== "id_producto")
+                            return <th key={key}>{prop.replace("_", " ")}</th>;
+                          return null;
+                        })}
+                      </tr>
+                    ) : null}
+                  </thead>
+                  <tbody>
+                    {this.state.readyproducts.map((prop, key) => {
+                      return (
+                        <tr key={key}>
+                          {Object.keys(prop).map((props, keys) => {
+                            if (
+                              props !== "id_categoria" &&
+                              props !== "stock" &&
+                              props !== "id_producto"
+                            ) {
+                              return (
+                                <td
+                                  onClick={() => {
+                                    this.setState({ selectedItem: key });
+                                  }}
+                                  key={keys}>
+                                  {prop[props]}
+                                </td>
+                              );
+                            }
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </div>
+              <div className="powerButtons">
+                <Button bsStyle="success" fill>
+                  <i className="fa fa-search" />1
                 </Button>
-                <Button
-                  bsStyle="danger"
-                  onClick={() => {
-                    this.setState({ show: false });
-                  }}
-                  fill
-                  pullRight>
-                  Cancelar
+                <Button bsStyle="success" fill>
+                  <i className="fa fa-search" />2
                 </Button>
-              </Grid>
-            </Modal.Body>
-          </div>
+                <Button bsStyle="success" fill>
+                  <i className="fa fa-search" />3
+                </Button>
+              </div>
+              <div className="dinero">
+                <p>Subtotal: {this.state.subtotal}</p>
+                <p> ISV: {this.state.isv}</p>
+                <p>Total: {this.state.total}</p>
+              </div>
+            </Col>
+            <Col md={6} className="productsContainer">
+              <Row>
+                <InputGroup className="searchInput">
+                  <FormControl
+                    type="text"
+                    onChange={e => {
+                      this.searchProduct(e.target.value);
+                    }}
+                    placeholder="Busqueda por nombre"
+                  />
+                  <InputGroup.Addon>
+                    <i className="fa fa-search" />
+                  </InputGroup.Addon>
+                </InputGroup>
+              </Row>
+              <div className="products">
+                <Row>
+                  {this.state.filteredproducts.map(prod => {
+                    return (
+                      <Product
+                        onClick={async () => {
+                          await this.setState({
+                            listproducts: [...this.state.listproducts, prod],
+                          });
+                          this.prepareProducts(this.state.listproducts);
+                        }}
+                        prod={prod}
+                      />
+                    );
+                  })}
+                </Row>
+              </div>
+            </Col>
+            <Button bsStyle="primary" onClick={this.handlePurchase} pullRight fill type="submit">
+              Procesar compra
+            </Button>
+            <div className="clearfix" />
+          </Row>
         );
       }
       case 1: {
         return (
-          <div>
-            <Modal.Header closeButton>
-              <Modal.Title>Informacion del pago</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Grid fluid>
-                <p>Se puede continuar con esta compra?</p>
-                <Button
-                  bsStyle="success"
-                  onClick={() => {
-                    this.setState({ show2: true });
-                  }}
-                  fill
-                  pullRight>
-                  <i className="fa fa-plus" />
-                  Agregar cliente
-                </Button>
-              </Grid>
-            </Modal.Body>
-          </div>
+          <Row>
+            <p>Informacion del pago</p>
+            <Grid fluid>
+              <p>Se puede continuar con esta compra?</p>
+              <Button
+                bsStyle="success"
+                onClick={() => {
+                  this.setState({ show2: true });
+                }}
+                fill
+                pullRight>
+                <i className="fa fa-plus" />
+                Agregar cliente
+              </Button>
+            </Grid>
+            <div className="clearfix" />
+          </Row>
         );
       }
       default:
@@ -134,105 +200,9 @@ class Pos extends Component {
     return (
       <div className="content">
         <Grid fluid>
-          <Modal
-            show={this.state.show}
-            onHide={() => {
-              this.setState({ show: false });
-            }}>
-            {this.getState()}
-          </Modal>
-          <Modal
-            show={this.state.addClientShow}
-            onHide={() => {
-              this.setState({ addClientShow: false });
-            }}>
-            {this.getState()}
-          </Modal>
           <Row>
             <Col md={12}>
-              <Card
-                content={
-                  <Row>
-                    <Col md={6} className="calculatorContainer">
-                      <div className="items">
-                        <Table striped hover>
-                          <thead>
-                            {this.state.products.length > 0 ? (
-                              <tr>
-                                {Object.keys({ ...this.state.products[0], cant: 1 }).map(
-                                  (prop, key) => {
-                                    if (prop !== "id_categoria" && prop !== "stock")
-                                      return <th key={key}>{prop.replace("_", " ")}</th>;
-                                    return null;
-                                  }
-                                )}
-                              </tr>
-                            ) : null}
-                          </thead>
-                          <tbody>
-                            {this.state.readyproducts.map((prop, key) => {
-                              return (
-                                <tr key={key}>
-                                  {Object.keys(prop).map((props, keys) => {
-                                    return <td key={keys}>{prop[props]}</td>;
-                                  })}
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </Table>
-                      </div>
-                      <div className="dinero">
-                        <p>Subtotal: {this.state.subtotal}</p>
-                        <p> ISV: {this.state.isv}</p>
-                        <p>Total: {this.state.total}</p>
-                      </div>
-                    </Col>
-                    <Col md={6} className="productsContainer">
-                      <Row>
-                        <InputGroup className="searchInput">
-                          <FormControl
-                            type="text"
-                            onChange={e => {
-                              this.searchProduct(e.target.value);
-                            }}
-                            placeholder="Busqueda por nombre"
-                          />
-                          <InputGroup.Addon>
-                            <i className="fa fa-search" />
-                          </InputGroup.Addon>
-                        </InputGroup>
-                      </Row>
-                      <div className="products">
-                        <Row>
-                          {this.state.filteredproducts.map(prod => {
-                            return (
-                              <Product
-                                onClick={async () => {
-                                  await this.setState({
-                                    listproducts: [...this.state.listproducts, prod],
-                                  });
-                                  this.prepareProducts(this.state.listproducts);
-                                }}
-                                prod={prod}
-                              />
-                            );
-                          })}
-                        </Row>
-                      </div>
-                    </Col>
-                    <Button
-                      bsStyle="primary"
-                      onClick={this.handlePurchase}
-                      pullRight
-                      fill
-                      type="submit">
-                      Procesar compra
-                    </Button>
-                    <div className="clearfix" />
-                  </Row>
-                }
-              />
+              <Card title={this.state.cardTitle} content={this.getState()} />
             </Col>
           </Row>
         </Grid>

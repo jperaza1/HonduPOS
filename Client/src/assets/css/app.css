@@ -52,3 +52,10 @@
   color: lightgray;
   cursor: pointer;
 }
+.powerButtons {
+  width: 100%;
+}
+
+.powerButtons > button {
+  width: calc(100% / 3);
+}
