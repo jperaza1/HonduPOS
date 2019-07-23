@@ -52,6 +52,7 @@ class Agregar extends Component {
           body: JSON.stringify({
             nombre: this.state.nombreProducto,
             precio: this.state.precioProducto,
+            photo: this.state.photo,
             id_categoria: this.state.categoriaProducto,
           }),
         })
@@ -190,12 +191,19 @@ class Agregar extends Component {
                       name: "fotoProducto",
                       type: "file",
                       bsClass: "form-control",
-                      onChange: this.handleChange,
+                      onChange: e => {
+                        let files = e.target.files;
+                        let reader = new FileReader();
+                        reader.readAsDataURL(files[0]);
+                        reader.onload = e => {
+                          this.setState({ photo: e.target.result });
+                        };
+                      },
                       placeholder: "Precio de producto",
                     },
                   ]}
                 />
-                <Button bsStyle="info" pullRight fill type="submit">
+                <Button bsStyle="success" pullRight fill type="submit">
                   Crear
                 </Button>
                 <div className="clearfix" />
@@ -230,7 +238,7 @@ class Agregar extends Component {
                     },
                   ]}
                 />
-                <Button bsStyle="info" pullRight fill type="submit">
+                <Button bsStyle="success" pullRight fill type="submit">
                   Crear
                 </Button>
                 <div className="clearfix" />
@@ -265,7 +273,7 @@ class Agregar extends Component {
                     },
                   ]}
                 />
-                <Button bsStyle="info" pullRight fill type="submit">
+                <Button bsStyle="success" pullRight fill type="submit">
                   Crear
                 </Button>
                 <div className="clearfix" />

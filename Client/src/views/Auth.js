@@ -66,6 +66,7 @@ class Auth extends Component {
           body: JSON.stringify({
             identidad: this.state.identidadR,
             nombre: this.state.nombreR,
+            apellido: this.state.apellidoR,
             user: this.state.usuarioR,
             password: this.state.passwordR,
           }),

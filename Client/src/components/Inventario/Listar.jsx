@@ -38,6 +38,7 @@ class Listar extends Component {
                           if (props !== "id_producto" && props !== "id_categoria") {
                             return <td key={keys}>{prop[props]}</td>;
                           }
+                          return null;
                         })}
                       </tr>
                     );
@@ -59,6 +60,7 @@ class Listar extends Component {
                         if (prop !== "id_categoria") {
                           return <th key={key}>{prop.replace("_", " ")}</th>;
                         }
+                        return null;
                       })}
                     </tr>
                   ) : null}
@@ -71,6 +73,7 @@ class Listar extends Component {
                           if (props !== "id_categoria") {
                             return <td key={keys}>{prop[props]}</td>;
                           }
+                          return null;
                         })}
                       </tr>
                     );
@@ -92,6 +95,7 @@ class Listar extends Component {
                         if (prop !== "num_pago") {
                           return <th key={key}>{prop.replace("_", " ")}</th>;
                         }
+                        return null;
                       })}
                     </tr>
                   ) : null}
@@ -104,6 +108,7 @@ class Listar extends Component {
                           if (props !== "num_pago") {
                             return <td key={keys}>{prop[props]}</td>;
                           }
+                          return null;
                         })}
                       </tr>
                     );

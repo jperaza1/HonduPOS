@@ -157,7 +157,7 @@ class Eliminar extends Component {
                     },
                   ]}
                 />
-                <Button bsStyle="info" pullRight fill type="submit">
+                <Button bsStyle="success" pullRight fill type="submit">
                   Eliminar
                 </Button>
                 <div className="clearfix" />
@@ -187,7 +187,7 @@ class Eliminar extends Component {
                     },
                   ]}
                 />
-                <Button bsStyle="info" pullRight fill type="submit">
+                <Button bsStyle="success" pullRight fill type="submit">
                   Eliminar
                 </Button>
                 <div className="clearfix" />
@@ -217,7 +217,7 @@ class Eliminar extends Component {
                     },
                   ]}
                 />
-                <Button bsStyle="info" pullRight fill type="submit">
+                <Button bsStyle="success" pullRight fill type="submit">
                   Eliminar
                 </Button>
                 <div className="clearfix" />

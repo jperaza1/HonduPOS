@@ -3,6 +3,7 @@ import { Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 class Product extends Component {
   render() {
+    console.log(this.props.prod);
     return (
       <Col md={4}>
         <Card
@@ -12,7 +13,7 @@ class Product extends Component {
           content={
             <img
               className="productImage"
-              src={"https://robohash.org/" + this.props.prod.id_producto}
+              src={this.props.prod.image}
               alt={this.props.prod.nombre}
             />
           }

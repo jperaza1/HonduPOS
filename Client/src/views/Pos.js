@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Grid, Table, FormControl, InputGroup, Modal } from "react-bootstrap";
+import { Row, Col, Grid, Table, FormControl, InputGroup } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
@@ -42,12 +42,12 @@ class Pos extends Component {
         prod.cant = lista.filter(p => p === prod).length;
         readyproducts.push(prod);
       }
-      return 0;
+      return null;
     });
     let subtotal = 0;
     readyproducts.map(prod => {
       subtotal += prod.precio * prod.cant;
-      return 0;
+      return null;
     });
     subtotal = subtotal.toFixed(2);
     let isv = subtotal * ISV;
@@ -107,6 +107,7 @@ class Pos extends Component {
                                 </td>
                               );
                             }
+                            return null;
                           })}
                         </tr>
                       );
