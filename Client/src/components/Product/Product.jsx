@@ -3,7 +3,7 @@ import { Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 class Product extends Component {
   render() {
-    console.log(this.props.prod.id);
+    console.log(this.props.prod.id_producto);
     return (
       <Col md={4}>
         <Card
