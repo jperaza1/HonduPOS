@@ -54,8 +54,13 @@
 }
 .powerButtons {
   width: 100%;
+  padding: 5px;
 }
 
 .powerButtons > button {
   width: calc(100% / 3);
+}
+
+.activeRow {
+  background-color: #dff3bf;
 }

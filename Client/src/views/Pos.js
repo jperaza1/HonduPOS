@@ -80,7 +80,12 @@ class Pos extends Component {
                     {this.state.products.length > 0 ? (
                       <tr>
                         {Object.keys({ ...this.state.products[0], cant: 1 }).map((prop, key) => {
-                          if (prop !== "id_categoria" && prop !== "stock" && prop !== "id_producto")
+                          if (
+                            prop !== "id_categoria" &&
+                            prop !== "stock" &&
+                            prop !== "id_producto" &&
+                            prop !== "image"
+                          )
                             return <th key={key}>{prop.replace("_", " ")}</th>;
                           return null;
                         })}
@@ -95,10 +100,12 @@ class Pos extends Component {
                             if (
                               props !== "id_categoria" &&
                               props !== "stock" &&
+                              props !== "image" &&
                               props !== "id_producto"
                             ) {
                               return (
                                 <td
+                                  className={this.state.selectedItem === key ? "activeRow" : ""}
                                   onClick={() => {
                                     this.setState({ selectedItem: key });
                                   }}
@@ -116,14 +123,17 @@ class Pos extends Component {
                 </Table>
               </div>
               <div className="powerButtons">
-                <Button bsStyle="success" fill>
-                  <i className="fa fa-search" />1
+                <Button bsStyle="success" fill style={{ flex: 1 }}>
+                  <i className="fa fa-money" />
+                  Precio
                 </Button>
                 <Button bsStyle="success" fill>
-                  <i className="fa fa-search" />2
+                  <i className="fa fa-percent" />
+                  Descuento
                 </Button>
                 <Button bsStyle="success" fill>
-                  <i className="fa fa-search" />3
+                  <i className="fa fa-list" />
+                  Cantidad
                 </Button>
               </div>
               <div className="dinero">
@@ -165,7 +175,13 @@ class Pos extends Component {
                 </Row>
               </div>
             </Col>
-            <Button bsStyle="primary" onClick={this.handlePurchase} pullRight fill type="submit">
+            <Button
+              bsStyle="primary"
+              style={{ marginRight: 5 }}
+              onClick={this.handlePurchase}
+              pullRight
+              fill
+              type="submit">
               Procesar compra
             </Button>
             <div className="clearfix" />
