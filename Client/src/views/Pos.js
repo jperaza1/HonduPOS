@@ -50,9 +50,6 @@ class Pos extends Component {
         prod.cant = 1;
       }
       if (!readyproducts.includes(prod)) {
-        delete prod.id_categoria;
-        delete prod.stock;
-        prod.cant = lista.filter(p => p === prod).length;
         readyproducts.push(prod);
       }
       return null;
@@ -97,7 +94,8 @@ class Pos extends Component {
                             prop !== "id_categoria" &&
                             prop !== "stock" &&
                             prop !== "id_producto" &&
-                            prop !== "image"
+                            prop !== "image" &&
+                            prop !== "descuento"
                           )
                             return <th key={key}>{prop.replace("_", " ")}</th>;
                           return null;
@@ -114,7 +112,8 @@ class Pos extends Component {
                               props !== "id_categoria" &&
                               props !== "stock" &&
                               props !== "image" &&
-                              props !== "id_producto"
+                              props !== "id_producto" &&
+                              props !== "descuento"
                             ) {
                               return (
                                 <td
@@ -129,6 +128,22 @@ class Pos extends Component {
                             }
                             return null;
                           })}
+                          <td className={this.state.selectedItem === key ? "activeRow" : ""}>
+                            <i
+                              onClick={() => {
+                                let listproducts = this.state.listproducts;
+                                listproducts.splice(key, 1);
+                                let selectedItem = this.state.selectedItem;
+                                if (selectedItem === key) {
+                                  selectedItem = -1;
+                                }
+                                this.setState({ listproducts, selectedItem });
+                                this.prepareProducts(listproducts);
+                              }}
+                              className="fa fa-trash"
+                              style={{ color: "red" }}
+                            />
+                          </td>
                         </tr>
                       );
                     })}
@@ -192,8 +207,16 @@ class Pos extends Component {
                     return (
                       <Product
                         onClick={async () => {
+                          let listproducts = this.state.listproducts;
+                          if (listproducts.includes(prod)) {
+                            listproducts[listproducts.indexOf(prod)].cant =
+                              listproducts[listproducts.indexOf(prod)].cant + 1;
+                          } else {
+                            prod.cant = 1;
+                            listproducts.push(prod);
+                          }
                           await this.setState({
-                            listproducts: [...this.state.listproducts, prod],
+                            listproducts,
                           });
                           this.prepareProducts(this.state.listproducts);
                         }}
@@ -290,7 +313,7 @@ class Pos extends Component {
                   onChange={e => {
                     nuevoPrecio = parseInt(e.target.value);
                   }}
-                  defaultValue={this.state.filteredproducts[this.state.selectedItem].precio}
+                  defaultValue={this.state.listproducts[this.state.selectedItem].precio}
                   placeholder="100.00"
                 />
                 <InputGroup.Addon>
@@ -310,9 +333,10 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  let filteredproducts = this.state.filteredproducts;
-                  filteredproducts[this.state.selectedItem].precio = nuevoPrecio;
-                  this.setState({ filteredproducts, showModal: false });
+                  let listproducts = this.state.listproducts;
+                  listproducts[this.state.selectedItem].precio = nuevoPrecio;
+                  this.setState({ listproducts, showModal: false });
+                  this.prepareProducts(this.state.listproducts);
                 }}
                 fill>
                 OK
@@ -355,9 +379,10 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  let filteredproducts = this.state.filteredproducts;
-                  filteredproducts[this.state.selectedItem].descuento = descuento;
-                  this.setState({ filteredproducts, showModal: false });
+                  let listproducts = this.state.listproducts;
+                  listproducts[this.state.selectedItem].descuento = descuento;
+                  this.setState({ listproducts, showModal: false });
+                  this.prepareProducts(this.state.listproducts);
                 }}
                 fill>
                 OK
@@ -377,7 +402,7 @@ class Pos extends Component {
                 <FormControl
                   type="text"
                   pattern="[0-9]s"
-                  defaultValue={this.state.filteredproducts[this.state.selectedItem].cant}
+                  defaultValue={this.state.listproducts[this.state.selectedItem].cant}
                   onChange={e => {
                     nuevaCant = parseInt(e.target.value);
                   }}
@@ -400,9 +425,10 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  let filteredproducts = this.state.filteredproducts;
-                  filteredproducts[this.state.selectedItem].cant = nuevaCant;
-                  this.setState({ filteredproducts, showModal: false });
+                  let listproducts = this.state.listproducts;
+                  listproducts[this.state.selectedItem].cant = nuevaCant;
+                  this.setState({ listproducts, showModal: false });
+                  this.prepareProducts(this.state.listproducts);
                 }}
                 fill>
                 OK
