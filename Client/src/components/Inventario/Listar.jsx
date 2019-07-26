@@ -21,7 +21,7 @@ class Listar extends Component {
                   {this.props.AllProducts.length > 0 ? (
                     <tr>
                       {Object.keys(this.props.AllProducts[0]).map((prop, key) => {
-                        if (prop !== "id_producto" && prop !== "id_categoria") {
+                        if (prop !== "id_producto" && prop !== "id_categoria" && prop !== "image") {
                           console.log(prop);
                           return <th key={key}>{prop.replace("_", " ")}</th>;
                         }
@@ -35,7 +35,11 @@ class Listar extends Component {
                     return (
                       <tr key={key}>
                         {Object.keys(prop).map((props, keys) => {
-                          if (props !== "id_producto" && props !== "id_categoria") {
+                          if (
+                            props !== "id_producto" &&
+                            props !== "id_categoria" &&
+                            props !== "image"
+                          ) {
                             return <td key={keys}>{prop[props]}</td>;
                           }
                           return null;

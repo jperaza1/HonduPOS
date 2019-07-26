@@ -76,3 +76,34 @@
 #dialogFlex {
   display: flex !important;
 }
+.paymentButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border: 1px black solid;
+  border-radius: 5px;
+  color: black;
+}
+.paymentButtons:hover {
+  background-color: rgba(203, 203, 210, 0.2);
+  color: black;
+}
+
+.tablePayments {
+  overflow-y: scroll;
+  height: 70vh !important;
+}
+#dueMoney {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+  border: 1px black solid !important;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: large;
+}
