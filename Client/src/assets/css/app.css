@@ -107,3 +107,13 @@
   font-weight: bold;
   font-size: large;
 }
+
+.Cliente {
+  background-color: lightgray;
+  height: 10vh;
+  width: 10vw;
+  font-size: x-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

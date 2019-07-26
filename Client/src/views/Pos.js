@@ -307,6 +307,7 @@ class Pos extends Component {
                                 type="text"
                                 name={pay.nombre + key}
                                 key={key}
+                                defaultValue={pay.pago}
                                 onChange={async e => {
                                   let listpayments = this.state.listpayments;
                                   let valor = e.target.value;
@@ -373,9 +374,13 @@ class Pos extends Component {
                 bsStyle="success"
                 onClick={() => {
                   if (this.state.total - restaTotal <= 0) {
-                    this.setState({ flow: 2 });
+                    this.setState({ flow: 2, cardTitle: "Cliente" });
                   } else {
-                    this.setState({ errorModal: true, showModal: true, modalContext: 5 });
+                    this.setState({
+                      errorModal: true,
+                      showModal: true,
+                      modalContext: 5,
+                    });
                   }
                 }}
                 fill
