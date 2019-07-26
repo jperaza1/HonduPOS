@@ -1,7 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const createServer = require("./Server/index.js").createServer;
 let win;
-const path = require("path");
 const serve = require("electron-serve");
 const isDev = require("electron-is-dev");
 const loadURL = serve({ directory: "./build" });

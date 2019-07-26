@@ -359,6 +359,9 @@ class Pos extends Component {
                       </div>
                     </tbody>
                   </Table>
+                  <Button className="Cliente">
+                    <i style={{ fontSize: 64 }} className="fa fa-user-plus" />
+                  </Button>
                 </Col>
               </Row>
               <Button
