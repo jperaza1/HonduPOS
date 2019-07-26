@@ -64,3 +64,15 @@
 .activeRow {
   background-color: #dff3bf;
 }
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  width: 25vw !important;
+}
+#dialogFlex {
+  display: flex !important;
+}

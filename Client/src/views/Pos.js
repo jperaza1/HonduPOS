@@ -1,5 +1,16 @@
 import React, { Component } from "react";
-import { Row, Col, Grid, Table, FormControl, InputGroup } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Grid,
+  Table,
+  FormControl,
+  InputGroup,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+} from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
@@ -19,6 +30,8 @@ class Pos extends Component {
       flow: 0,
       cardTitle: "",
       selectedItem: undefined,
+      showModal: false,
+      modalContext: -1,
     };
   }
 
@@ -123,15 +136,31 @@ class Pos extends Component {
                 </Table>
               </div>
               <div className="powerButtons">
-                <Button bsStyle="success" fill style={{ flex: 1 }}>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    this.setState({ showModal: true, modalContext: 0 });
+                  }}
+                  fill
+                  style={{ flex: 1 }}>
                   <i className="fa fa-money" />
                   Precio
                 </Button>
-                <Button bsStyle="success" fill>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    this.setState({ showModal: true, modalContext: 1 });
+                  }}
+                  fill>
                   <i className="fa fa-percent" />
                   Descuento
                 </Button>
-                <Button bsStyle="success" fill>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    this.setState({ showModal: true, modalContext: 2 });
+                  }}
+                  fill>
                   <i className="fa fa-list" />
                   Cantidad
                 </Button>
@@ -195,9 +224,19 @@ class Pos extends Component {
             <Grid fluid>
               <p>Se puede continuar con esta compra?</p>
               <Button
+                bsStyle="danger"
+                onClick={() => {
+                  this.setState({ flow: 0 });
+                }}
+                fill
+                pullLeft>
+                <i className="fa fa-arrow-left" />
+                Regresar
+              </Button>
+              <Button
                 bsStyle="success"
                 onClick={() => {
-                  this.setState({ show2: true });
+                  this.setState({ showModal: true, modalContext: 3 });
                 }}
                 fill
                 pullRight>
@@ -213,12 +252,206 @@ class Pos extends Component {
         break;
     }
   };
+  getModalContext = () => {
+    if (this.state.selectedItem === undefined) {
+      return (
+        <Modal id="dialogFlex" show={this.state.showModal}>
+          <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
+            Error
+          </ModalHeader>
+          <ModalBody>
+            <p>Por favor seleccione un elemento</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              onClick={() => {
+                this.setState({ showModal: false });
+              }}
+              bsStyle="success"
+              fill>
+              OK
+            </Button>
+          </ModalFooter>
+        </Modal>
+      );
+    }
+    switch (this.state.modalContext) {
+      case 0:
+        let nuevoPrecio = -1;
+        return (
+          <Modal id="dialogFlex" show={this.state.showModal}>
+            <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
+              Precio
+            </ModalHeader>
+            <ModalBody>
+              <InputGroup>
+                <FormControl
+                  type="text"
+                  onChange={e => {
+                    nuevoPrecio = parseInt(e.target.value);
+                  }}
+                  defaultValue={this.state.filteredproducts[this.state.selectedItem].precio}
+                  placeholder="100.00"
+                />
+                <InputGroup.Addon>
+                  <i className="fa fa-money" />
+                </InputGroup.Addon>
+              </InputGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  this.setState({ showModal: false });
+                }}
+                bsStyle="danger"
+                fill>
+                Cancelar
+              </Button>
+              <Button
+                bsStyle="success"
+                onClick={() => {
+                  let filteredproducts = this.state.filteredproducts;
+                  filteredproducts[this.state.selectedItem].precio = nuevoPrecio;
+                  this.setState({ filteredproducts, showModal: false });
+                }}
+                fill>
+                OK
+              </Button>
+            </ModalFooter>
+          </Modal>
+        );
+      case 1:
+        let descuento = -1;
+        return (
+          <Modal id="dialogFlex" show={this.state.showModal}>
+            <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
+              Descuento
+            </ModalHeader>
+            <ModalBody>
+              <InputGroup>
+                <FormControl
+                  type="number"
+                  min={0}
+                  max={100}
+                  onChange={e => {
+                    descuento = parseFloat(e.target.value / 100);
+                  }}
+                  placeholder="10%"
+                />
+                <InputGroup.Addon>
+                  <i className="fa fa-percent" />
+                </InputGroup.Addon>
+              </InputGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  this.setState({ showModal: false });
+                }}
+                bsStyle="danger"
+                fill>
+                Cancelar
+              </Button>
+              <Button
+                bsStyle="success"
+                onClick={() => {
+                  let filteredproducts = this.state.filteredproducts;
+                  filteredproducts[this.state.selectedItem].descuento = descuento;
+                  this.setState({ filteredproducts, showModal: false });
+                }}
+                fill>
+                OK
+              </Button>
+            </ModalFooter>
+          </Modal>
+        );
+      case 2:
+        let nuevaCant = -1;
+        return (
+          <Modal id="dialogFlex" show={this.state.showModal}>
+            <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
+              Cantidad
+            </ModalHeader>
+            <ModalBody>
+              <InputGroup>
+                <FormControl
+                  type="text"
+                  pattern="[0-9]s"
+                  defaultValue={this.state.filteredproducts[this.state.selectedItem].cant}
+                  onChange={e => {
+                    nuevaCant = parseInt(e.target.value);
+                  }}
+                  placeholder="1"
+                />
+                <InputGroup.Addon>
+                  <i className="fa fa-list" />
+                </InputGroup.Addon>
+              </InputGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  this.setState({ showModal: false });
+                }}
+                bsStyle="danger"
+                fill>
+                Cancelar
+              </Button>
+              <Button
+                bsStyle="success"
+                onClick={() => {
+                  let filteredproducts = this.state.filteredproducts;
+                  filteredproducts[this.state.selectedItem].cant = nuevaCant;
+                  this.setState({ filteredproducts, showModal: false });
+                }}
+                fill>
+                OK
+              </Button>
+            </ModalFooter>
+          </Modal>
+        );
+      case 3: {
+        return (
+          <Modal id="dialogFlex" show={this.state.showModal}>
+            <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
+              Cantidad
+            </ModalHeader>
+            <ModalBody>
+              <InputGroup>
+                <FormControl type="text" pattern="[0-9]s" onChange={e => {}} placeholder="1" />
+                <InputGroup.Addon>
+                  <i className="fa fa-list" />
+                </InputGroup.Addon>
+              </InputGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  this.setState({ showModal: false });
+                }}
+                bsStyle="danger"
+                fill>
+                Cancelar
+              </Button>
+              <Button bsStyle="success" fill>
+                OK
+              </Button>
+            </ModalFooter>
+          </Modal>
+        );
+      }
+      default:
+        break;
+    }
+  };
   render() {
     return (
       <div className="content">
         <Grid fluid>
+          {this.getModalContext()}
           <Row>
             <Col md={12}>
+              <Modal />
               <Card title={this.state.cardTitle} content={this.getState()} />
             </Col>
           </Row>
