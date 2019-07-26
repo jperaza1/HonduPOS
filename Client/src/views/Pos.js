@@ -28,9 +28,8 @@ class Pos extends Component {
       subtotal: 0,
       isv: 0,
       total: 0,
-      flow: 1,
+      flow: 0,
       cardTitle: "",
-
       selectedItem: undefined,
       showModal: false,
       modalContext: -1,
@@ -73,7 +72,11 @@ class Pos extends Component {
     }
   };
   handlePurchase = () => {
-    this.setState({ flow: 1, cardTitle: "Pagos" });
+    if (this.state.listproducts.length > 0) {
+      this.setState({ flow: 1, cardTitle: "Pagos" });
+    } else {
+      this.setState({ showModal: true, errorModal: true, modalContext: 4 });
+    }
   };
   getState = () => {
     switch (this.state.flow) {
@@ -307,12 +310,20 @@ class Pos extends Component {
                                 onChange={async e => {
                                   let listpayments = this.state.listpayments;
                                   let valor = e.target.value;
-                                  console.log("el valor", valor);
-                                  console.log("del name", e.target.name);
                                   listpayments[key].pago = parseFloat(valor);
+                                  restaTotal = 0;
+                                  for (let i = 0; i < listpayments.length; i++) {
+                                    let element = listpayments[i];
+                                    restaTotal += element.pago;
+                                  }
                                   await this.setState({ listpayments });
                                 }}
                               />
+                            </td>
+                            <td className={this.state.selectedPay === key ? "activeRow" : ""}>
+                              {pay.pago > pay.total
+                                ? Math.abs(pay.total - pay.pago).toFixed(2)
+                                : 0.0}
                             </td>
                             <td
                               className={this.state.selectedPay === key ? "activeRow" : ""}
@@ -341,9 +352,9 @@ class Pos extends Component {
                       })}
                       <div id="dueMoney">
                         L.{" "}
-                        {typeof restaTotal !== NaN && this.state.listpayments.length > 0
+                        {!isNaN(this.state.total - restaTotal)
                           ? (this.state.total - restaTotal).toFixed(2)
-                          : null}
+                          : (this.state.total - 0).toFixed(2)}
                       </div>
                     </tbody>
                   </Table>
@@ -354,15 +365,18 @@ class Pos extends Component {
                 onClick={() => {
                   this.setState({ flow: 0 });
                 }}
-                fill
-                pullLeft>
+                fill>
                 <i className="fa fa-arrow-left" />
                 Regresar
               </Button>
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  this.setState({ showModal: true, modalContext: 3 });
+                  if (this.state.total - restaTotal <= 0) {
+                    this.setState({ flow: 2 });
+                  } else {
+                    this.setState({ errorModal: true, showModal: true, modalContext: 5 });
+                  }
                 }}
                 fill
                 pullRight>
@@ -378,74 +392,10 @@ class Pos extends Component {
         return (
           <Row>
             <Grid fluid>
-              <Table striped hover>
-                <thead>
-                  {this.state.products.length > 0 ? (
-                    <tr>
-                      {Object.keys({ ...this.state.products[0], cant: 1 }).map((prop, key) => {
-                        if (
-                          prop !== "id_categoria" &&
-                          prop !== "stock" &&
-                          prop !== "id_producto" &&
-                          prop !== "image" &&
-                          prop !== "descuento"
-                        )
-                          return <th key={key}>{prop.replace("_", " ")}</th>;
-                        return null;
-                      })}
-                    </tr>
-                  ) : null}
-                </thead>
-                <tbody>
-                  {this.state.listproducts.map((prop, key) => {
-                    return (
-                      <tr key={key}>
-                        {Object.keys(prop).map((props, keys) => {
-                          if (
-                            props !== "id_categoria" &&
-                            props !== "stock" &&
-                            props !== "image" &&
-                            props !== "id_producto" &&
-                            props !== "descuento"
-                          ) {
-                            return (
-                              <td
-                                className={this.state.selectedItem === key ? "activeRow" : ""}
-                                onClick={() => {
-                                  this.setState({ selectedItem: key });
-                                }}
-                                key={keys}>
-                                {prop[props]}
-                              </td>
-                            );
-                          }
-                          return null;
-                        })}
-                        <td className={this.state.selectedItem === key ? "activeRow" : ""}>
-                          <i
-                            onClick={() => {
-                              let listproducts = this.state.listproducts;
-                              listproducts.splice(key, 1);
-                              let selectedItem = this.state.selectedItem;
-                              if (selectedItem === key) {
-                                selectedItem = -1;
-                              }
-                              this.setState({ listproducts, selectedItem });
-                              this.prepareProducts();
-                            }}
-                            className="fa fa-trash"
-                            style={{ color: "red" }}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
               <Button
                 bsStyle="danger"
                 onClick={() => {
-                  this.setState({ flow: 0 });
+                  this.setState({ flow: 1 });
                 }}
                 fill
                 pullLeft>
@@ -472,7 +422,11 @@ class Pos extends Component {
     }
   };
   getModalContext = () => {
-    if (this.state.selectedItem === undefined) {
+    if (
+      this.state.selectedItem === undefined &&
+      this.state.modalContext !== 4 &&
+      this.state.modalContext !== 5
+    ) {
       return (
         <Modal id="dialogFlex" show={this.state.showModal}>
           <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
@@ -495,7 +449,7 @@ class Pos extends Component {
       );
     }
     switch (this.state.modalContext) {
-      case 0:
+      case 0: {
         let nuevoPrecio = -1;
         return (
           <Modal id="dialogFlex" show={this.state.showModal}>
@@ -540,7 +494,8 @@ class Pos extends Component {
             </ModalFooter>
           </Modal>
         );
-      case 1:
+      }
+      case 1: {
         let descuento = -1;
         return (
           <Modal id="dialogFlex" show={this.state.showModal}>
@@ -586,7 +541,8 @@ class Pos extends Component {
             </ModalFooter>
           </Modal>
         );
-      case 2:
+      }
+      case 2: {
         let nuevaCant = -1;
         return (
           <Modal id="dialogFlex" show={this.state.showModal}>
@@ -632,6 +588,7 @@ class Pos extends Component {
             </ModalFooter>
           </Modal>
         );
+      }
       case 3: {
         return (
           <Modal id="dialogFlex" show={this.state.showModal}>
@@ -662,6 +619,58 @@ class Pos extends Component {
           </Modal>
         );
       }
+      case 4: {
+        if (this.state.errorModal === true) {
+          return (
+            <Modal id="dialogFlex" show={this.state.errorModal}>
+              <ModalHeader closeButton onHide={() => this.setState({ errorModal: false })}>
+                Error
+              </ModalHeader>
+              <ModalBody>
+                <p>No hay datos para procesar</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  onClick={() => {
+                    this.setState({ errorModal: false });
+                  }}
+                  bsStyle="success"
+                  fill>
+                  OK
+                </Button>
+              </ModalFooter>
+            </Modal>
+          );
+        } else {
+          return null;
+        }
+      }
+      case 5: {
+        if (this.state.errorModal === true) {
+          return (
+            <Modal id="dialogFlex" show={this.state.errorModal}>
+              <ModalHeader closeButton onHide={() => this.setState({ errorModal: false })}>
+                Error
+              </ModalHeader>
+              <ModalBody>
+                <p>Falta a pagar</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  onClick={() => {
+                    this.setState({ errorModal: false });
+                  }}
+                  bsStyle="success"
+                  fill>
+                  OK
+                </Button>
+              </ModalFooter>
+            </Modal>
+          );
+        } else {
+          return null;
+        }
+      }
       default:
         break;
     }
@@ -673,7 +682,6 @@ class Pos extends Component {
           {this.getModalContext()}
           <Row>
             <Col md={12}>
-              <Modal />
               <Card title={this.state.cardTitle} content={this.getState()} />
             </Col>
           </Row>
