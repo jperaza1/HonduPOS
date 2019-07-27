@@ -251,16 +251,25 @@ class Pos extends Component {
                   {this.state.payments.map(pay => {
                     return (
                       <Button
-                        onClick={() => {
-                          let listpayments = this.state.listpayments;
-                          pay.total = parseFloat(this.state.total);
-                          listpayments.push(pay);
+                        onClick={async () => {
+                          if (this.state.listpayments.length === 0) {
+                            pay.total = parseFloat(this.state.total);
+                          } else {
+                            pay.total =
+                              this.state.listpayments[this.state.listpayments.length - 1].total -
+                              this.state.listpayments[this.state.listpayments.length - 1].pago;
+                          }
+                          console.log("este indice", this.state.listpayments.length - 1);
+                          console.log("este es el total", pay.total);
+                          await this.setState({
+                            listpayments: [...this.state.listpayments, pay],
+                            restaTotal,
+                          });
                           restaTotal = 0;
-                          for (let i = 0; i < listpayments.length; i++) {
-                            let element = listpayments[i];
+                          for (let i = 0; i < this.state.listpayments.length; i++) {
+                            let element = this.state.listpayments[i];
                             restaTotal += element.pago;
                           }
-                          this.setState({ listpayments, restaTotal });
                         }}
                         className="paymentButtons">
                         <i className="fa fa-money" /> {pay.nombre}

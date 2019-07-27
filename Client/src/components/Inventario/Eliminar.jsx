@@ -114,11 +114,16 @@ class Eliminar extends Component {
               this.sendNotification(
                 "tr",
                 "success",
-                "Modo de pago creado con exito",
+                "Modo de pago eliminado con exito",
                 "fa fa-check"
               );
             } else {
-              this.sendNotification("tr", "error", "Error al crear el modo de pago", "fa fa-times");
+              this.sendNotification(
+                "tr",
+                "error",
+                "Error al eliminar el modo de pago",
+                "fa fa-times"
+              );
             }
           });
         break;
