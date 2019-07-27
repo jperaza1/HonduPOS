@@ -29,6 +29,7 @@ class Pos extends Component {
       isv: 0,
       total: 0,
       flow: 0,
+      restaTotal: 0,
       cardTitle: "",
       selectedItem: undefined,
       showModal: false,
@@ -55,11 +56,11 @@ class Pos extends Component {
       subtotal += prod.precio * prod.cant;
       return null;
     });
-    subtotal = subtotal.toFixed(2);
+    subtotal = parseFloat(subtotal).toFixed(2);
     let isv = subtotal * ISV;
-    isv = isv.toFixed(2);
+    isv = parseFloat(isv).toFixed(2);
     let total = +subtotal + +isv;
-    total = total.toFixed(2);
+    total = parseFloat(total).toFixed(2);
     this.setState({ subtotal, isv, total });
   };
   searchProduct = value => {
@@ -241,8 +242,6 @@ class Pos extends Component {
         );
       }
       case 1: {
-        let restaTotal;
-
         return (
           <Row>
             <Grid fluid>
@@ -259,17 +258,15 @@ class Pos extends Component {
                               this.state.listpayments[this.state.listpayments.length - 1].total -
                               this.state.listpayments[this.state.listpayments.length - 1].pago;
                           }
-                          console.log("este indice", this.state.listpayments.length - 1);
-                          console.log("este es el total", pay.total);
                           await this.setState({
-                            listpayments: [...this.state.listpayments, pay],
-                            restaTotal,
+                            listpayments: this.state.listpayments.concat([pay]),
                           });
-                          restaTotal = 0;
+                          let restaTotal = 0;
                           for (let i = 0; i < this.state.listpayments.length; i++) {
                             let element = this.state.listpayments[i];
                             restaTotal += element.pago;
                           }
+                          this.setState({ restaTotal });
                         }}
                         className="paymentButtons">
                         <i className="fa fa-money" /> {pay.nombre}
@@ -293,14 +290,22 @@ class Pos extends Component {
                           <tr>
                             <td>{pay.total}</td>
                             <td>
-                              <input
+                              <FormControl
                                 className="form-control"
-                                onChange={e => {
-                                  let listpayments = this.state.listpayments;
-                                  listpayments[listpayments.indexOf(pay)].pago = parseFloat(
-                                    e.target.value
-                                  );
-                                  this.setState({ listpayments });
+                                value={this.state.listpayments[key].pago}
+                                onChangeCapture={async e => {
+                                  await this.setState({
+                                    listpayments: this.state.listpayments.map((p, _idx) => {
+                                      if (_idx !== key) return p;
+                                      return { ...p, pago: parseFloat(e.target.value) };
+                                    }),
+                                  });
+                                  let restaTotal = 0;
+                                  for (let i = 0; i < this.state.listpayments.length; i++) {
+                                    let element = this.state.listpayments[i];
+                                    restaTotal += element.pago;
+                                  }
+                                  this.setState({ restaTotal });
                                 }}
                               />
                             </td>
@@ -314,10 +319,32 @@ class Pos extends Component {
                               <i
                                 className="fa fa-times-circle"
                                 style={{ color: "red", fontSize: 16 }}
-                                onClick={() => {
-                                  let listpayments = this.state.listpayments;
-                                  listpayments.splice(key, 1);
-                                  this.setState({ listpayments });
+                                onClick={async () => {
+                                  await this.setState({
+                                    listpayments: this.state.listpayments.filter(
+                                      (s, _idx) => _idx !== key
+                                    ),
+                                  });
+                                  let restaTotal = 0;
+                                  for (let i = 0; i < this.state.listpayments.length; i++) {
+                                    let element = this.state.listpayments[i];
+                                    restaTotal += element.pago;
+                                  }
+                                  let total = 0;
+                                  if (key === 0) {
+                                    total = parseFloat(this.state.total);
+                                  } else {
+                                    total =
+                                      this.state.listpayments[key - 1].total -
+                                      this.state.listpayments[key - 1].pago;
+                                  }
+                                  await this.setState({
+                                    listpayments: this.state.listpayments.map((p, _idx) => {
+                                      if (_idx !== key) return p;
+                                      return { ...p, total };
+                                    }),
+                                    restaTotal,
+                                  });
                                 }}
                               />
                             </td>
@@ -351,7 +378,7 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  if (this.state.total - restaTotal <= 0) {
+                  if (this.state.total - this.state.restaTotal <= 0) {
                     this.setState({ flow: 2, cardTitle: "Cliente" });
                   } else {
                     this.setState({
