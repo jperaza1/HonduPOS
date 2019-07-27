@@ -241,11 +241,8 @@ class Pos extends Component {
         );
       }
       case 1: {
-        let restaTotal = 0;
-        for (let i = 0; i < this.state.listpayments.length; i++) {
-          let element = this.state.listpayments[i];
-          restaTotal += element.pago;
-        }
+        let restaTotal;
+
         return (
           <Row>
             <Grid fluid>
@@ -256,20 +253,14 @@ class Pos extends Component {
                       <Button
                         onClick={() => {
                           let listpayments = this.state.listpayments;
-                          if (listpayments.length > 0) {
-                            pay.total =
-                              listpayments[listpayments.length - 1].total -
-                              listpayments[listpayments.length - 1].pago;
-                          } else {
-                            pay.total = this.state.total;
-                          }
+                          pay.total = parseFloat(this.state.total);
                           listpayments.push(pay);
                           restaTotal = 0;
                           for (let i = 0; i < listpayments.length; i++) {
                             let element = listpayments[i];
                             restaTotal += element.pago;
                           }
-                          this.setState({ listpayments });
+                          this.setState({ listpayments, restaTotal });
                         }}
                         className="paymentButtons">
                         <i className="fa fa-money" /> {pay.nombre}
@@ -291,70 +282,46 @@ class Pos extends Component {
                       {this.state.listpayments.map((pay, key) => {
                         return (
                           <tr>
-                            <td
-                              className={this.state.selectedPay === key ? "activeRow" : ""}
-                              onClick={() => {
-                                this.setState({ selectedPay: key });
-                              }}>
-                              {pay.total ? parseFloat(pay.total).toFixed(2) : null}
-                            </td>
-                            <td
-                              className={this.state.selectedPay === key ? "activeRow" : ""}
-                              onClick={() => {
-                                this.setState({ selectedPay: key });
-                              }}>
-                              <FormControl
-                                type="text"
-                                name={pay.nombre + key}
-                                key={key}
-                                defaultValue={pay.pago}
-                                onChange={async e => {
+                            <td>{pay.total}</td>
+                            <td>
+                              <input
+                                className="form-control"
+                                onChange={e => {
                                   let listpayments = this.state.listpayments;
-                                  let valor = e.target.value;
-                                  listpayments[key].pago = parseFloat(valor);
-                                  restaTotal = 0;
-                                  for (let i = 0; i < listpayments.length; i++) {
-                                    let element = listpayments[i];
-                                    restaTotal += element.pago;
-                                  }
-                                  await this.setState({ listpayments });
+                                  listpayments[listpayments.indexOf(pay)].pago = parseFloat(
+                                    e.target.value
+                                  );
+                                  this.setState({ listpayments });
+                                  console.log("Sexo anal", e.target.value);
                                 }}
                               />
                             </td>
-                            <td className={this.state.selectedPay === key ? "activeRow" : ""}>
+                            <td>
                               {pay.pago > pay.total
                                 ? Math.abs(pay.total - pay.pago).toFixed(2)
                                 : 0.0}
                             </td>
-                            <td
-                              className={this.state.selectedPay === key ? "activeRow" : ""}
-                              onClick={() => {
-                                this.setState({ selectedPay: key });
-                              }}>
-                              {pay.nombre}
-                            </td>
-                            <td className={this.state.selectedPay === key ? "activeRow" : ""}>
+                            <td>{pay.nombre}</td>
+                            <td>
                               <i
+                                className="fa fa-times-circle"
+                                style={{ color: "red", fontSize: 16 }}
                                 onClick={() => {
                                   let listpayments = this.state.listpayments;
                                   listpayments.splice(key, 1);
-                                  let selectedPay = this.state.selectedPay;
-                                  if (selectedPay === key) {
-                                    selectedPay = -1;
-                                  }
-                                  this.setState({ listpayments, selectedPay });
+                                  this.setState({ listpayments });
                                 }}
-                                className="fa fa-times-circle"
-                                style={{ fontSize: 24 }}
                               />
                             </td>
                           </tr>
                         );
                       })}
                       <div id="dueMoney">
+                        {console.log("restaTotal", this.state.restaTotal)}
+                        {console.log("esto queda", this.state.total - this.state.restaTotal)}
                         L.{" "}
-                        {!isNaN(this.state.total - restaTotal)
-                          ? (this.state.total - restaTotal).toFixed(2)
+                        {!isNaN(this.state.total - this.state.restaTotal)
+                          ? (this.state.total - this.state.restaTotal).toFixed(2)
                           : (this.state.total - 0).toFixed(2)}
                       </div>
                     </tbody>

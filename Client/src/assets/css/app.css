@@ -70,12 +70,15 @@
   justify-content: center;
   align-items: center;
 }
+
 .modal-content {
   width: 25vw !important;
 }
+
 #dialogFlex {
   display: flex !important;
 }
+
 .paymentButtons {
   display: flex;
   justify-content: center;
@@ -87,6 +90,7 @@
   border-radius: 5px;
   color: black;
 }
+
 .paymentButtons:hover {
   background-color: rgba(203, 203, 210, 0.2);
   color: black;
@@ -96,6 +100,7 @@
   overflow-y: scroll;
   height: 70vh !important;
 }
+
 #dueMoney {
   display: flex;
   justify-content: center;
