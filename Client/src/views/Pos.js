@@ -292,7 +292,6 @@ class Pos extends Component {
                                     e.target.value
                                   );
                                   this.setState({ listpayments });
-                                  console.log("Sexo anal", e.target.value);
                                 }}
                               />
                             </td>
