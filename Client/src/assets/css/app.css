@@ -132,3 +132,11 @@
   height: 100px;
   width: 100px;
 }
+
+.calculatorContainer table td:hover {
+  cursor: pointer;
+}
+
+.tablePayments td:hover {
+  cursor: pointer;
+}

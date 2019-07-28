@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
-// import logo from "../../assets/img/reactlogo.png";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       width: window.innerWidth,
+      empresa: {},
     };
+    fetch("/Empresa.json")
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ empresa: data });
+      });
   }
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -22,18 +26,12 @@ class Sidebar extends Component {
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
   render() {
-    const sidebarBackground = {
-      backgroundImage: "url(" + this.props.image + ")",
-    };
     return (
       <div
         id="sidebar"
         className="sidebar"
         data-color={this.props.color}
         data-image={this.props.image}>
-        {this.props.hasImage ? (
-          <div className="sidebar-background" style={sidebarBackground} />
-        ) : null}
         <div className="logo">
           <NavLink to="/admin/inicio" className="nav-link simple-text logo-mini">
             <div className="logo-img">
@@ -41,7 +39,7 @@ class Sidebar extends Component {
             </div>
           </NavLink>
           <NavLink to="/admin/inicio" className="nav-link simple-text logo-normal">
-            POSINE
+            {this.state.empresa.NAME}
           </NavLink>
         </div>
         <div className="sidebar-wrapper">

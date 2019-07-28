@@ -15,7 +15,6 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
 import "../assets/css/app.css";
-const ISV = 0.15;
 class Pos extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +35,13 @@ class Pos extends Component {
       selectedClient: -1,
       showModal: false,
       modalContext: -1,
+      empresa: {},
     };
+    fetch("/Empresa.json")
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ empresa: data });
+      });
   }
   dynamicSort = property => {
     var sortOrder = 1;
@@ -77,7 +82,7 @@ class Pos extends Component {
       return null;
     });
     subtotal = parseFloat(subtotal).toFixed(2);
-    let isv = subtotal * ISV;
+    let isv = subtotal * this.state.empresa.ISV;
     isv = parseFloat(isv).toFixed(2);
     let total = +subtotal + +isv;
     total = parseFloat(total).toFixed(2);
@@ -152,18 +157,22 @@ class Pos extends Component {
                             })}
                             <td className={this.state.selectedItem === key ? "activeRow" : ""}>
                               <i
-                                onClick={() => {
-                                  let listProducts = this.state.listProducts;
-                                  listProducts.splice(key, 1);
+                                className="fa fa-times-circle"
+                                style={{ color: "red", fontSize: 16 }}
+                                onClick={async () => {
                                   let selectedItem = this.state.selectedItem;
                                   if (selectedItem === key) {
                                     selectedItem = -1;
                                   }
-                                  this.setState({ listProducts, selectedItem });
+                                  console.log(key);
+                                  await this.setState({
+                                    listProducts: this.state.listProducts.filter(
+                                      (s, _idx) => _idx !== key
+                                    ),
+                                    selectedItem,
+                                  });
                                   this.prepareProducts();
                                 }}
-                                className="fa fa-trash"
-                                style={{ color: "red" }}
                               />
                             </td>
                           </tr>
@@ -267,7 +276,7 @@ class Pos extends Component {
       case 1: {
         return (
           <Row>
-            <Grid className="paddedGrid" fluid>
+            <Grid fluid>
               <Row>
                 <Col md={4}>
                   {this.state.payments.map(pay => {
