@@ -15,6 +15,7 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
 import "../assets/css/app.css";
+import FormInputs from "components/FormInputs/FormInputs";
 const ISV = 0.15;
 class Pos extends Component {
   constructor(props) {
@@ -22,9 +23,10 @@ class Pos extends Component {
     this.state = {
       products: [],
       filteredproducts: [],
-      listproducts: [],
+      listProducts: [],
+      listPayments: [],
+      listClients: [],
       payments: [],
-      listpayments: [],
       subtotal: 0,
       isv: 0,
       total: 0,
@@ -52,7 +54,7 @@ class Pos extends Component {
 
   prepareProducts = () => {
     let subtotal = 0;
-    this.state.listproducts.map(prod => {
+    this.state.listProducts.map(prod => {
       subtotal += prod.precio * prod.cant;
       return null;
     });
@@ -73,7 +75,7 @@ class Pos extends Component {
     }
   };
   handlePurchase = () => {
-    if (this.state.listproducts.length > 0) {
+    if (this.state.listProducts.length > 0) {
       this.setState({ flow: 1, cardTitle: "Pagos" });
     } else {
       this.setState({ showModal: true, errorModal: true, modalContext: 4 });
@@ -84,186 +86,189 @@ class Pos extends Component {
       case 0: {
         return (
           <Row>
-            <Col md={6} className="calculatorContainer">
-              <div className="items">
-                <Table striped hover>
-                  <thead>
-                    {this.state.products.length > 0 ? (
-                      <tr>
-                        {Object.keys({ ...this.state.products[0], cant: 1 }).map((prop, key) => {
-                          if (
-                            prop !== "id_categoria" &&
-                            prop !== "stock" &&
-                            prop !== "id_producto" &&
-                            prop !== "image" &&
-                            prop !== "descuento"
-                          )
-                            return <th key={key}>{prop.replace("_", " ")}</th>;
-                          return null;
-                        })}
-                      </tr>
-                    ) : null}
-                  </thead>
-                  <tbody>
-                    {this.state.listproducts.map((prop, key) => {
-                      return (
-                        <tr key={key}>
-                          {Object.keys(prop).map((props, keys) => {
+            <Grid fluid>
+              <Col md={6} className="calculatorContainer">
+                <div className="items">
+                  <Table striped hover>
+                    <thead>
+                      {this.state.products.length > 0 ? (
+                        <tr>
+                          {Object.keys({ ...this.state.products[0], cant: 1 }).map((prop, key) => {
                             if (
-                              props !== "id_categoria" &&
-                              props !== "stock" &&
-                              props !== "image" &&
-                              props !== "id_producto" &&
-                              props !== "descuento"
-                            ) {
-                              return (
-                                <td
-                                  className={this.state.selectedItem === key ? "activeRow" : ""}
-                                  onClick={() => {
-                                    this.setState({ selectedItem: key });
-                                  }}
-                                  key={keys}>
-                                  {prop[props]}
-                                </td>
-                              );
-                            }
+                              prop !== "id_categoria" &&
+                              prop !== "stock" &&
+                              prop !== "id_producto" &&
+                              prop !== "image" &&
+                              prop !== "descuento"
+                            )
+                              return <th key={key}>{prop.replace("_", " ")}</th>;
                             return null;
                           })}
-                          <td className={this.state.selectedItem === key ? "activeRow" : ""}>
-                            <i
-                              onClick={() => {
-                                let listproducts = this.state.listproducts;
-                                listproducts.splice(key, 1);
-                                let selectedItem = this.state.selectedItem;
-                                if (selectedItem === key) {
-                                  selectedItem = -1;
-                                }
-                                this.setState({ listproducts, selectedItem });
-                                this.prepareProducts();
-                              }}
-                              className="fa fa-trash"
-                              style={{ color: "red" }}
-                            />
-                          </td>
                         </tr>
+                      ) : null}
+                    </thead>
+                    <tbody>
+                      {this.state.listProducts.map((prop, key) => {
+                        return (
+                          <tr key={key}>
+                            {Object.keys(prop).map((props, keys) => {
+                              if (
+                                props !== "id_categoria" &&
+                                props !== "stock" &&
+                                props !== "image" &&
+                                props !== "id_producto" &&
+                                props !== "descuento"
+                              ) {
+                                return (
+                                  <td
+                                    className={this.state.selectedItem === key ? "activeRow" : ""}
+                                    onClick={() => {
+                                      this.setState({ selectedItem: key });
+                                    }}
+                                    key={keys}>
+                                    {prop[props]}
+                                  </td>
+                                );
+                              }
+                              return null;
+                            })}
+                            <td className={this.state.selectedItem === key ? "activeRow" : ""}>
+                              <i
+                                onClick={() => {
+                                  let listProducts = this.state.listProducts;
+                                  listProducts.splice(key, 1);
+                                  let selectedItem = this.state.selectedItem;
+                                  if (selectedItem === key) {
+                                    selectedItem = -1;
+                                  }
+                                  this.setState({ listProducts, selectedItem });
+                                  this.prepareProducts();
+                                }}
+                                className="fa fa-trash"
+                                style={{ color: "red" }}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                </div>
+                <div className="powerButtons">
+                  <Button
+                    bsStyle="success"
+                    onClick={() => {
+                      this.setState({ showModal: true, modalContext: 0 });
+                    }}
+                    fill
+                    style={{ flex: 1 }}>
+                    <i className="fa fa-money" />
+                    Precio
+                  </Button>
+                  <Button
+                    bsStyle="success"
+                    onClick={() => {
+                      this.setState({ showModal: true, modalContext: 1 });
+                    }}
+                    fill>
+                    <i className="fa fa-percent" />
+                    Descuento
+                  </Button>
+                  <Button
+                    bsStyle="success"
+                    onClick={() => {
+                      this.setState({ showModal: true, modalContext: 2 });
+                    }}
+                    fill>
+                    <i className="fa fa-list" />
+                    Cantidad
+                  </Button>
+                </div>
+                <div className="dinero">
+                  <p>Subtotal: {this.state.subtotal}</p>
+                  <p> ISV: {this.state.isv}</p>
+                  <p>Total: {this.state.total}</p>
+                </div>
+              </Col>
+              <Col md={6} className="productsContainer">
+                <Row>
+                  <InputGroup className="searchInput">
+                    <FormControl
+                      type="text"
+                      onChange={e => {
+                        this.searchProduct(e.target.value);
+                      }}
+                      placeholder="Busqueda por nombre"
+                    />
+                    <InputGroup.Addon>
+                      <i className="fa fa-search" />
+                    </InputGroup.Addon>
+                  </InputGroup>
+                </Row>
+                <div className="products">
+                  <Row>
+                    {this.state.filteredproducts.map(prod => {
+                      return (
+                        <Product
+                          onClick={async () => {
+                            let listProducts = this.state.listProducts;
+                            if (listProducts.includes(prod)) {
+                              listProducts[listProducts.indexOf(prod)].cant =
+                                listProducts[listProducts.indexOf(prod)].cant + 1;
+                            } else {
+                              prod.cant = 1;
+                              listProducts.push(prod);
+                            }
+                            await this.setState({
+                              listProducts,
+                            });
+                            this.prepareProducts();
+                          }}
+                          prod={prod}
+                        />
                       );
                     })}
-                  </tbody>
-                </Table>
-              </div>
-              <div className="powerButtons">
+                  </Row>
+                </div>
+              </Col>
+              <div className="navButtons">
                 <Button
-                  bsStyle="success"
-                  onClick={() => {
-                    this.setState({ showModal: true, modalContext: 0 });
-                  }}
+                  bsStyle="primary"
+                  onClick={this.handlePurchase}
+                  pullRight
                   fill
-                  style={{ flex: 1 }}>
-                  <i className="fa fa-money" />
-                  Precio
-                </Button>
-                <Button
-                  bsStyle="success"
-                  onClick={() => {
-                    this.setState({ showModal: true, modalContext: 1 });
-                  }}
-                  fill>
-                  <i className="fa fa-percent" />
-                  Descuento
-                </Button>
-                <Button
-                  bsStyle="success"
-                  onClick={() => {
-                    this.setState({ showModal: true, modalContext: 2 });
-                  }}
-                  fill>
-                  <i className="fa fa-list" />
-                  Cantidad
+                  type="submit">
+                  Procesar compra
                 </Button>
               </div>
-              <div className="dinero">
-                <p>Subtotal: {this.state.subtotal}</p>
-                <p> ISV: {this.state.isv}</p>
-                <p>Total: {this.state.total}</p>
-              </div>
-            </Col>
-            <Col md={6} className="productsContainer">
-              <Row>
-                <InputGroup className="searchInput">
-                  <FormControl
-                    type="text"
-                    onChange={e => {
-                      this.searchProduct(e.target.value);
-                    }}
-                    placeholder="Busqueda por nombre"
-                  />
-                  <InputGroup.Addon>
-                    <i className="fa fa-search" />
-                  </InputGroup.Addon>
-                </InputGroup>
-              </Row>
-              <div className="products">
-                <Row>
-                  {this.state.filteredproducts.map(prod => {
-                    return (
-                      <Product
-                        onClick={async () => {
-                          let listproducts = this.state.listproducts;
-                          if (listproducts.includes(prod)) {
-                            listproducts[listproducts.indexOf(prod)].cant =
-                              listproducts[listproducts.indexOf(prod)].cant + 1;
-                          } else {
-                            prod.cant = 1;
-                            listproducts.push(prod);
-                          }
-                          await this.setState({
-                            listproducts,
-                          });
-                          this.prepareProducts();
-                        }}
-                        prod={prod}
-                      />
-                    );
-                  })}
-                </Row>
-              </div>
-            </Col>
-            <Button
-              bsStyle="primary"
-              style={{ marginRight: 5 }}
-              onClick={this.handlePurchase}
-              pullRight
-              fill
-              type="submit">
-              Procesar compra
-            </Button>
-            <div className="clearfix" />
+              <div className="clearfix" />
+            </Grid>
           </Row>
         );
       }
       case 1: {
         return (
           <Row>
-            <Grid fluid>
+            <Grid className="paddedGrid" fluid>
               <Row>
                 <Col md={4}>
                   {this.state.payments.map(pay => {
                     return (
                       <Button
                         onClick={async () => {
-                          if (this.state.listpayments.length === 0) {
+                          if (this.state.listPayments.length === 0) {
                             pay.total = parseFloat(this.state.total);
                           } else {
                             pay.total =
-                              this.state.listpayments[this.state.listpayments.length - 1].total -
-                              this.state.listpayments[this.state.listpayments.length - 1].pago;
+                              this.state.listPayments[this.state.listPayments.length - 1].total -
+                              this.state.listPayments[this.state.listPayments.length - 1].pago;
                           }
                           await this.setState({
-                            listpayments: this.state.listpayments.concat([pay]),
+                            listPayments: this.state.listPayments.concat([pay]),
                           });
                           let restaTotal = 0;
-                          for (let i = 0; i < this.state.listpayments.length; i++) {
-                            let element = this.state.listpayments[i];
+                          for (let i = 0; i < this.state.listPayments.length; i++) {
+                            let element = this.state.listPayments[i];
                             restaTotal += element.pago;
                           }
                           this.setState({ restaTotal });
@@ -285,24 +290,24 @@ class Pos extends Component {
                       </tr>
                     </thead>
                     <tbody className="tablePayments">
-                      {this.state.listpayments.map((pay, key) => {
+                      {this.state.listPayments.map((pay, key) => {
                         return (
                           <tr>
                             <td>{pay.total}</td>
                             <td>
                               <FormControl
                                 className="form-control"
-                                value={this.state.listpayments[key].pago}
+                                value={this.state.listPayments[key].pago}
                                 onChangeCapture={async e => {
                                   await this.setState({
-                                    listpayments: this.state.listpayments.map((p, _idx) => {
+                                    listPayments: this.state.listPayments.map((p, _idx) => {
                                       if (_idx !== key) return p;
                                       return { ...p, pago: parseFloat(e.target.value) };
                                     }),
                                   });
                                   let restaTotal = 0;
-                                  for (let i = 0; i < this.state.listpayments.length; i++) {
-                                    let element = this.state.listpayments[i];
+                                  for (let i = 0; i < this.state.listPayments.length; i++) {
+                                    let element = this.state.listPayments[i];
                                     restaTotal += element.pago;
                                   }
                                   this.setState({ restaTotal });
@@ -321,13 +326,13 @@ class Pos extends Component {
                                 style={{ color: "red", fontSize: 16 }}
                                 onClick={async () => {
                                   await this.setState({
-                                    listpayments: this.state.listpayments.filter(
+                                    listPayments: this.state.listPayments.filter(
                                       (s, _idx) => _idx !== key
                                     ),
                                   });
                                   let restaTotal = 0;
-                                  for (let i = 0; i < this.state.listpayments.length; i++) {
-                                    let element = this.state.listpayments[i];
+                                  for (let i = 0; i < this.state.listPayments.length; i++) {
+                                    let element = this.state.listPayments[i];
                                     restaTotal += element.pago;
                                   }
                                   let total = 0;
@@ -335,11 +340,11 @@ class Pos extends Component {
                                     total = parseFloat(this.state.total);
                                   } else {
                                     total =
-                                      this.state.listpayments[key - 1].total -
-                                      this.state.listpayments[key - 1].pago;
+                                      this.state.listPayments[key - 1].total -
+                                      this.state.listPayments[key - 1].pago;
                                   }
                                   await this.setState({
-                                    listpayments: this.state.listpayments.map((p, _idx) => {
+                                    listPayments: this.state.listPayments.map((p, _idx) => {
                                       if (_idx !== key) return p;
                                       return { ...p, total };
                                     }),
@@ -361,38 +366,52 @@ class Pos extends Component {
                       </div>
                     </tbody>
                   </Table>
-                  <Button className="Cliente">
-                    <i style={{ fontSize: 64 }} className="fa fa-user-plus" />
-                  </Button>
+                  <Row>
+                    <Col md={10}>
+                      <FormControl componentClass="select" placeholder="select">
+                        <option value={-1}>Consumidor Final</option>
+                        {this.state.listClients.map(client => {
+                          return <option>{client.nombre + client.apellido}</option>;
+                        })}
+                      </FormControl>
+                    </Col>
+                    <Col md={2}>
+                      <Button bsStyle="success" fill>
+                        <i className="fa fa-user-plus" />
+                      </Button>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-              <Button
-                bsStyle="danger"
-                onClick={() => {
-                  this.setState({ flow: 0 });
-                }}
-                fill>
-                <i className="fa fa-arrow-left" />
-                Regresar
-              </Button>
-              <Button
-                bsStyle="success"
-                onClick={() => {
-                  if (this.state.total - this.state.restaTotal <= 0) {
-                    this.setState({ flow: 2, cardTitle: "Cliente" });
-                  } else {
-                    this.setState({
-                      errorModal: true,
-                      showModal: true,
-                      modalContext: 5,
-                    });
-                  }
-                }}
-                fill
-                pullRight>
-                Validar
-                <i className="fa fa-arrow-right" />
-              </Button>
+              <div className="navButtons">
+                <Button
+                  bsStyle="danger"
+                  onClick={() => {
+                    this.setState({ flow: 0 });
+                  }}
+                  fill>
+                  <i className="fa fa-arrow-left" />
+                  Regresar
+                </Button>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    if (this.state.total - this.state.restaTotal <= 0) {
+                      this.setState({ flow: 2, cardTitle: "Cliente" });
+                    } else {
+                      this.setState({
+                        errorModal: true,
+                        showModal: true,
+                        modalContext: 5,
+                      });
+                    }
+                  }}
+                  fill
+                  pullRight>
+                  Validar
+                  <i className="fa fa-arrow-right" />
+                </Button>
+              </div>
             </Grid>
             <div className="clearfix" />
           </Row>
@@ -473,7 +492,7 @@ class Pos extends Component {
                   onChange={e => {
                     nuevoPrecio = parseInt(e.target.value);
                   }}
-                  defaultValue={this.state.listproducts[this.state.selectedItem].precio}
+                  defaultValue={this.state.listProducts[this.state.selectedItem].precio}
                   placeholder="100.00"
                 />
                 <InputGroup.Addon>
@@ -493,9 +512,9 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  let listproducts = this.state.listproducts;
-                  listproducts[this.state.selectedItem].precio = nuevoPrecio;
-                  this.setState({ listproducts, showModal: false });
+                  let listProducts = this.state.listProducts;
+                  listProducts[this.state.selectedItem].precio = nuevoPrecio;
+                  this.setState({ listProducts, showModal: false });
                   this.prepareProducts();
                 }}
                 fill>
@@ -540,9 +559,9 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  let listproducts = this.state.listproducts;
-                  listproducts[this.state.selectedItem].descuento = descuento;
-                  this.setState({ listproducts, showModal: false });
+                  let listProducts = this.state.listProducts;
+                  listProducts[this.state.selectedItem].descuento = descuento;
+                  this.setState({ listProducts, showModal: false });
                   this.prepareProducts();
                 }}
                 fill>
@@ -564,7 +583,7 @@ class Pos extends Component {
                 <FormControl
                   type="text"
                   pattern="[0-9]s"
-                  defaultValue={this.state.listproducts[this.state.selectedItem].cant}
+                  defaultValue={this.state.listProducts[this.state.selectedItem].cant}
                   onChange={e => {
                     nuevaCant = parseInt(e.target.value);
                   }}
@@ -587,9 +606,9 @@ class Pos extends Component {
               <Button
                 bsStyle="success"
                 onClick={() => {
-                  let listproducts = this.state.listproducts;
-                  listproducts[this.state.selectedItem].cant = nuevaCant;
-                  this.setState({ listproducts, showModal: false });
+                  let listProducts = this.state.listProducts;
+                  listProducts[this.state.selectedItem].cant = nuevaCant;
+                  this.setState({ listProducts, showModal: false });
                   this.prepareProducts();
                 }}
                 fill>
