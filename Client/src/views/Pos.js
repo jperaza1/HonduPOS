@@ -33,20 +33,36 @@ class Pos extends Component {
       restaTotal: 0,
       cardTitle: "",
       selectedItem: undefined,
+      selectedClient: -1,
       showModal: false,
       modalContext: -1,
     };
   }
-
+  dynamicSort = property => {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function(a, b) {
+      /* next line works with strings and numbers,
+       * and you may want to customize it to your needs
+       */
+      var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+      return result * sortOrder;
+    };
+  };
   componentDidMount = () => {
     fetch("http://localhost:3001/GetAllProducts")
       .then(resp => resp.json())
       .then(prods => {
+        prods.data.sort(this.dynamicSort("nombre"));
         this.setState({ products: prods.data, filteredproducts: prods.data });
       });
     fetch("http://localhost:3001/GetAllPayments")
       .then(resp => resp.json())
       .then(prods => {
+        prods.data.sort(this.dynamicSort("nombre"));
         this.setState({ payments: prods.data });
       });
   };
@@ -420,26 +436,14 @@ class Pos extends Component {
         return (
           <Row>
             <Grid fluid>
-              <Button
-                bsStyle="danger"
-                onClick={() => {
-                  this.setState({ flow: 1 });
-                }}
-                fill
-                pullLeft>
-                <i className="fa fa-arrow-left" />
-                Regresar
-              </Button>
-              <Button
-                bsStyle="success"
-                onClick={() => {
-                  this.setState({ showModal: true, modalContext: 3 });
-                }}
-                fill
-                pullRight>
-                <i className="fa fa-plus" />
-                Agregar cliente
-              </Button>
+              {this.state.selectedClient === -1 ? (
+                <div>
+                  <p>Nombre: Consumidor</p>
+                  <p>Apellido: Final</p>
+                  <p>RTN: Final</p>
+                  <p>Telefono: +504 xxxx-xxxx</p>
+                </div>
+              ) : null}
             </Grid>
             <div className="clearfix" />
           </Row>

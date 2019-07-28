@@ -17,19 +17,45 @@ class Inventario extends Component {
   componentDidMount = () => {
     this.getData();
   };
+  dynamicSort = property => {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function(a, b) {
+      /* next line works with strings and numbers,
+       * and you may want to customize it to your needs
+       */
+      var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+      return result * sortOrder;
+    };
+  };
   getData = async () => {
     await fetch("http://localhost:3001/GetAllProducts")
       .then(response => response.json())
-      .then(response => this.setState({ AllProducts: response.data }));
+      .then(response => {
+        response.data.sort(this.dynamicSort("nombre"));
+        this.setState({ AllProducts: response.data });
+      });
     await fetch("http://localhost:3001/GetAllCategories")
       .then(response => response.json())
-      .then(response => this.setState({ AllCategories: response.data }));
+      .then(response => {
+        response.data.sort(this.dynamicSort("nombre"));
+        this.setState({ AllCategories: response.data });
+      });
     await fetch("http://localhost:3001/GetAllPayments")
       .then(response => response.json())
-      .then(response => this.setState({ AllPayments: response.data }));
+      .then(response => {
+        response.data.sort(this.dynamicSort("nombre"));
+        this.setState({ AllPayments: response.data });
+      });
     await fetch("http://localhost:3001/GetAllCliens")
       .then(response => response.json())
-      .then(response => this.setState({ AllClients: response.data }));
+      .then(response => {
+        response.data.sort(this.dynamicSort("nombre"));
+        this.setState({ AllClients: response.data });
+      });
   };
   render() {
     return (
