@@ -9,7 +9,7 @@ import { style } from "variables/Variables.jsx";
 class Eliminar extends Component {
   constructor(props) {
     super(props);
-    this.state = { _notificationSystem: null };
+    this.state = { _notificationSystem: null, categoria: "", pago: "", producto: "" };
   }
 
   componentDidMount = async () => {
@@ -26,6 +26,9 @@ class Eliminar extends Component {
     }
     if (new_props.AllProducts.length > 0) {
       this.setState({ producto: new_props.AllProducts[0].id_producto });
+    }
+    if (new_props.AllClients.length > 0) {
+      this.setState({ cliente: new_props.AllClients[0].id_cliente });
     }
   };
 
@@ -75,7 +78,6 @@ class Eliminar extends Component {
         break;
       }
       case 1: {
-        console.log(this.state.producto);
         fetch("http://localhost:3001/DeleteProduct", {
           method: "post",
           headers: {
@@ -124,6 +126,28 @@ class Eliminar extends Component {
                 "Error al eliminar el modo de pago",
                 "fa fa-times"
               );
+            }
+          });
+        break;
+      }
+      case 3: {
+        console.log(this.state.cliente);
+        fetch("http://localhost:3001/DeleteClient", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id_cliente: this.state.cliente,
+          }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("data", data);
+            if (data.status === "OK") {
+              this.sendNotification("tr", "success", "Cliente eliminado con exito", "fa fa-check");
+            } else {
+              this.sendNotification("tr", "error", "Error al eliminar el cliente", "fa fa-times");
             }
           });
         break;
@@ -219,6 +243,38 @@ class Eliminar extends Component {
                       name: "pago",
                       onChange: this.handleChange,
                       placeholder: "modo",
+                    },
+                  ]}
+                />
+                <Button bsStyle="success" pullRight fill type="submit">
+                  Eliminar
+                </Button>
+                <div className="clearfix" />
+              </Form>
+            }
+          />
+          <Card
+            title="Eliminar cliente"
+            content={
+              <Form
+                onSubmit={e => {
+                  this.handleSubmit(e, 3);
+                }}>
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  properties={[
+                    {
+                      componentClass: "select",
+                      label: "Cliente",
+                      children: this.props.AllClients.map(client => (
+                        <option value={client.id_cliente}>
+                          {client.rtn + " " + client.nombre + " " + client.apellido}
+                        </option>
+                      )),
+                      bsClass: "form-control",
+                      name: "cliente",
+                      onChange: this.handleChange,
+                      placeholder: "cliente",
                     },
                   ]}
                 />

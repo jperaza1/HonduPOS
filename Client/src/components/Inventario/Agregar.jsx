@@ -9,7 +9,7 @@ import { style } from "variables/Variables.jsx";
 class Agregar extends Component {
   constructor(props) {
     super(props);
-    this.state = { categories: [], _notificationSystem: null };
+    this.state = { categories: [], _notificationSystem: null, fechaNacimiento: "" };
   }
 
   componentDidMount = async () => {
@@ -100,6 +100,36 @@ class Agregar extends Component {
           body: JSON.stringify({
             nombre: this.state.nombrePayment,
             otros_detalles: this.state.otrosPayment,
+          }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log("data", data);
+            if (data.status === "OK") {
+              this.sendNotification(
+                "tr",
+                "success",
+                "Modo de pago creado con exito",
+                "fa fa-check"
+              );
+            } else {
+              this.sendNotification("tr", "error", "Error al crear el modo de pago", "fa fa-times");
+            }
+          });
+        break;
+      }
+      case 3: {
+        fetch("http://localhost:3001/CreateClient", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre: this.state.nombreClient,
+            apellido: this.state.apellidoClient,
+            rtn: this.state.rtnClient,
+            fecha_nacimiento: this.state.fechaNacimiento,
+            telefono: this.state.telefonoClient,
           }),
         })
           .then(response => response.json())
@@ -349,15 +379,14 @@ class Agregar extends Component {
                     {
                       label: "Fecha de nacimiento",
                       type: "date",
-                      name: "fechaNacimientoClient",
-                      onChange: e => {
-                        let fecha = new Date(e.target.value);
-                        console.log("esta es la fecha", fecha.toString());
-                        console.log("este es el dia", fecha.getDay());
-                        console.log("este es el mes", fecha.getMonth());
-                        console.log("este es el año", fecha.getFullYear());
+                      date: true,
+                      selected: this.state.fechaNacimiento,
+                      locale: "en-CA",
+                      onChange: date => {
+                        console.log(new Date(date));
+                        this.setState({ fechaNacimiento: date });
                       },
-                      bsClass: "form-control",
+                      className: "form-control",
                       placeholder: "Fecha de nacimiento del cliente",
                       required: true,
                     },

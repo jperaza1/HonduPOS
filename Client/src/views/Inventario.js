@@ -12,7 +12,7 @@ const styles = {
 class Inventario extends Component {
   constructor(props) {
     super(props);
-    this.state = { AllProducts: [], AllCategories: [], AllPayments: [] };
+    this.state = { AllProducts: [], AllCategories: [], AllPayments: [], AllClients: [] };
   }
   componentDidMount = () => {
     this.getData();
@@ -50,7 +50,7 @@ class Inventario extends Component {
         response.data.sort(this.dynamicSort("nombre"));
         this.setState({ AllPayments: response.data });
       });
-    await fetch("http://localhost:3001/GetAllCliens")
+    await fetch("http://localhost:3001/GetAllClients")
       .then(response => response.json())
       .then(response => {
         response.data.sort(this.dynamicSort("nombre"));

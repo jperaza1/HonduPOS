@@ -62,6 +62,12 @@ class Pos extends Component {
         prods.data.sort(this.dynamicSort("nombre"));
         this.setState({ payments: prods.data });
       });
+    fetch("http://localhost:3001/GetAllClients")
+      .then(resp => resp.json())
+      .then(prods => {
+        prods.data.sort(this.dynamicSort("nombre"));
+        this.setState({ listClients: prods.data });
+      });
   };
 
   prepareProducts = () => {
@@ -383,7 +389,9 @@ class Pos extends Component {
                       <FormControl componentClass="select" placeholder="select">
                         <option value={-1}>Consumidor Final</option>
                         {this.state.listClients.map((client, key) => {
-                          return <option value={key}>{client.nombre + client.apellido}</option>;
+                          return (
+                            <option value={key}>{client.nombre + " " + client.apellido}</option>
+                          );
                         })}
                       </FormControl>
                     </Col>

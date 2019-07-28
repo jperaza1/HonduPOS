@@ -231,7 +231,7 @@ app.post("/DeletePaymentMethod", async (req, res) => {
 app.post("/DeleteClient", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  if (body.id_producto !== "" && body.id_producto !== undefined) {
+  if (body.id_cliente !== "" && body.id_cliente !== undefined) {
     db.run("DELETE FROM CLIENTE WHERE id_cliente=?", [body.id_cliente])
       .then(data => {
         res.send({ status: "OK" });
