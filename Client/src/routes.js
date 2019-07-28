@@ -13,7 +13,7 @@ const dashboardRoutes = [
   },
   {
     path: "/inventario",
-    name: "Inventario",
+    name: "Inventario y Clientes",
     icon: "pe-7s-notebook",
     component: Inventario,
     layout: "/admin",

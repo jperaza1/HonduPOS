@@ -176,8 +176,10 @@ class Eliminar extends Component {
                     {
                       componentClass: "select",
                       label: "Categoria",
-                      children: this.props.AllCategories.map(prod => (
-                        <option value={prod.id_categoria}>{prod.nombre}</option>
+                      children: this.props.AllCategories.map((prod, keys) => (
+                        <option key={keys} value={prod.id_categoria}>
+                          {prod.nombre}
+                        </option>
                       )),
                       bsClass: "form-control",
                       name: "categoria",
@@ -206,8 +208,10 @@ class Eliminar extends Component {
                     {
                       componentClass: "select",
                       label: "Producto",
-                      children: this.props.AllProducts.map(prod => (
-                        <option value={prod.id_producto}>{prod.nombre}</option>
+                      children: this.props.AllProducts.map((prod, keys) => (
+                        <option key={keys} value={prod.id_producto}>
+                          {prod.nombre}
+                        </option>
                       )),
                       bsClass: "form-control",
                       name: "producto",
@@ -236,8 +240,10 @@ class Eliminar extends Component {
                     {
                       componentClass: "select",
                       label: "Modo",
-                      children: this.props.AllPayments.map(prod => (
-                        <option value={prod.num_pago}>{prod.nombre}</option>
+                      children: this.props.AllPayments.map((prod, keys) => (
+                        <option key={keys} value={prod.num_pago}>
+                          {prod.nombre}
+                        </option>
                       )),
                       bsClass: "form-control",
                       name: "pago",
@@ -266,8 +272,8 @@ class Eliminar extends Component {
                     {
                       componentClass: "select",
                       label: "Cliente",
-                      children: this.props.AllClients.map(client => (
-                        <option value={client.id_cliente}>
+                      children: this.props.AllClients.map((client, keys) => (
+                        <option keys={keys} value={client.id_cliente}>
                           {client.rtn + " " + client.nombre + " " + client.apellido}
                         </option>
                       )),

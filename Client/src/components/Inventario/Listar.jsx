@@ -6,12 +6,6 @@ class Listar extends Component {
     super(props);
     this.props = { AllProducts: [], AllCategories: [], AllPayments: [], AllClients: [] };
   }
-
-  componentWillReceiveProps = props => {
-    let data = props.AllClients;
-    console.log(data);
-  };
-
   render() {
     return (
       <Row>
@@ -42,7 +36,11 @@ class Listar extends Component {
                           if (props === "image") {
                             return (
                               <td key={keys}>
-                                <img className="tableImage" src={prop[props]} />
+                                <img
+                                  alt="Imagen del producto"
+                                  className="tableImage"
+                                  src={prop[props]}
+                                />
                               </td>
                             );
                           }
