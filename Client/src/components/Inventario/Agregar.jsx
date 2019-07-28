@@ -168,6 +168,7 @@ class Agregar extends Component {
                       name: "categoriaProducto",
                       onChange: this.handleChange,
                       placeholder: "Categoria",
+                      required: true,
                     },
                     {
                       label: "Nombre",
@@ -176,6 +177,7 @@ class Agregar extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Nombre de producto",
+                      required: true,
                     },
                     {
                       label: "Precio",
@@ -185,11 +187,14 @@ class Agregar extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Precio de producto",
+                      required: true,
                     },
                     {
                       label: "Foto",
                       name: "fotoProducto",
                       type: "file",
+                      multiple: false,
+                      accept: "image/*",
                       bsClass: "form-control",
                       onChange: e => {
                         let files = e.target.files;
@@ -200,6 +205,7 @@ class Agregar extends Component {
                         };
                       },
                       placeholder: "Precio de producto",
+                      required: true,
                     },
                   ]}
                 />
@@ -227,6 +233,7 @@ class Agregar extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Nombre de la categoria",
+                      required: true,
                     },
                     {
                       label: "Descripcion",
@@ -235,6 +242,7 @@ class Agregar extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Descripcion de la categoria",
+                      required: true,
                     },
                   ]}
                 />
@@ -262,6 +270,7 @@ class Agregar extends Component {
                       onChange: this.handleChange,
                       bsClass: "form-control",
                       placeholder: "Nombre de la categoria",
+                      required: true,
                     },
                     {
                       label: "Otros detalles",
@@ -270,6 +279,100 @@ class Agregar extends Component {
                       onChange: this.handleChange,
                       bsClass: "form-control",
                       placeholder: "Otros detalles de el modo de pago",
+                      required: true,
+                    },
+                  ]}
+                />
+                <Button bsStyle="success" pullRight fill type="submit">
+                  Crear
+                </Button>
+                <div className="clearfix" />
+              </Form>
+            }
+          />
+          <Card
+            title="Agregar Cliente"
+            content={
+              <Form
+                onSubmit={e => {
+                  this.handleSubmit(e, 3);
+                }}>
+                <FormInputs
+                  ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
+                  properties={[
+                    {
+                      label: "Nombre",
+                      type: "text",
+                      name: "nombreClient",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Nombre del cliente",
+                      required: true,
+                    },
+                    {
+                      label: "Apellido",
+                      type: "text",
+                      name: "apellidoClient",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Apellido del cliente",
+                      required: true,
+                    },
+                    {
+                      label: "RTN",
+                      type: "text",
+                      name: "rtnClient",
+                      onChange: this.handleChange,
+                      className: "form-control",
+                      placeholder: "RTN del cliente",
+                      masked: true,
+                      mask: [
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        "-",
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        "-",
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                      ],
+                      required: true,
+                    },
+                    {
+                      label: "Fecha de nacimiento",
+                      type: "date",
+                      name: "fechaNacimientoClient",
+                      onChange: e => {
+                        let fecha = new Date(e.target.value);
+                        console.log("esta es la fecha", fecha.toString());
+                        console.log("este es el dia", fecha.getDay());
+                        console.log("este es el mes", fecha.getMonth());
+                        console.log("este es el año", fecha.getFullYear());
+                      },
+                      bsClass: "form-control",
+                      placeholder: "Fecha de nacimiento del cliente",
+                      required: true,
+                    },
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-3"]}
+                  properties={[
+                    {
+                      label: "Telefono",
+                      type: "text",
+                      name: "telefonoClient",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Telefono del cliente",
                     },
                   ]}
                 />

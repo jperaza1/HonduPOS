@@ -42,6 +42,13 @@ app.get("/GetAllPayments", async (req, res) => {
   });
 });
 
+app.get("/GetAllClients", async (req, res) => {
+  const db = await dbPromise;
+  db.all("SELECT * FROM CLIENTE").then(data => {
+    res.send({ data: data });
+  });
+});
+
 //Pos
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
@@ -144,6 +151,34 @@ app.post("/CreateUser", async (req, res) => {
     res.send({ status: "FAILED" });
   }
 });
+app.post("/CreateClient", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+
+  if (
+    body.nombre !== "" &&
+    body.apellido !== "" &&
+    body.rtn !== "" &&
+    body.fecha_nacimiento !== "" &&
+    body.telefono !== ""
+  ) {
+    db.run("INSERT INTO CLIENTE(nombre,apellido,rtn,fecha_nacimiento,telefono) VALUES(?,?,?,?,?)", [
+      body.nombre,
+      body.apellido,
+      body.rtn,
+      body.fecha_nacimiento,
+      body.telefono,
+    ])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
 
 app.post("/DeleteProduct", async (req, res) => {
   const db = await dbPromise;
@@ -182,6 +217,22 @@ app.post("/DeletePaymentMethod", async (req, res) => {
   let body = req.body;
   if (body.num_pago !== "" && body.num_pago !== undefined) {
     db.run("DELETE FROM MODO_PAGO WHERE num_pago=?", [body.num_pago])
+      .then(data => {
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
+app.post("/DeleteClient", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  if (body.id_producto !== "" && body.id_producto !== undefined) {
+    db.run("DELETE FROM CLIENTE WHERE id_cliente=?", [body.id_cliente])
       .then(data => {
         res.send({ status: "OK" });
       })

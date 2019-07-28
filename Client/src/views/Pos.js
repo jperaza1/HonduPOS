@@ -15,7 +15,6 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
 import "../assets/css/app.css";
-import FormInputs from "components/FormInputs/FormInputs";
 const ISV = 0.15;
 class Pos extends Component {
   constructor(props) {
@@ -370,8 +369,8 @@ class Pos extends Component {
                     <Col md={10}>
                       <FormControl componentClass="select" placeholder="select">
                         <option value={-1}>Consumidor Final</option>
-                        {this.state.listClients.map(client => {
-                          return <option>{client.nombre + client.apellido}</option>;
+                        {this.state.listClients.map((client, key) => {
+                          return <option value={key}>{client.nombre + client.apellido}</option>;
                         })}
                       </FormControl>
                     </Col>

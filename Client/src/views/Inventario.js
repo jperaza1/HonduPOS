@@ -27,6 +27,9 @@ class Inventario extends Component {
     await fetch("http://localhost:3001/GetAllPayments")
       .then(response => response.json())
       .then(response => this.setState({ AllPayments: response.data }));
+    await fetch("http://localhost:3001/GetAllCliens")
+      .then(response => response.json())
+      .then(response => this.setState({ AllClients: response.data }));
   };
   render() {
     return (
@@ -40,6 +43,7 @@ class Inventario extends Component {
               AllProducts={this.state.AllProducts}
               AllCategories={this.state.AllCategories}
               AllPayments={this.state.AllPayments}
+              AllClients={this.state.AllClients}
             />
           </Tab>
           <Tab style={styles.tab} eventKey={3} title="Eliminar">
@@ -48,6 +52,7 @@ class Inventario extends Component {
               AllProducts={this.state.AllProducts}
               AllCategories={this.state.AllCategories}
               AllPayments={this.state.AllPayments}
+              AllClients={this.state.AllClients}
             />
           </Tab>
         </Tabs>
