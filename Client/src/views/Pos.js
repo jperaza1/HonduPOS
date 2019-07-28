@@ -82,7 +82,7 @@ class Pos extends Component {
       return null;
     });
     subtotal = parseFloat(subtotal).toFixed(2);
-    let isv = subtotal * this.state.empresa.ISV;
+    let isv = subtotal * this.state.empresa.isv;
     isv = parseFloat(isv).toFixed(2);
     let total = +subtotal + +isv;
     total = parseFloat(total).toFixed(2);

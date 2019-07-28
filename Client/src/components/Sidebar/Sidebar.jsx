@@ -39,7 +39,7 @@ class Sidebar extends Component {
             </div>
           </NavLink>
           <NavLink to="/admin/inicio" className="nav-link simple-text logo-normal">
-            {this.state.empresa.NAME}
+            {this.state.empresa.name}
           </NavLink>
         </div>
         <div className="sidebar-wrapper">

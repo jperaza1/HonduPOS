@@ -8,7 +8,11 @@ import "./assets/css/pe-icon-7-stroke.css";
 import "./assets/css/app.css";
 
 import AdminLayout from "layouts/Admin.jsx";
-
+fetch("/Empresa.json")
+  .then(res => res.json())
+  .then(data => {
+    document.title = data.name;
+  });
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
