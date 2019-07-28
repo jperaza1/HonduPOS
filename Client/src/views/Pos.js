@@ -412,7 +412,12 @@ class Pos extends Component {
                   </Table>
                   <Row>
                     <Col md={10}>
-                      <FormControl componentClass="select" placeholder="select">
+                      <FormControl
+                        componentClass="select"
+                        onChange={e => {
+                          this.setState({ selectedClient: parseInt(e.target.value) });
+                        }}
+                        placeholder="select">
                         <option value={-1}>Consumidor Final</option>
                         {this.state.listClients.map((client, key) => {
                           return (
@@ -479,7 +484,14 @@ class Pos extends Component {
                   <p>RTN: 9999-9999-999999</p>
                   <p>Telefono: +504 xxxx-xxxx</p>
                 </div>
-              ) : null}
+              ) : (
+                <div>
+                  <p>Nombre: {this.state.listClients[this.state.selectedClient].nombre}</p>
+                  <p>Apellido: {this.state.listClients[this.state.selectedClient].apellido}</p>
+                  <p>RTN: {this.state.listClients[this.state.selectedClient].rtn}</p>
+                  <p>Telefono: {this.state.listClients[this.state.selectedClient].telefono}</p>
+                </div>
+              )}
             </Grid>
             <div className="clearfix" />
           </Row>
