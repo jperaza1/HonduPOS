@@ -45,9 +45,6 @@ class Pos extends Component {
       property = property.substr(1);
     }
     return function(a, b) {
-      /* next line works with strings and numbers,
-       * and you may want to customize it to your needs
-       */
       var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
       return result * sortOrder;
     };
@@ -440,7 +437,7 @@ class Pos extends Component {
                 <div>
                   <p>Nombre: Consumidor</p>
                   <p>Apellido: Final</p>
-                  <p>RTN: Final</p>
+                  <p>RTN: 9999-9999-999999</p>
                   <p>Telefono: +504 xxxx-xxxx</p>
                 </div>
               ) : null}
@@ -659,7 +656,7 @@ class Pos extends Component {
                 Error
               </ModalHeader>
               <ModalBody>
-                <p>No hay datos para procesar</p>
+                <p>No hay productos para procesar</p>
               </ModalBody>
               <ModalFooter>
                 <Button
