@@ -154,7 +154,6 @@ app.post("/CreateUser", async (req, res) => {
 app.post("/CreateClient", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-
   if (
     body.nombre !== "" &&
     body.apellido !== "" &&

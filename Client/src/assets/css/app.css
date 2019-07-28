@@ -78,7 +78,12 @@
 #dialogFlex {
   display: flex !important;
 }
-
+#dialogFlexWide {
+  display: flex !important;
+}
+#dialogFlexWide .modal-content {
+  width: 75vw !important;
+}
 .paymentButtons {
   display: flex;
   justify-content: center;

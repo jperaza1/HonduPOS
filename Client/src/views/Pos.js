@@ -10,10 +10,14 @@ import {
   ModalBody,
   ModalHeader,
   ModalFooter,
+  Form,
 } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import Product from "components/Product/Product.jsx";
+import FormInputs from "components/FormInputs/FormInputs.jsx";
+import NotificationSystem from "react-notification-system";
+import { style } from "variables/Variables.jsx";
 import "../assets/css/app.css";
 class Pos extends Component {
   constructor(props) {
@@ -55,6 +59,10 @@ class Pos extends Component {
     };
   };
   componentDidMount = () => {
+    this.setState({ _notificationSystem: this.refs.notificationSystem });
+    this.getData();
+  };
+  getData = () => {
     fetch("http://localhost:3001/GetAllProducts")
       .then(resp => resp.json())
       .then(prods => {
@@ -74,7 +82,16 @@ class Pos extends Component {
         this.setState({ listClients: prods.data });
       });
   };
-
+  sendNotification = (position, color, message, icon) => {
+    var level = color; // 'success', 'warning', 'error' or 'info'
+    this.state._notificationSystem.addNotification({
+      title: <span data-notify="icon" className={icon} />,
+      message: <div>{message}</div>,
+      level: level,
+      position: position,
+      autoDismiss: 15,
+    });
+  };
   prepareProducts = () => {
     let subtotal = 0;
     this.state.listProducts.map(prod => {
@@ -406,7 +423,12 @@ class Pos extends Component {
                     </Col>
                     <Col md={2}>
                       <Button bsStyle="success" fill>
-                        <i className="fa fa-user-plus" />
+                        <i
+                          className="fa fa-user-plus"
+                          onClick={() => {
+                            this.setState({ modalContext: 6, showModal: true, errorModal: false });
+                          }}
+                        />
                       </Button>
                     </Col>
                   </Row>
@@ -471,7 +493,8 @@ class Pos extends Component {
     if (
       this.state.selectedItem === undefined &&
       this.state.modalContext !== 4 &&
-      this.state.modalContext !== 5
+      this.state.modalContext !== 5 &&
+      this.state.modalContext !== 6
     ) {
       return (
         <Modal id="dialogFlex" show={this.state.showModal}>
@@ -717,6 +740,148 @@ class Pos extends Component {
           return null;
         }
       }
+      case 6: {
+        return (
+          <Modal id="dialogFlexWide" show={this.state.showModal}>
+            <ModalHeader closeButton onHide={() => this.setState({ showModal: false })}>
+              Agregar Cliente
+            </ModalHeader>
+            <ModalBody>
+              <Form
+                onSubmit={e => {
+                  e.preventDefault();
+                  console.log("se envio :V");
+                  fetch("http://localhost:3001/CreateClient", {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      nombre: this.state.nombreClient,
+                      apellido: this.state.apellidoClient,
+                      rtn: this.state.rtnClient,
+                      fecha_nacimiento: this.state.fechaNacimiento,
+                      telefono: this.state.telefonoClient,
+                    }),
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log("data", data);
+                      if (data.status === "OK") {
+                        this.sendNotification(
+                          "tr",
+                          "success",
+                          "Cliente creado con exito",
+                          "fa fa-check"
+                        );
+                        this.getData();
+                        this.setState({ showModal: false });
+                      } else {
+                        this.sendNotification(
+                          "tr",
+                          "error",
+                          "Error al crear el cliente",
+                          "fa fa-times"
+                        );
+                      }
+                    });
+                }}>
+                <FormInputs
+                  ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
+                  properties={[
+                    {
+                      label: "Nombre",
+                      type: "text",
+                      name: "nombreClient",
+                      onChange: e => {
+                        this.setState({ [e.target.name]: e.target.value });
+                      },
+                      bsClass: "form-control",
+                      placeholder: "Nombre del cliente",
+                      required: true,
+                    },
+                    {
+                      label: "Apellido",
+                      type: "text",
+                      name: "apellidoClient",
+                      onChange: e => {
+                        this.setState({ [e.target.name]: e.target.value });
+                      },
+                      bsClass: "form-control",
+                      placeholder: "Apellido del cliente",
+                      required: true,
+                    },
+                    {
+                      label: "RTN",
+                      type: "text",
+                      name: "rtnClient",
+                      onChange: e => {
+                        this.setState({ [e.target.name]: e.target.value });
+                      },
+                      className: "form-control",
+                      placeholder: "RTN del cliente",
+                      masked: true,
+                      mask: [
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        "-",
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        "-",
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                      ],
+                      required: true,
+                    },
+                    {
+                      label: "Fecha de nacimiento",
+                      type: "date",
+                      date: true,
+                      selected: this.state.fechaNacimiento,
+                      locale: "en-CA",
+                      onChange: date => {
+                        console.log(new Date(date));
+                        this.setState({ fechaNacimiento: date });
+                      },
+                      className: "form-control",
+                      placeholder: "Fecha de nacimiento del cliente",
+                      required: true,
+                    },
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-3"]}
+                  properties={[
+                    {
+                      label: "Telefono",
+                      type: "text",
+                      name: "telefonoClient",
+                      onChange: e => {
+                        this.setState({ [e.target.name]: e.target.value });
+                      },
+                      bsClass: "form-control",
+                      placeholder: "Telefono del cliente",
+                    },
+                  ]}
+                />
+                <ModalFooter>
+                  <Button bsStyle="success" type="submit" fill>
+                    OK
+                  </Button>
+                </ModalFooter>
+              </Form>
+            </ModalBody>
+          </Modal>
+        );
+      }
       default:
         break;
     }
@@ -724,6 +889,7 @@ class Pos extends Component {
   render() {
     return (
       <div className="content">
+        <NotificationSystem ref="notificationSystem" style={style} />
         <Grid fluid>
           {this.getModalContext()}
           <Row>

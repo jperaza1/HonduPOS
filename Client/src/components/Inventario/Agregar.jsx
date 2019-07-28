@@ -183,6 +183,7 @@ class Agregar extends Component {
             content={
               <Form
                 onSubmit={e => {
+                  e.preventDefault();
                   this.handleSubmit(e, 0);
                 }}>
                 <FormInputs
@@ -251,6 +252,7 @@ class Agregar extends Component {
             content={
               <Form
                 onSubmit={e => {
+                  e.preventDefault();
                   this.handleSubmit(e, 1);
                 }}>
                 <FormInputs
@@ -288,6 +290,7 @@ class Agregar extends Component {
             content={
               <Form
                 onSubmit={e => {
+                  e.preventDefault();
                   this.handleSubmit(e, 2);
                 }}>
                 <FormInputs
@@ -325,6 +328,7 @@ class Agregar extends Component {
             content={
               <Form
                 onSubmit={e => {
+                  e.preventDefault();
                   this.handleSubmit(e, 3);
                 }}>
                 <FormInputs
