@@ -126,3 +126,9 @@
 .navButtons {
   padding: 15px;
 }
+
+.tableImage {
+  filter: grayscale(100%);
+  height: 100px;
+  width: 100px;
+}

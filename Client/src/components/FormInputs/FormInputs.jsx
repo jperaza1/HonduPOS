@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import { FormGroup, ControlLabel, FormControl, Row } from "react-bootstrap";
 import MaskedInput from "react-text-mask";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 function FieldGroup({ label, ...props }) {
+  let Input = {};
+  if (props.masked) {
+    Input = <MaskedInput {...props} />;
+  } else if (props.date) {
+    Input = <DatePicker {...props} />;
+  } else {
+    Input = <FormControl {...props} />;
+  }
   return (
     <FormGroup>
       <ControlLabel>{label}</ControlLabel>
-      {!props.masked ? <FormControl {...props} /> : <MaskedInput {...props} />}
+      {Input}
     </FormGroup>
   );
 }
