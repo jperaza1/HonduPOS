@@ -140,10 +140,8 @@
   transform: scale(10%);
 }
 
-.calculatorContainer table td:hover {
-  cursor: pointer;
-}
-
-.tablePayments td:hover {
+.calculatorContainer table td:hover,
+.tablePayments td:hover,
+#productCard {
   cursor: pointer;
 }

@@ -492,6 +492,27 @@ class Pos extends Component {
                   <p>Telefono: {this.state.listClients[this.state.selectedClient].telefono}</p>
                 </div>
               )}
+              <div className="navButtons">
+                <Button
+                  bsStyle="danger"
+                  onClick={() => {
+                    this.setState({ flow: 1 });
+                  }}
+                  fill>
+                  <i className="fa fa-arrow-left" />
+                  Regresar
+                </Button>
+                <Button
+                  bsStyle="success"
+                  onClick={() => {
+                    console.log("wenas");
+                  }}
+                  fill
+                  pullRight>
+                  Finalizar
+                  <i className="fa fa-check" />
+                </Button>
+              </div>
             </Grid>
             <div className="clearfix" />
           </Row>

@@ -5,7 +5,8 @@ export class Card extends Component {
     return (
       <div
         onClick={this.props.onClick ? this.props.onClick : null}
-        className={"card" + (this.props.plain ? " card-plain" : "")}>
+        className={"card" + (this.props.plain ? " card-plain" : "")}
+        id={this.props.product ? "productCard" : ""}>
         <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
           <h4 className="title">{this.props.title}</h4>
           <p className="category">{this.props.category}</p>

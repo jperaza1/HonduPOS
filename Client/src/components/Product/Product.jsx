@@ -7,6 +7,7 @@ class Product extends Component {
     return (
       <Col md={4}>
         <Card
+          product
           onClick={this.props.onClick}
           title={this.props.prod.nombre}
           stats={"L " + this.props.prod.precio.toFixed(2)}
