@@ -50,6 +50,45 @@ app.get("/GetAllClients", async (req, res) => {
 });
 
 //Pos
+app.post("/GenerateReceipt", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  if ((body.nombre !== [] && body.precio !== "", body.id_categoria !== "")) {
+    db.run("INSERT INTO FACTURA(id_cliente,fecha,id_empleado) VALUES(?,?,?)", [
+      body.cliente.id_cliente,
+      new Date().toString(),
+      body.empleado.id_empleado,
+    ])
+      .then(async data => {
+        let num_factura = data.lastID;
+        await body.payments.map(pay => {
+          db.run("INSERT INTO MODO_PAGOFACTURA(num_pago,id_factura) VALUES(?,?)", [
+            pay.num_pago,
+            num_factura,
+          ]).catch(error => {
+            res.send({ status: "FAILED" });
+          });
+        });
+        await body.products.map(prod => {
+          db.run("INSERT INTO DETALLE(id_factura,id_producto,cantidad,precio) VALUES(?,?,?,?)", [
+            num_factura,
+            prod.id_producto,
+            prod.cant,
+            prod.precio,
+          ]).catch(error => {
+            res.send({ status: "FAILED" });
+          });
+        });
+        res.send({ status: "OK" });
+      })
+      .catch(error => {
+        res.send({ status: "FAILED" });
+      });
+  } else {
+    res.send({ status: "FAILED" });
+  }
+});
+
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -65,7 +104,6 @@ app.post("/CreateProduct", async (req, res) => {
         res.send({ status: "OK" });
       })
       .catch(error => {
-        console.log(error);
         res.send({ status: "FAILED" });
       });
   } else {
@@ -137,20 +175,18 @@ app.post("/CreateUser", async (req, res) => {
               res.send({ status: "OK" });
             })
             .catch(error => {
-              console.log(error);
               res.send({ status: "FAILED" });
             });
         } else {
-          console.log("ya exite");
           res.send({ status: "FAILED" });
         }
       })
       .catch(error => {});
   } else {
-    console.log("ya exite");
     res.send({ status: "FAILED" });
   }
 });
+
 app.post("/CreateClient", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;

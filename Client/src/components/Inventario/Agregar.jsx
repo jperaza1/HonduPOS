@@ -136,14 +136,9 @@ class Agregar extends Component {
           .then(data => {
             console.log("data", data);
             if (data.status === "OK") {
-              this.sendNotification(
-                "tr",
-                "success",
-                "Modo de pago creado con exito",
-                "fa fa-check"
-              );
+              this.sendNotification("tr", "success", "Cliente creado con exito", "fa fa-check");
             } else {
-              this.sendNotification("tr", "error", "Error al crear el modo de pago", "fa fa-times");
+              this.sendNotification("tr", "error", "Error al crear el cliente", "fa fa-times");
             }
           });
         break;

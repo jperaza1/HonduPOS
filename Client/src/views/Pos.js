@@ -18,6 +18,7 @@ import Product from "components/Product/Product.jsx";
 import FormInputs from "components/FormInputs/FormInputs.jsx";
 import NotificationSystem from "react-notification-system";
 import { style } from "variables/Variables.jsx";
+import decode from "jwt-decode";
 import "../assets/css/app.css";
 class Pos extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class Pos extends Component {
       restaTotal: 0,
       cardTitle: "",
       selectedItem: undefined,
-      selectedClient: -1,
+      selectedClient: 0,
       showModal: false,
       modalContext: -1,
       empresa: {},
@@ -47,6 +48,7 @@ class Pos extends Component {
         this.setState({ empresa: data });
       });
   }
+
   dynamicSort = property => {
     var sortOrder = 1;
     if (property[0] === "-") {
@@ -61,6 +63,10 @@ class Pos extends Component {
   componentDidMount = () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     this.getData();
+    const token = localStorage.getItem("jwtToken");
+    let empleado = decode(token);
+    console.log(empleado);
+    this.setState({ empleado });
   };
   getData = () => {
     fetch("http://localhost:3001/GetAllProducts")
@@ -418,7 +424,6 @@ class Pos extends Component {
                           this.setState({ selectedClient: parseInt(e.target.value) });
                         }}
                         placeholder="select">
-                        <option value={-1}>Consumidor Final</option>
                         {this.state.listClients.map((client, key) => {
                           return (
                             <option value={key}>{client.nombre + " " + client.apellido}</option>
@@ -477,21 +482,12 @@ class Pos extends Component {
         return (
           <Row>
             <Grid fluid>
-              {this.state.selectedClient === -1 ? (
-                <div>
-                  <p>Nombre: Consumidor</p>
-                  <p>Apellido: Final</p>
-                  <p>RTN: 9999-9999-999999</p>
-                  <p>Telefono: +504 xxxx-xxxx</p>
-                </div>
-              ) : (
-                <div>
-                  <p>Nombre: {this.state.listClients[this.state.selectedClient].nombre}</p>
-                  <p>Apellido: {this.state.listClients[this.state.selectedClient].apellido}</p>
-                  <p>RTN: {this.state.listClients[this.state.selectedClient].rtn}</p>
-                  <p>Telefono: {this.state.listClients[this.state.selectedClient].telefono}</p>
-                </div>
-              )}
+              <div>
+                <p>Nombre: {this.state.listClients[this.state.selectedClient].nombre}</p>
+                <p>Apellido: {this.state.listClients[this.state.selectedClient].apellido}</p>
+                <p>RTN: {this.state.listClients[this.state.selectedClient].rtn}</p>
+                <p>Telefono: {this.state.listClients[this.state.selectedClient].telefono}</p>
+              </div>
               <div className="navButtons">
                 <Button
                   bsStyle="danger"
@@ -505,7 +501,37 @@ class Pos extends Component {
                 <Button
                   bsStyle="success"
                   onClick={() => {
-                    console.log("wenas");
+                    fetch("http://localhost:3001/GenerateReceipt", {
+                      method: "post",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        cliente: this.state.listClients[this.state.selectedClient],
+                        empleado: this.state.empleado,
+                        payments: this.state.listPayments,
+                        products: this.state.listProducts,
+                      }),
+                    })
+                      .then(res => res.json())
+                      .then(response => {
+                        if (response.status === "OK") {
+                          this.sendNotification(
+                            "tr",
+                            "success",
+                            "Factura creada con exito",
+                            "fa fa-check"
+                          );
+                          this.setState({ flow: 0 });
+                        } else {
+                          this.sendNotification(
+                            "tr",
+                            "error",
+                            "Error al crear la factura",
+                            "fa fa-times"
+                          );
+                        }
+                      });
                   }}
                   fill
                   pullRight>
