@@ -145,3 +145,13 @@
 #productCard {
   cursor: pointer;
 }
+
+#processButton {
+  background-color: #049f0c;
+  border-color: #049f0c;
+}
+#processButton:hover,
+#processButton:active {
+  background-color: #87cb16;
+  border-color: #87cb16;
+}

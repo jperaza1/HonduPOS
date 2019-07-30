@@ -284,6 +284,7 @@ class Pos extends Component {
               <div className="navButtons">
                 <Button
                   bsStyle="primary"
+                  id="processButton"
                   onClick={this.handlePurchase}
                   pullRight
                   fill
@@ -522,7 +523,16 @@ class Pos extends Component {
                             "Factura creada con exito",
                             "fa fa-check"
                           );
-                          this.setState({ flow: 0 });
+                          this.setState({
+                            flow: 0,
+                            selectedClient: 0,
+                            listPayments: [],
+                            listProducts: [],
+                            isv: 0,
+                            total: 0,
+                            subtotal: 0,
+                            restaTotal: 0,
+                          });
                         } else {
                           this.sendNotification(
                             "tr",

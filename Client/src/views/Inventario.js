@@ -3,6 +3,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import Agregar from "components/Inventario/Agregar.jsx";
 import Listar from "components/Inventario/Listar.jsx";
 import Eliminar from "components/Inventario/Eliminar.jsx";
+import Update from "components/Inventario/Update";
 const styles = {
   tab: {
     backgroundColor: "white",
@@ -72,7 +73,16 @@ class Inventario extends Component {
               AllClients={this.state.AllClients}
             />
           </Tab>
-          <Tab style={styles.tab} eventKey={3} title="Eliminar">
+          <Tab style={styles.tab} eventKey={3} title="Actualizar">
+            <Update
+              update={this.getData}
+              AllProducts={this.state.AllProducts}
+              AllCategories={this.state.AllCategories}
+              AllPayments={this.state.AllPayments}
+              AllClients={this.state.AllClients}
+            />
+          </Tab>
+          <Tab style={styles.tab} eventKey={4} title="Eliminar">
             <Eliminar
               update={this.getData}
               AllProducts={this.state.AllProducts}
