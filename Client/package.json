@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "author": "David Mendoza",
   "license": "GNU GPLv3",
   "description": "Front-end para el Sistema de ventas",

@@ -21,7 +21,6 @@ async function createWindow() {
     }
   });
   mainWindow.maximize();
-  mainWindow.setOverlayIcon(__dirname + "assets/Icons/win-icon.ico", "Test?");
   if (isDev) {
     mainWindow.loadURL("http://localhost:3000/");
   } else {
