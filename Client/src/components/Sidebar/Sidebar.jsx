@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
+import Empresa from "../../assets/data/Empresa.json";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       width: window.innerWidth,
-      empresa: {},
     };
-    fetch("/Empresa.json")
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ empresa: data });
-      });
   }
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -39,7 +34,7 @@ class Sidebar extends Component {
             </div>
           </NavLink>
           <NavLink to="/admin/inicio" className="nav-link simple-text logo-normal">
-            {this.state.empresa.name}
+            {Empresa.name}
           </NavLink>
         </div>
         <div className="sidebar-wrapper">

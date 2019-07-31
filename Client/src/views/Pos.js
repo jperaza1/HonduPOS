@@ -20,6 +20,8 @@ import NotificationSystem from "react-notification-system";
 import { style } from "variables/Variables.jsx";
 import decode from "jwt-decode";
 import "../assets/css/app.css";
+import Empresa from "../assets/data/Empresa.json";
+
 class Pos extends Component {
   constructor(props) {
     super(props);
@@ -42,11 +44,6 @@ class Pos extends Component {
       modalContext: -1,
       empresa: {},
     };
-    fetch("/Empresa.json")
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ empresa: data });
-      });
   }
 
   dynamicSort = property => {
@@ -105,7 +102,7 @@ class Pos extends Component {
       return null;
     });
     subtotal = parseFloat(subtotal).toFixed(2);
-    let isv = subtotal * this.state.empresa.isv;
+    let isv = subtotal * Empresa.isv;
     isv = parseFloat(isv).toFixed(2);
     let total = +subtotal + +isv;
     total = parseFloat(total).toFixed(2);

@@ -6,13 +6,9 @@ import "./assets/css/animate.min.css";
 import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
 import "./assets/css/pe-icon-7-stroke.css";
 import "./assets/css/app.css";
-
 import AdminLayout from "layouts/Admin.jsx";
-fetch("/Empresa.json")
-  .then(res => res.json())
-  .then(data => {
-    document.title = data.name;
-  });
+import Empresa from "./assets/data/Empresa.json";
+document.title = Empresa.name;
 ReactDOM.render(
   <BrowserRouter>
     <Switch>

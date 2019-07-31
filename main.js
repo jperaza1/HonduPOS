@@ -4,6 +4,7 @@ let win;
 const serve = require("electron-serve");
 const isDev = require("electron-is-dev");
 const loadURL = serve({ directory: "./build" });
+const path = require("path");
 
 createServer(isDev);
 async function createWindow() {
@@ -14,11 +15,13 @@ async function createWindow() {
     title: "POSine",
     autoHideMenuBar: true,
     show: false,
+    icon: path.join(__dirname, "assets/Icons/win-icon.ico"),
     webPreferences: {
       nodeIntegration: true
     }
   });
   mainWindow.maximize();
+  mainWindow.setOverlayIcon(__dirname + "assets/Icons/win-icon.ico", "Test?");
   if (isDev) {
     mainWindow.loadURL("http://localhost:3000/");
   } else {

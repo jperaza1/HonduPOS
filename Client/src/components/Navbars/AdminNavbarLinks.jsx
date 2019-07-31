@@ -28,8 +28,7 @@ class AdminNavbarLinks extends Component {
     if (checkAuth()) {
       const token = localStorage.getItem("jwtToken");
       let { nombre } = decode(token);
-      let sepa = nombre.split(" ");
-      this.setState({ nombre: sepa[0] });
+      this.setState({ nombre });
     }
   }
   render() {
