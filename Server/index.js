@@ -22,7 +22,7 @@ const secret =
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//gets
+//Gets
 app.get("/GetAllProducts", async (req, res) => {
   const db = await dbPromise;
   db.all("SELECT * FROM PRODUCTO").then(data => {
@@ -90,7 +90,7 @@ app.post("/GenerateReceipt", async (req, res) => {
     res.send({ status: "FAILED" });
   }
 });
-
+//Creates
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -217,6 +217,7 @@ app.post("/CreateClient", async (req, res) => {
   }
 });
 
+//Deletes
 app.post("/DeleteProduct", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
@@ -281,6 +282,7 @@ app.post("/DeleteClient", async (req, res) => {
   }
 });
 
+//Auth
 app.post("/Auth", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
