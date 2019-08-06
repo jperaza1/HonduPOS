@@ -7,8 +7,11 @@ import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
 import "./assets/css/pe-icon-7-stroke.css";
 import "./assets/css/app.css";
 import AdminLayout from "layouts/Admin.jsx";
-import Empresa from "./assets/data/Empresa.json";
-document.title = Empresa.name;
+fetch("http://localhost:3001/GetCompanyData")
+  .then(data => data.json())
+  .then(Empresa => {
+    document.title = Empresa.name;
+  });
 ReactDOM.render(
   <BrowserRouter>
     <Switch>

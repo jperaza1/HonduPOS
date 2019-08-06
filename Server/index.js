@@ -51,6 +51,9 @@ app.get("/GetAllClients", async (req, res) => {
   });
 });
 
+app.get("/GetCompanyData", async (req, res) => {
+  res.send(require("./Database/Empresa.json"));
+});
 //Pos
 app.post("/GenerateReceipt", async (req, res) => {
   const db = await dbPromise;
