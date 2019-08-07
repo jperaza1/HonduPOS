@@ -297,7 +297,7 @@ class Agregar extends Component {
                       name: "nombrePayment",
                       onChange: this.handleChange,
                       bsClass: "form-control",
-                      placeholder: "Nombre de la categoria",
+                      placeholder: "Nombre del modo de pago",
                       required: true,
                     },
                     {

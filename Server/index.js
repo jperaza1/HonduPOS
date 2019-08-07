@@ -90,6 +90,24 @@ app.post("/updateCategorie", async (req, res) => {
     });
 });
 
+app.post("/updatePaymentMethod", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  console.log(body);
+  db.run("UPDATE MODO_PAGO SET nombre=?, otros_detalles=? WHERE num_pago=?", [
+    body.nombre,
+    body.otros_detalles,
+    body.num_pago,
+  ])
+    .then(data => {
+      res.send({ status: "OK" });
+    })
+    .catch(error => {
+      console.log(error);
+      res.send({ status: "FAILED" });
+    });
+});
+
 //Pos
 app.post("/GenerateReceipt", async (req, res) => {
   const db = await dbPromise;

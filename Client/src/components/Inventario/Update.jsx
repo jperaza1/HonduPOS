@@ -40,7 +40,7 @@ class Update extends Component {
       });
     }
     if (new_props.AllPayments.length > 0) {
-      this.setState({ pagoId: new_props.AllPayments[0].num_pago });
+      this.setState({ pagoId: new_props.AllPayments[0].num_pago, pago: new_props.AllPayments[0] });
     }
     if (new_props.AllProducts.length > 0) {
       this.setState({
@@ -115,6 +115,36 @@ class Update extends Component {
           });
         break;
       }
+
+      case 2: {
+        fetch("http://localhost:3001/updatePaymentMethod", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.state.pago),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === "OK") {
+              this.sendNotification(
+                "tr",
+                "success",
+                "Modo de pago actualizado con exito",
+                "fa fa-check"
+              );
+              this.props.update();
+            } else {
+              this.sendNotification(
+                "tr",
+                "error",
+                "Error al actualizar el modo de pago",
+                "fa fa-times"
+              );
+            }
+          });
+        break;
+      }
       default:
         break;
     }
@@ -163,6 +193,18 @@ class Update extends Component {
       case "descripcionCategoria": {
         this.setState({
           categoria: { ...this.state.categoria, descripcion: e.target.value },
+        });
+        break;
+      }
+      case "nombrePayment": {
+        this.setState({
+          pago: { ...this.state.pago, nombre: e.target.value },
+        });
+        break;
+      }
+      case "otrosPayment": {
+        this.setState({
+          pago: { ...this.state.pago, otros_detalles: e.target.value },
         });
         break;
       }
@@ -320,6 +362,70 @@ class Update extends Component {
                       onChange: this.handleChange,
                       placeholder: "Descripcion de la categoria",
                       value: this.state.categoria.descripcion,
+                      required: true,
+                    },
+                  ]}
+                />
+                <Button bsStyle="success" pullRight fill type="submit">
+                  Actualizar
+                </Button>
+                <div className="clearfix" />
+              </Form>
+            }
+          />
+
+          <Card
+            title="Actualizar Modos de pago"
+            content={
+              <Form
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.handleSubmit(e, 2);
+                }}>
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  properties={[
+                    {
+                      componentClass: "select",
+                      label: "Producto",
+                      children: this.props.AllPayments.map((prod, keys) => (
+                        <option key={keys} value={keys}>
+                          {prod.nombre}
+                        </option>
+                      )),
+                      bsClass: "form-control",
+                      name: "selectedProduct",
+                      onChange: e => {
+                        this.setState({
+                          [e.target.name]: e.target.value,
+                          pago: this.props.AllPayments[e.target.value],
+                        });
+                      },
+                      placeholder: "Producto",
+                    },
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-6", "col-md-6"]}
+                  properties={[
+                    {
+                      label: "Nombre",
+                      type: "text",
+                      name: "nombrePayment",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Nombre del modo de pago",
+                      value: this.state.pago.nombre,
+                      required: true,
+                    },
+                    {
+                      label: "Otros detalles",
+                      type: "text",
+                      name: "otrosPayment",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Otros detalles de el modo de pago",
+                      value: this.state.pago.otros_detalles,
                       required: true,
                     },
                   ]}
