@@ -54,6 +54,26 @@ app.get("/GetAllClients", async (req, res) => {
 app.get("/GetCompanyData", async (req, res) => {
   res.send(require("./Database/Empresa.json"));
 });
+
+//Updates
+app.post("/updateProduct", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  db.run("UPDATE PRODUCTO SET nombre=?,precio=?,id_categoria=?,image=? WHERE id_producto=?", [
+    body.nombre,
+    body.precio,
+    body.id_categoria,
+    body.image,
+    body.id_producto,
+  ])
+    .then(data => {
+      res.send({ status: "OK" });
+    })
+    .catch(error => {
+      res.send({ status: "FAILED" });
+    });
+});
+
 //Pos
 app.post("/GenerateReceipt", async (req, res) => {
   const db = await dbPromise;

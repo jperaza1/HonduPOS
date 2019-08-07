@@ -66,7 +66,6 @@ class Pos extends Component {
     this.getData();
     const token = localStorage.getItem("jwtToken");
     let empleado = decode(token);
-    console.log(empleado);
     this.setState({ empleado });
   };
   getData = () => {

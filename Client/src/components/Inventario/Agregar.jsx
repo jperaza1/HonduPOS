@@ -52,7 +52,7 @@ class Agregar extends Component {
           body: JSON.stringify({
             nombre: this.state.nombreProducto,
             precio: this.state.precioProducto,
-            photo: this.state.photo,
+            photo: this.state.fotoProducto,
             id_categoria: this.state.categoriaProducto,
           }),
         })
@@ -227,7 +227,7 @@ class Agregar extends Component {
                         let reader = new FileReader();
                         reader.readAsDataURL(files[0]);
                         reader.onload = e => {
-                          this.setState({ photo: e.target.result });
+                          this.setState({ fotoProducto: e.target.result });
                         };
                       },
                       placeholder: "Precio de producto",

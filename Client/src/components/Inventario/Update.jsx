@@ -11,10 +11,10 @@ class Update extends Component {
     super(props);
     this.state = {
       _notificationSystem: null,
-      categoria: undefined,
-      pago: undefined,
-      producto: undefined,
-      cliente: undefined,
+      categoria: {},
+      pago: {},
+      producto: {},
+      cliente: {},
     };
     this.props = { AllProducts: [], AllCategories: [], AllPayments: [], AllClients: [] };
   }
@@ -22,30 +22,109 @@ class Update extends Component {
   componentDidMount = async () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
   };
-
+  sendNotification = (position, color, message, icon) => {
+    var level = color; // 'success', 'warning', 'error' or 'info'
+    this.state._notificationSystem.addNotification({
+      title: <span data-notify="icon" className={icon} />,
+      message: <div>{message}</div>,
+      level: level,
+      position: position,
+      autoDismiss: 15,
+    });
+  };
   componentWillReceiveProps = new_props => {
     if (new_props.AllCategories.length > 0) {
-      this.setState({ categoria: new_props.AllCategories[0].id_categoria });
+      this.setState({ categoriaId: new_props.AllCategories[0].id_categoria });
     }
-    console.log(this.props.AllPayments);
     if (new_props.AllPayments.length > 0) {
-      this.setState({ pago: new_props.AllPayments[0].num_pago });
+      this.setState({ pagoId: new_props.AllPayments[0].num_pago });
     }
     if (new_props.AllProducts.length > 0) {
-      this.setState({ producto: new_props.AllProducts[0].id_producto });
+      this.setState({
+        productoId: new_props.AllProducts[0].id_producto,
+        producto: new_props.AllProducts[0],
+      });
     }
     if (new_props.AllClients.length > 0) {
-      this.setState({ cliente: new_props.AllClients[0].id_cliente });
+      this.setState({ clienteId: new_props.AllClients[0].id_cliente });
     }
   };
 
   handleSubmit = (e, id) => {
     switch (id) {
       case 0:
-        console.log("wenas");
+        console.log(this.state.producto);
+        fetch("http://localhost:3001/updateProduct", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.state.producto),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if (data.status === "OK") {
+              this.sendNotification(
+                "tr",
+                "success",
+                "Producto actualizado con exito",
+                "fa fa-check"
+              );
+              this.props.update();
+            } else {
+              this.sendNotification(
+                "tr",
+                "error",
+                "Error al actualizar el producto",
+                "fa fa-times"
+              );
+            }
+          });
         break;
       default:
         break;
+    }
+  };
+  handleChange = e => {
+    switch (e.target.name) {
+      case "selectedProduct": {
+        this.setState({ [e.target.name]: e.target.value });
+        break;
+      }
+      case "categoriaProducto": {
+        this.setState({
+          producto: { ...this.state.producto, id_categoria: parseFloat(e.target.value) },
+        });
+        break;
+      }
+      case "nombreProducto": {
+        this.setState({
+          producto: { ...this.state.producto, nombre: e.target.value },
+        });
+        break;
+      }
+      case "precioProducto": {
+        this.setState({
+          producto: { ...this.state.producto, precio: e.target.value },
+        });
+        break;
+      }
+      case "fotoProducto": {
+        let files = e.target.files;
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = e => {
+          this.setState({
+            producto: { ...this.state.producto, image: e.target.result },
+          });
+        };
+        break;
+      }
+      default: {
+        this.setState({ [e.target.name]: e.target.value });
+        break;
+      }
     }
   };
 
@@ -69,13 +148,18 @@ class Update extends Component {
                       componentClass: "select",
                       label: "Producto",
                       children: this.props.AllProducts.map((prod, keys) => (
-                        <option key={keys} value={prod.id_categoria}>
+                        <option key={keys} value={keys}>
                           {prod.nombre}
                         </option>
                       )),
                       bsClass: "form-control",
-                      name: "producto",
-                      onChange: this.handleChange,
+                      name: "selectedProduct",
+                      onChange: e => {
+                        this.setState({
+                          [e.target.name]: e.target.value,
+                          producto: this.props.AllProducts[e.target.value],
+                        });
+                      },
                       placeholder: "Producto",
                     },
                   ]}
@@ -86,18 +170,16 @@ class Update extends Component {
                     {
                       componentClass: "select",
                       label: "Categoria",
-                      children: this.props.AllCategories.map(prod => (
-                        <option value={prod.id_categoria}>{prod.nombre}</option>
+                      children: this.props.AllCategories.map((prod, keys) => (
+                        <option key={keys} value={prod.id_categoria}>
+                          {prod.nombre}
+                        </option>
                       )),
                       bsClass: "form-control",
                       name: "categoriaProducto",
                       onChange: this.handleChange,
                       placeholder: "Categoria",
-                      value: this.props.AllProducts.map(value => {
-                        if (value.id_producto === this.state.producto) {
-                          return value.id_categoria;
-                        }
-                      }),
+                      value: this.state.producto.id_categoria,
                       required: true,
                     },
                     {
@@ -107,11 +189,7 @@ class Update extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Nombre de producto",
-                      value: this.props.AllProducts.map(value => {
-                        if (value.id_producto === this.state.producto) {
-                          return value.nombre;
-                        }
-                      }),
+                      value: this.state.producto.nombre,
                       required: true,
                     },
                     {
@@ -122,11 +200,7 @@ class Update extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Precio de producto",
-                      value: this.props.AllProducts.map(value => {
-                        if (value.id_producto === this.state.producto) {
-                          return value.precio;
-                        }
-                      }),
+                      value: this.state.producto.precio,
                       required: true,
                     },
                     {
@@ -136,16 +210,8 @@ class Update extends Component {
                       multiple: false,
                       accept: "image/*",
                       bsClass: "form-control",
-                      onChange: e => {
-                        let files = e.target.files;
-                        let reader = new FileReader();
-                        reader.readAsDataURL(files[0]);
-                        reader.onload = e => {
-                          this.setState({ photo: e.target.result });
-                        };
-                      },
+                      onChange: this.handleChange,
                       placeholder: "Precio de producto",
-                      required: true,
                     },
                   ]}
                 />
