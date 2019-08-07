@@ -34,7 +34,10 @@ class Update extends Component {
   };
   componentWillReceiveProps = new_props => {
     if (new_props.AllCategories.length > 0) {
-      this.setState({ categoriaId: new_props.AllCategories[0].id_categoria });
+      this.setState({
+        categoriaId: new_props.AllCategories[0].id_categoria,
+        categoria: new_props.AllCategories[0],
+      });
     }
     if (new_props.AllPayments.length > 0) {
       this.setState({ pagoId: new_props.AllPayments[0].num_pago });
@@ -52,8 +55,7 @@ class Update extends Component {
 
   handleSubmit = (e, id) => {
     switch (id) {
-      case 0:
-        console.log(this.state.producto);
+      case 0: {
         fetch("http://localhost:3001/updateProduct", {
           method: "post",
           headers: {
@@ -82,6 +84,37 @@ class Update extends Component {
             }
           });
         break;
+      }
+      case 1: {
+        fetch("http://localhost:3001/updateCategorie", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.state.categoria),
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if (data.status === "OK") {
+              this.sendNotification(
+                "tr",
+                "success",
+                "Categoria actualizada con exito",
+                "fa fa-check"
+              );
+              this.props.update();
+            } else {
+              this.sendNotification(
+                "tr",
+                "error",
+                "Error al actualizar la categoria",
+                "fa fa-times"
+              );
+            }
+          });
+        break;
+      }
       default:
         break;
     }
@@ -119,6 +152,18 @@ class Update extends Component {
             producto: { ...this.state.producto, image: e.target.result },
           });
         };
+        break;
+      }
+      case "nombreCategoria": {
+        this.setState({
+          categoria: { ...this.state.categoria, nombre: e.target.value },
+        });
+        break;
+      }
+      case "descripcionCategoria": {
+        this.setState({
+          categoria: { ...this.state.categoria, descripcion: e.target.value },
+        });
         break;
       }
       default: {
@@ -212,6 +257,70 @@ class Update extends Component {
                       bsClass: "form-control",
                       onChange: this.handleChange,
                       placeholder: "Precio de producto",
+                    },
+                  ]}
+                />
+                <Button bsStyle="success" pullRight fill type="submit">
+                  Actualizar
+                </Button>
+                <div className="clearfix" />
+              </Form>
+            }
+          />
+
+          <Card
+            title="Actualizar Categoria"
+            content={
+              <Form
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.handleSubmit(e, 1);
+                }}>
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  properties={[
+                    {
+                      componentClass: "select",
+                      label: "Producto",
+                      children: this.props.AllCategories.map((prod, keys) => (
+                        <option key={keys} value={keys}>
+                          {prod.nombre}
+                        </option>
+                      )),
+                      bsClass: "form-control",
+                      name: "selectedProduct",
+                      onChange: e => {
+                        this.setState({
+                          [e.target.name]: e.target.value,
+                          categoria: this.props.AllCategories[e.target.value],
+                        });
+                      },
+                      placeholder: "Producto",
+                    },
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-6", "col-md-6"]}
+                  properties={[
+                    {
+                      label: "Nombre",
+                      type: "text",
+                      name: "nombreCategoria",
+                      bsClass: "form-control",
+                      onChange: this.handleChange,
+                      placeholder: "Nombre de la categoria",
+                      value: this.state.categoria.nombre,
+                      required: true,
+                    },
+                    {
+                      label: "Descripcion",
+                      type: "text",
+                      name: "descripcionCategoria",
+                      bsClass: "form-control",
+                      onChange: this.handleChange,
+                      placeholder: "Descripcion de la categoria",
+                      value: this.state.categoria.descripcion,
+                      required: true,
                     },
                   ]}
                 />

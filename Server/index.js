@@ -74,6 +74,22 @@ app.post("/updateProduct", async (req, res) => {
     });
 });
 
+app.post("/updateCategorie", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  db.run("UPDATE CATEGORIA SET nombre=?,descripcion=? WHERE id_categoria=?", [
+    body.nombre,
+    body.descripcion,
+    body.id_categoria,
+  ])
+    .then(data => {
+      res.send({ status: "OK" });
+    })
+    .catch(error => {
+      res.send({ status: "FAILED" });
+    });
+});
+
 //Pos
 app.post("/GenerateReceipt", async (req, res) => {
   const db = await dbPromise;
