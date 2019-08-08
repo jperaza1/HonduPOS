@@ -68,7 +68,6 @@ class Update extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if (data.status === "OK") {
               this.sendNotification(
                 "tr",
@@ -98,7 +97,6 @@ class Update extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if (data.status === "OK") {
               this.sendNotification(
                 "tr",
@@ -268,8 +266,6 @@ class Update extends Component {
   };
 
   render() {
-    console.log("que es? ", this.state.cliente.fecha_nacimiento);
-
     return (
       <Row>
         <NotificationSystem ref="notificationSystem" style={style} />

@@ -20,7 +20,7 @@ class Eliminar extends Component {
     if (new_props.AllCategories.length > 0) {
       this.setState({ categoria: new_props.AllCategories[0].id_categoria });
     }
-    console.log(this.props.AllPayments);
+
     if (new_props.AllPayments.length > 0) {
       this.setState({ pago: new_props.AllPayments[0].num_pago });
     }
@@ -62,9 +62,7 @@ class Eliminar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if (data.status === "OK") {
-              console.log("listo");
               this.sendNotification(
                 "tr",
                 "success",
@@ -89,9 +87,7 @@ class Eliminar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if (data.status === "OK") {
-              console.log("listo");
               this.sendNotification("tr", "success", "Producto eliminado con exito", "fa fa-check");
             } else {
               this.sendNotification("tr", "error", "Error al eliminar el producto", "fa fa-times");
@@ -111,7 +107,6 @@ class Eliminar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log("data", data);
             if (data.status === "OK") {
               this.sendNotification(
                 "tr",
@@ -131,7 +126,6 @@ class Eliminar extends Component {
         break;
       }
       case 3: {
-        console.log(this.state.cliente);
         fetch("http://localhost:3001/DeleteClient", {
           method: "post",
           headers: {
@@ -143,7 +137,6 @@ class Eliminar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log("data", data);
             if (data.status === "OK") {
               this.sendNotification("tr", "success", "Cliente eliminado con exito", "fa fa-check");
             } else {

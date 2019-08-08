@@ -58,9 +58,7 @@ class Agregar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if (data.status === "OK") {
-              console.log("listo");
               this.sendNotification("tr", "success", "Producto creado con exito", "fa fa-check");
             } else {
               this.sendNotification("tr", "error", "Error al crear el producto", "fa fa-times");
@@ -81,9 +79,7 @@ class Agregar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             if (data.status === "OK") {
-              console.log("listo");
               this.sendNotification("tr", "success", "Categoria creada con exito", "fa fa-check");
             } else {
               this.sendNotification("tr", "error", "Error al crear la categoria", "fa fa-times");
@@ -104,7 +100,6 @@ class Agregar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log("data", data);
             if (data.status === "OK") {
               this.sendNotification(
                 "tr",
@@ -134,7 +129,6 @@ class Agregar extends Component {
         })
           .then(response => response.json())
           .then(data => {
-            console.log("data", data);
             if (data.status === "OK") {
               this.sendNotification("tr", "success", "Cliente creado con exito", "fa fa-check");
             } else {
@@ -382,7 +376,6 @@ class Agregar extends Component {
                       selected: this.state.fechaNacimiento,
                       locale: "en-CA",
                       onChange: date => {
-                        console.log(new Date(date));
                         this.setState({ fechaNacimiento: date });
                       },
                       className: "form-control",

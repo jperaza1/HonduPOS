@@ -187,7 +187,7 @@ class Pos extends Component {
                                   if (selectedItem === key) {
                                     selectedItem = -1;
                                   }
-                                  console.log(key);
+
                                   await this.setState({
                                     listProducts: this.state.listProducts.filter(
                                       (s, _idx) => _idx !== key
@@ -819,7 +819,7 @@ class Pos extends Component {
               <Form
                 onSubmit={e => {
                   e.preventDefault();
-                  console.log("se envio :V");
+
                   fetch("http://localhost:3001/CreateClient", {
                     method: "post",
                     headers: {
@@ -835,7 +835,6 @@ class Pos extends Component {
                   })
                     .then(response => response.json())
                     .then(data => {
-                      console.log("data", data);
                       if (data.status === "OK") {
                         this.sendNotification(
                           "tr",
