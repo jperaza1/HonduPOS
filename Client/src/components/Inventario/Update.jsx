@@ -49,7 +49,10 @@ class Update extends Component {
       });
     }
     if (new_props.AllClients.length > 0) {
-      this.setState({ clienteId: new_props.AllClients[0].id_cliente });
+      this.setState({
+        clienteId: new_props.AllClients[0].id_cliente,
+        cliente: new_props.AllClients[0],
+      });
     }
   };
 
@@ -145,6 +148,31 @@ class Update extends Component {
           });
         break;
       }
+
+      case 3: {
+        fetch("http://localhost:3001/updateClient", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.state.cliente),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === "OK") {
+              this.sendNotification(
+                "tr",
+                "success",
+                "Cliente actualizado con exito",
+                "fa fa-check"
+              );
+              this.props.update();
+            } else {
+              this.sendNotification("tr", "error", "Error al actualizar el cliente", "fa fa-times");
+            }
+          });
+        break;
+      }
       default:
         break;
     }
@@ -208,6 +236,30 @@ class Update extends Component {
         });
         break;
       }
+      case "nombreCliente": {
+        this.setState({
+          cliente: { ...this.state.cliente, nombre: e.target.value },
+        });
+        break;
+      }
+      case "apellidoCliente": {
+        this.setState({
+          cliente: { ...this.state.cliente, apellido: e.target.value },
+        });
+        break;
+      }
+      case "rtnCliente": {
+        this.setState({
+          cliente: { ...this.state.cliente, rtn: e.target.value },
+        });
+        break;
+      }
+      case "telefonoCliente": {
+        this.setState({
+          cliente: { ...this.state.cliente, telefono: e.target.value },
+        });
+        break;
+      }
       default: {
         this.setState({ [e.target.name]: e.target.value });
         break;
@@ -216,6 +268,8 @@ class Update extends Component {
   };
 
   render() {
+    console.log("que es? ", this.state.cliente.fecha_nacimiento);
+
     return (
       <Row>
         <NotificationSystem ref="notificationSystem" style={style} />
@@ -426,6 +480,133 @@ class Update extends Component {
                       bsClass: "form-control",
                       placeholder: "Otros detalles de el modo de pago",
                       value: this.state.pago.otros_detalles,
+                      required: true,
+                    },
+                  ]}
+                />
+                <Button bsStyle="success" pullRight fill type="submit">
+                  Actualizar
+                </Button>
+                <div className="clearfix" />
+              </Form>
+            }
+          />
+
+          <Card
+            title="Actualizar Modos de pago"
+            content={
+              <Form
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.handleSubmit(e, 3);
+                }}>
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  properties={[
+                    {
+                      componentClass: "select",
+                      label: "Producto",
+                      children: this.props.AllClients.map((prod, keys) => (
+                        <option key={keys} value={keys}>
+                          {prod.rtn + " " + prod.nombre + " " + prod.apellido}
+                        </option>
+                      )),
+                      bsClass: "form-control",
+                      name: "selectedProduct",
+                      onChange: e => {
+                        this.setState({
+                          [e.target.name]: e.target.value,
+                          cliente: this.props.AllClients[e.target.value],
+                        });
+                      },
+                      placeholder: "Producto",
+                    },
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
+                  properties={[
+                    {
+                      label: "Nombre",
+                      type: "text",
+                      name: "nombreCliente",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Nombre del cliente",
+                      value: this.state.cliente.nombre,
+                      required: true,
+                    },
+                    {
+                      label: "Apellido",
+                      type: "text",
+                      name: "apellidoCliente",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Apellido del cliente",
+                      value: this.state.cliente.apellido,
+                      required: true,
+                    },
+                    {
+                      label: "RTN",
+                      type: "text",
+                      name: "rtnCliente",
+                      onChange: this.handleChange,
+                      className: "form-control",
+                      placeholder: "RTN del cliente",
+                      value: this.state.cliente.rtn,
+                      masked: true,
+                      mask: [
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        "-",
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        "-",
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                        /[0-9]/,
+                      ],
+                      required: true,
+                    },
+                    {
+                      label: "Fecha de nacimiento",
+                      type: "date",
+                      date: true,
+                      locale: "en-CA",
+                      name: "fechaCliente",
+                      selected:
+                        this.state.cliente.fecha_nacimiento !== undefined
+                          ? new Date(this.state.cliente.fecha_nacimiento)
+                          : new Date(),
+                      onChange: date => {
+                        this.setState({
+                          cliente: { ...this.state.cliente, fecha_nacimiento: date },
+                        });
+                      },
+                      className: "form-control",
+                      placeholder: "Fecha de nacimiento del cliente",
+                      required: true,
+                    },
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-3"]}
+                  properties={[
+                    {
+                      label: "Telefono",
+                      type: "text",
+                      name: "telefonoCliente",
+                      onChange: this.handleChange,
+                      bsClass: "form-control",
+                      placeholder: "Telefono del cliente",
+                      value: this.state.cliente.telefono,
                       required: true,
                     },
                   ]}

@@ -108,6 +108,23 @@ app.post("/updatePaymentMethod", async (req, res) => {
     });
 });
 
+app.post("/updateClient", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  console.log(body);
+  db.run(
+    "UPDATE CLIENTE SET nombre=?, apellido=?, rtn=?, fecha_nacimiento=?, telefono=? WHERE id_cliente=?",
+    [body.nombre, body.apellido, body.rtn, body.fecha_nacimiento, body.telefono, body.id_cliente]
+  )
+    .then(data => {
+      res.send({ status: "OK" });
+    })
+    .catch(error => {
+      console.log(error);
+      res.send({ status: "FAILED" });
+    });
+});
+
 //Pos
 app.post("/GenerateReceipt", async (req, res) => {
   const db = await dbPromise;
