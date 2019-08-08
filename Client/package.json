@@ -5,7 +5,7 @@
   "license": "GNU GPLv3",
   "description": "Front-end para el Sistema de ventas",
   "private": true,
-  "homepage": "./",
+  "homepage": ".",
   "dependencies": {
     "bootstrap": "^3.4.1",
     "chartist": "0.10.1",

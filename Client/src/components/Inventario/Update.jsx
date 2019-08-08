@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Form, Grid } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
@@ -22,6 +22,7 @@ class Update extends Component {
   componentDidMount = async () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
   };
+
   sendNotification = (position, color, message, icon) => {
     var level = color; // 'success', 'warning', 'error' or 'info'
     this.state._notificationSystem.addNotification({
@@ -32,6 +33,7 @@ class Update extends Component {
       autoDismiss: 15,
     });
   };
+
   componentWillReceiveProps = new_props => {
     if (new_props.AllCategories.length > 0) {
       this.setState({

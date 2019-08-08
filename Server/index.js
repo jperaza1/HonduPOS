@@ -55,6 +55,43 @@ app.get("/GetCompanyData", async (req, res) => {
   res.send(require("./Database/Empresa.json"));
 });
 
+//Reports
+app.post("/GetReport", async (req, res) => {
+  const db = await dbPromise;
+  let body = req.body;
+  switch (body.kind) {
+    case 0: {
+      db.all("SELECT * FROM PRODUCTO").then(data => {
+        let datos = data;
+        data.map(prod => {
+          delete prod.image;
+          db.all("SELECT  cantidad FROM DETALLE WHERE id_producto=?", [prod.id_producto]).then(
+            query => {
+              console.log(query);
+              query.forEach(dat => {
+                if (datos[data.indexOf(prod)].total === undefined) {
+                  datos[data.indexOf(prod)].total = 0;
+                }
+                //tengo la cantidad falta formatearla y mandarla
+                datos[data.indexOf(prod)].total += dat.cantidad;
+              });
+
+              console.log("finales", datos);
+            }
+          );
+        });
+      });
+      break;
+    }
+
+    default:
+      break;
+  }
+  db.all("SELECT * FROM FACTURA").then(data => {
+    res.send(data);
+  });
+});
+
 //Updates
 app.post("/updateProduct", async (req, res) => {
   const db = await dbPromise;
@@ -164,6 +201,7 @@ app.post("/GenerateReceipt", async (req, res) => {
     res.send({ status: "FAILED" });
   }
 });
+
 //Creates
 app.post("/CreateProduct", async (req, res) => {
   const db = await dbPromise;
