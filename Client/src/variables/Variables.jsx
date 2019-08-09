@@ -240,6 +240,35 @@ var style = {
     },
   },
 };
+var optionsSales = {
+  showArea: false,
+  height: "245px",
+  axisX: {
+    showGrid: false,
+  },
+  lineSmooth: true,
+  showLine: true,
+  showPoint: true,
+  fullWidth: true,
+  chartPadding: {
+    right: 50,
+  },
+};
+var responsiveSales = [
+  [
+    "screen and (max-width: 640px)",
+    {
+      axisX: {
+        labelInterpolationFnc: function(value) {
+          return value[0];
+        },
+      },
+    },
+  ],
+];
+
 module.exports = {
   style,
+  optionsSales,
+  responsiveSales,
 };

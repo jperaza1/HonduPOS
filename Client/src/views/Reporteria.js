@@ -6,6 +6,8 @@ import Radio from "components/CustomRadio/CustomRadio";
 import Button from "components/CustomButton/CustomButton.jsx";
 import NotificationSystem from "react-notification-system";
 import { style } from "variables/Variables.jsx";
+import ChartistGraph from "react-chartist";
+import { optionsSales, responsiveOptions } from "../variables/Variables";
 
 class Reporteria extends Component {
   constructor(props) {
@@ -61,7 +63,11 @@ class Reporteria extends Component {
                                 date: this.state.fechaVentas,
                                 kind: this.state.categoria,
                               }),
-                            });
+                            })
+                              .then(resp => resp.json())
+                              .then(response => {
+                                this.setState({ datosVentas: response });
+                              });
                           }}>
                           <Radio
                             number="0"
@@ -122,7 +128,7 @@ class Reporteria extends Component {
                                   }
                                 ),
                                 bsClass: "form-control",
-                                name: "categoria",
+                                name: "selectedTypeSales",
                                 onChange: e => {
                                   this.setState({ [e.target.name]: e.target.value });
                                 },
@@ -137,7 +143,12 @@ class Reporteria extends Component {
                         </Form>
                       </Col>
                       <Col md={10}>
-                        <p>{JSON.stringify(this.state.datosVentas)}</p>
+                        <ChartistGraph
+                          data={this.state.datosVentas}
+                          type="Bar"
+                          options={optionsSales}
+                          responsiveOptions={responsiveOptions}
+                        />
                       </Col>
                     </Row>
                   </Grid>

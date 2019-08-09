@@ -528,6 +528,7 @@ class Pos extends Component {
                             selectedClient: 0,
                             listPayments: [],
                             listProducts: [],
+                            selectedItem: undefined,
                             isv: 0,
                             total: 0,
                             subtotal: 0,

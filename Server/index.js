@@ -61,25 +61,18 @@ app.post("/GetReport", async (req, res) => {
   let body = req.body;
   switch (body.kind) {
     case 0: {
-      db.all("SELECT * FROM PRODUCTO").then(data => {
-        let datos = data;
-        data.map(prod => {
-          delete prod.image;
-          db.all("SELECT  cantidad FROM DETALLE WHERE id_producto=?", [prod.id_producto]).then(
-            query => {
-              console.log(query);
-              query.forEach(dat => {
-                if (datos[data.indexOf(prod)].total === undefined) {
-                  datos[data.indexOf(prod)].total = 0;
-                }
-                //tengo la cantidad falta formatearla y mandarla
-                datos[data.indexOf(prod)].total += dat.cantidad;
-              });
-
-              console.log("finales", datos);
-            }
-          );
-        });
+      db.all(
+        "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto  GROUP BY DETALLE.id_producto"
+      ).then(data => {
+        console.log("TODO", data);
+        let final = { labels: [], series: [] };
+        for (let i = 0; i < data.length; i++) {
+          const deta = data[i];
+          final.labels.push("ID " + deta.id_producto + " " + deta.nombre);
+          final.series.push([deta.cantidad]);
+          //falta conseguir los datos mejor
+        }
+        res.send(final);
       });
       break;
     }
@@ -87,9 +80,6 @@ app.post("/GetReport", async (req, res) => {
     default:
       break;
   }
-  db.all("SELECT * FROM FACTURA").then(data => {
-    res.send(data);
-  });
 });
 
 //Updates
