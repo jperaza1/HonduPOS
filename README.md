@@ -1,6 +1,6 @@
-# POSine made with ❤, ☕ and some 🍺
+# HonduPOS made with ❤, ☕ and some 🍺
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/dmendoza99/posine) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/dmendoza99/HonduPOS) ![License](https://img.shields.io/github/license/Dmendoza99/HonduPOS.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/HonduPOS.svg)
 
 This is a small Point Of Sales (POS) for Honduran market with RTN Clients and CAI receipts.
 
@@ -58,8 +58,8 @@ this is the .prettierrc
 ## Installation
 
 ```bash
-git clone https://github.com/Dmendoza99/posine
-cd posine
+git clone https://github.com/Dmendoza99/HonduPOS
+cd HonduPOS
 npm install
 ```
 
@@ -115,4 +115,4 @@ Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/comm
 
 ## License
 
-- Licensed under [GNU GPLv3](https://github.com/Dmendoza99/posine/blob/master/LICENSE)
+- Licensed under [GNU GPLv3](https://github.com/Dmendoza99/HonduPOS/blob/master/LICENSE)
