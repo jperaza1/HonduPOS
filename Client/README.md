@@ -1,6 +1,6 @@
 # Front-end made with ❤, ☕ and some 🍺
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/dmendoza99/posine) ![License](https://img.shields.io/github/license/Dmendoza99/posine.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/posine.svg)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/dmendoza99/HonduPOS) ![License](https://img.shields.io/github/license/Dmendoza99/HonduPOS.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/HonduPOS.svg)
 
 This is the front-end for the whole POS system.
 
@@ -74,8 +74,8 @@ this is the .prettierrc
 ## Installation
 
 ```bash
-git clone https://github.com/Dmendoza99/posine
-cd posine
+git clone https://github.com/Dmendoza99/HonduPOS
+cd HonduPOS
 cd Client
 npm install
 ```
@@ -129,4 +129,4 @@ Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/comm
 ## License
 
 - Copyright 2018 [Creative Tim](https://www.creative-tim.com?ref=lbdr-readme)
-- Licensed under [GNU GPLv3](https://github.com/Dmendoza99/posine/blob/master/LICENSE)
+- Licensed under [GNU GPLv3](https://github.com/Dmendoza99/HonduPOS/blob/master/LICENSE)
