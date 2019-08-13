@@ -1,5 +1,5 @@
 {
-  "name": "posine",
+  "name": "hondpos",
   "version": "0.1.5",
   "author": "David Mendoza",
   "license": "GNU GPLv3",
@@ -7,8 +7,8 @@
   "private": true,
   "main": "main.js",
   "build": {
-    "appId": "tech.sinewave.posine",
-    "productName": "POSine",
+    "appId": "tech.sinewave.Hondupos",
+    "productName": "Hondupos",
     "asarUnpack": [
       "Server/Database/**"
     ],
