@@ -128,9 +128,9 @@ class Reporteria extends Component {
                                   }
                                 ),
                                 bsClass: "form-control",
-                                name: "selectedTypeSales",
+                                name: "categoria",
                                 onChange: e => {
-                                  this.setState({ [e.target.name]: e.target.value });
+                                  this.setState({ [e.target.name]: parseInt(e.target.value) });
                                 },
                                 placeholder: "Categoria",
                                 required: true,

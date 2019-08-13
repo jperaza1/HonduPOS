@@ -59,26 +59,137 @@ app.get("/GetCompanyData", async (req, res) => {
 app.post("/GetReport", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  switch (body.kind) {
-    case 0: {
+  if (body.kind === 0) {
+    if (body.type === "0") {
       db.all(
-        "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto  GROUP BY DETALLE.id_producto"
+        "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto WHERE FACTURA.fecha LIKE ? GROUP BY DETALLE.id_producto",
+        [new Date(body.date).toDateString() + "%"]
       ).then(data => {
-        console.log("TODO", data);
-        let final = { labels: [], series: [] };
+        console.log(data);
+        let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
-          final.labels.push("ID " + deta.id_producto + " " + deta.nombre);
-          final.series.push([deta.cantidad]);
-          //falta conseguir los datos mejor
+          final.labels.push(new Date(deta.fecha).toLocaleDateString());
+          let meta = {
+            meta: deta.nombre,
+            value: deta.cantidad,
+          };
+          final.series[0].push(meta);
         }
         res.send(final);
       });
-      break;
+    } else if (body.type === "1") {
+      db.all(
+        "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto WHERE FACTURA.fecha LIKE ? GROUP BY DETALLE.id_producto",
+        [
+          "%" +
+            new Date(body.date).toLocaleDateString("default", { month: "short" }) +
+            "%" +
+            new Date(body.date).getFullYear() +
+            "%",
+        ]
+      ).then(data => {
+        console.log(data);
+        let final = { labels: [], series: [[]] };
+        for (let i = 0; i < data.length; i++) {
+          const deta = data[i];
+          let detaDate = new Date(deta.fecha);
+          let bodyDate = new Date(body.date);
+          if (
+            detaDate.getMonth() === bodyDate.getMonth() &&
+            detaDate.getFullYear() === bodyDate.getFullYear()
+          ) {
+            final.labels.push(new Date(deta.fecha).toLocaleDateString());
+            let meta = {
+              meta: deta.nombre,
+              value: deta.cantidad,
+            };
+            final.series[0].push(meta);
+          }
+        }
+        res.send(final);
+      });
+    } else if (body.type === "2") {
+      db.all(
+        "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto WHERE FACTURA.fecha LIKE ? GROUP BY DETALLE.id_producto",
+        ["%" + new Date(body.date).getFullYear() + "%"]
+      ).then(data => {
+        console.log(data);
+        let final = { labels: [], series: [[]] };
+        for (let i = 0; i < data.length; i++) {
+          const deta = data[i];
+          final.labels.push(new Date(deta.fecha).toLocaleDateString());
+          let meta = {
+            meta: deta.nombre,
+            value: deta.cantidad,
+          };
+          final.series[0].push(meta);
+        }
+        res.send(final);
+      });
     }
-
-    default:
-      break;
+  } else if (body.kind === 1) {
+    if (body.type === "0") {
+      db.all(
+        "SELECT PRODUCTO.id_categoria, producto.nombre AS nombre,CATEGORIA.nombre AS categoria, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto INNER JOIN CATEGORIA ON PRODUCTO.id_categoria=CATEGORIA.id_categoria WHERE FACTURA.fecha LIKE ? GROUP BY PRODUCTO.id_categoria",
+        [new Date(body.date).toDateString() + "%"]
+      ).then(data => {
+        console.log(data);
+        let final = { labels: [], series: [[]] };
+        for (let i = 0; i < data.length; i++) {
+          const deta = data[i];
+          final.labels.push(new Date(deta.fecha).toLocaleDateString());
+          let meta = {
+            meta: deta.categoria,
+            value: deta.cantidad,
+          };
+          final.series[0].push(meta);
+        }
+        res.send(final);
+      });
+    } else if (body.type === "1") {
+      db.all(
+        "SELECT PRODUCTO.id_categoria, producto.nombre AS nombre,CATEGORIA.nombre AS categoria, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto INNER JOIN CATEGORIA ON PRODUCTO.id_categoria=CATEGORIA.id_categoria WHERE FACTURA.fecha LIKE ? GROUP BY PRODUCTO.id_categoria",
+        [
+          "%" +
+            new Date(body.date).toLocaleDateString("default", { month: "short" }) +
+            "%" +
+            new Date(body.date).getFullYear() +
+            "%",
+        ]
+      ).then(data => {
+        console.log(data);
+        let final = { labels: [], series: [[]] };
+        for (let i = 0; i < data.length; i++) {
+          const deta = data[i];
+          final.labels.push(new Date(deta.fecha).toLocaleDateString());
+          let meta = {
+            meta: deta.categoria,
+            value: deta.cantidad,
+          };
+          final.series[0].push(meta);
+        }
+        res.send(final);
+      });
+    } else if (body.type === "2") {
+      db.all(
+        "SELECT PRODUCTO.id_categoria, producto.nombre AS nombre,CATEGORIA.nombre AS categoria, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto INNER JOIN CATEGORIA ON PRODUCTO.id_categoria=CATEGORIA.id_categoria WHERE FACTURA.fecha LIKE ? GROUP BY PRODUCTO.id_categoria",
+        ["%" + new Date(body.date).getFullYear() + "%"]
+      ).then(data => {
+        console.log(data);
+        let final = { labels: [], series: [[]] };
+        for (let i = 0; i < data.length; i++) {
+          const deta = data[i];
+          final.labels.push(new Date(deta.fecha).toLocaleDateString());
+          let meta = {
+            meta: deta.categoria,
+            value: deta.cantidad,
+          };
+          final.series[0].push(meta);
+        }
+        res.send(final);
+      });
+    }
   }
 });
 
