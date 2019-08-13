@@ -3,6 +3,8 @@
 // // // For notifications
 // //
 //
+const tooltip = require("chartist-plugin-tooltip");
+
 var defaultWidth = window.screen.width > 768 ? (window.screen.width * 1) / 3 : window.screen.width;
 
 var style = {
@@ -240,13 +242,17 @@ var style = {
     },
   },
 };
+
 var optionsSales = {
+  low: 0,
   showArea: false,
   height: "245px",
   axisX: {
     showGrid: false,
   },
+  plugins: [tooltip()],
   lineSmooth: true,
+  referenceValue: 5,
   showLine: true,
   showPoint: true,
   fullWidth: true,
