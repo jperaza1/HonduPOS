@@ -154,7 +154,6 @@ class Reporteria extends Component {
                   </Grid>
                 }
               />
-              <Card title="Compras" content={<p>wens</p>} />
             </Col>
           </Row>
         </Grid>
