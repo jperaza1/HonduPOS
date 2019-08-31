@@ -348,6 +348,8 @@ class Pos extends Component {
                             <td>
                               <FormControl
                                 className="form-control"
+                                type="number"
+                                step="0.01"
                                 value={this.state.listPayments[key].pago}
                                 onChangeCapture={async e => {
                                   await this.setState({

@@ -203,6 +203,7 @@ class Agregar extends Component {
                       label: "Precio",
                       name: "precioProducto",
                       type: "number",
+                      step:"0.01",
                       min: 0,
                       bsClass: "form-control",
                       onChange: this.handleChange,

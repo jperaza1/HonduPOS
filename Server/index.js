@@ -55,6 +55,21 @@ function createServer(isDev) {
     res.send(require("./Database/Empresa.json"));
   });
 
+  app.get("/GetTotalSales", async (req, res) => {
+    const db = await dbPromise;
+    db.all(
+      "SELECT SUM(cantidad*precio) as total FROM DETALLE INNER JOIN FACTURA ON FACTURA.num_factura=DETALLE.id_factura"
+    ).then(data => {
+      res.send({ total: data[0].total });
+    });
+  });
+  app.get("/GetTotalItemSold", async (req, res) => {
+    const db = await dbPromise;
+    db.all("SELECT SUM(cantidad) as total FROM DETALLE").then(data => {
+      res.send({ total: data[0].total });
+    });
+  });
+
   //Reports
   app.post("/GetReport", async (req, res) => {
     const db = await dbPromise;
