@@ -5,19 +5,19 @@ import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { totalMoney: 0,totalItems:0 };
+    this.state = { totalMoney: 0, totalItems: 0 };
   }
   componentDidMount = () => {
     fetch("http://localhost:3001/GetTotalSales")
-    .then(resp => resp.json())
-    .then(prods => {
-      this.setState({ totalMoney: prods.total });
-    });
+      .then(resp => resp.json())
+      .then(prods => {
+        this.setState({ totalMoney: prods.total });
+      });
     fetch("http://localhost:3001/GetTotalItemSold")
-    .then(resp => resp.json())
-    .then(prods => {
-      this.setState({ totalItems: prods.total });
-    });
+      .then(resp => resp.json())
+      .then(prods => {
+        this.setState({ totalItems: prods.total });
+      });
   };
   render() {
     return (
@@ -28,7 +28,9 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
                 statsText="Ingresos"
-                statsValue={"L. " + this.state.totalMoney.toFixed(2)}
+                statsValue={
+                  "L. " + this.state.totalMoney === null ? null : this.state.totalMoney
+                }
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Desde el inicio de los tiempos"
               />
@@ -37,7 +39,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-graph1 text-success" />}
                 statsText="Productos Vendidos"
-                statsValue={this.state.totalItems}
+                statsValue={this.state.totalItems === null ?null:this.state.totalItems}
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Desde el inicio de los tiempos"
               />
