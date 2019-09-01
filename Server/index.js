@@ -58,15 +58,20 @@ function createServer(isDev) {
   app.get("/GetTotalSales", async (req, res) => {
     const db = await dbPromise;
     db.all(
-      "SELECT SUM(cantidad*precio) as total FROM DETALLE INNER JOIN FACTURA ON FACTURA.num_factura=DETALLE.id_factura"
+      "SELECT SUM(cantidad*precio) as total FROM DETALLE INNER JOIN FACTURA ON FACTURA.num_factura=DETALLE.id_factura WHERE FACTURA.fecha LIKE ?",
+      [new Date().toDateString() + "%"]
     ).then(data => {
-      res.send({ total: data[0].total });
+      console.log(data, new Date().toDateString() + "%");
+      data[0].total !== null ? res.send({ total: data[0].total }) : res.send({ total: 0 });
     });
   });
   app.get("/GetTotalItemSold", async (req, res) => {
     const db = await dbPromise;
-    db.all("SELECT SUM(cantidad) as total FROM DETALLE").then(data => {
-      res.send({ total: data[0].total });
+    db.all(
+      "SELECT SUM(cantidad) as total FROM DETALLE INNER JOIN FACTURA ON FACTURA.num_factura=DETALLE.id_factura WHERE FACTURA.fecha LIKE ?",
+      [new Date().toDateString() + "%"]
+    ).then(data => {
+      data[0].total !== null ? res.send({ total: data[0].total }) : res.send({ total: 0 });
     });
   });
 

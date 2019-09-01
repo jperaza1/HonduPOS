@@ -28,20 +28,34 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
                 statsText="Ingresos"
-                statsValue={
-                  "L. " + this.state.totalMoney === null ? null : this.state.totalMoney
-                }
+                statsValue={this.state.totalMoney === null ? null : "L. " + this.state.totalMoney}
                 statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Desde el inicio de los tiempos"
+                statsIconText={
+                  "Hoy " +
+                  new Date().toLocaleDateString("es-ES", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                }
               />
             </Col>
             <Col lg={6} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-graph1 text-success" />}
                 statsText="Productos Vendidos"
-                statsValue={this.state.totalItems === null ?null:this.state.totalItems}
+                statsValue={this.state.totalItems === null ? null : this.state.totalItems}
                 statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Desde el inicio de los tiempos"
+                statsIconText={
+                  "Hoy " +
+                  new Date().toLocaleDateString("es-ES", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                }
               />
             </Col>
           </Row>
