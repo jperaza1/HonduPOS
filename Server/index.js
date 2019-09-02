@@ -339,6 +339,7 @@ function createServer(isDev) {
           res.send({ status: "OK" });
         })
         .catch(error => {
+          console.log(error);
           res.send({ status: "FAILED" });
         });
     } else {

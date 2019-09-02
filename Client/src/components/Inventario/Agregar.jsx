@@ -9,7 +9,7 @@ import { style } from "variables/Variables.jsx";
 class Agregar extends Component {
   constructor(props) {
     super(props);
-    this.state = { categories: [], _notificationSystem: null, fechaNacimiento: "" };
+    this.state = { categories: [], _notificationSystem: null, fechaNacimiento: "",fotoProducto:null };
   }
 
   componentDidMount = async () => {
@@ -226,7 +226,6 @@ class Agregar extends Component {
                         };
                       },
                       placeholder: "Precio de producto",
-                      required: true,
                     },
                   ]}
                 />
