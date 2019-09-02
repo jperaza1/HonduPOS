@@ -10,7 +10,8 @@
     "appId": "tech.sinewave.Hondupos",
     "productName": "Hondupos",
     "asarUnpack": [
-      "Server/Database/**"
+      "Server/Database/Empresa.json",
+      "Server/Database/pos.db"
     ],
     "copyright": "Copyright © 2019 ${author}",
     "mac": {
