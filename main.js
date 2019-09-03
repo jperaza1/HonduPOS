@@ -12,7 +12,7 @@ async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    title: "POSine",
+    title: "Hondupos",
     autoHideMenuBar: true,
     show: false,
     icon: path.join(__dirname, "assets/Icons/win-icon.ico"),
