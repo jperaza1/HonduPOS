@@ -106,7 +106,6 @@ Inspired by [dannyfritz/commit-message-emoji](https://github.com/dannyfritz/comm
 | Package.json in JS       | :package: `:package:`                                     |
 | Merging branches         | :twisted_rightwards_arrows: `:twisted_rightwards_arrows:` |
 | Bad code / need improv.  | :hankey: `:hankey:`                                       |
-| Removal                  |:Wastebasket:`:Wastebasket:`                               |
 | Reverting changes        | :rewind: `:rewind:`                                       |
 | Breaking changes         | :boom: `:boom:`                                           |
 | Code review changes      | :ok_hand: `:ok_hand:`                                     |
