@@ -101,7 +101,11 @@ class Pos extends Component {
   prepareProducts = () => {
     let subtotal = 0;
     this.state.listProducts.map(prod => {
-      subtotal += prod.precio * prod.cant;
+      if (!prod.descuento) {
+        subtotal += prod.precio * prod.cant;
+      } else {
+        subtotal += prod.precio * prod.cant - prod.precio * prod.descuento;
+      }
       return null;
     });
     subtotal = parseFloat(subtotal).toFixed(2);
@@ -236,7 +240,7 @@ class Pos extends Component {
                 </div>
                 <div className="dinero">
                   <p>Subtotal: {this.state.subtotal}</p>
-                  <p> ISV: {this.state.isv}</p>
+                  <p>ISV: {this.state.isv}</p>
                   <p>Total: {this.state.total}</p>
                 </div>
               </Col>
@@ -260,7 +264,7 @@ class Pos extends Component {
                     {this.state.filteredproducts.map(prod => {
                       return (
                         <Product
-                          onClick={async () => {
+                          onClick={() => {
                             let listProducts = this.state.listProducts;
                             if (listProducts.includes(prod)) {
                               listProducts[listProducts.indexOf(prod)].cant =
@@ -269,7 +273,8 @@ class Pos extends Component {
                               prod.cant = 1;
                               listProducts.push(prod);
                             }
-                            await this.setState({
+
+                            this.setState({
                               listProducts,
                             });
                             this.prepareProducts();
@@ -377,8 +382,8 @@ class Pos extends Component {
                               <i
                                 className="fa fa-times-circle"
                                 style={{ color: "red", fontSize: 16 }}
-                                onClick={async () => {
-                                  await this.setState({
+                                onClick={() => {
+                                  this.setState({
                                     listPayments: this.state.listPayments.filter(
                                       (s, _idx) => _idx !== key
                                     ),
@@ -396,7 +401,7 @@ class Pos extends Component {
                                       this.state.listPayments[key - 1].total -
                                       this.state.listPayments[key - 1].pago;
                                   }
-                                  await this.setState({
+                                  this.setState({
                                     listPayments: this.state.listPayments.map((p, _idx) => {
                                       if (_idx !== key) return p;
                                       return { ...p, total };
@@ -602,7 +607,7 @@ class Pos extends Component {
                 <FormControl
                   type="text"
                   onChange={e => {
-                    nuevoPrecio = parseInt(e.target.value);
+                    nuevoPrecio = parseFloat(e.target.value);
                   }}
                   defaultValue={this.state.listProducts[this.state.selectedItem].precio}
                   placeholder="100.00"
@@ -623,10 +628,15 @@ class Pos extends Component {
               </Button>
               <Button
                 bsStyle="success"
-                onClick={() => {
-                  let listProducts = this.state.listProducts;
-                  listProducts[this.state.selectedItem].precio = nuevoPrecio;
-                  this.setState({ listProducts, showModal: false });
+                onClick={async () => {
+                  await this.setState({
+                    listProducts: this.state.listProducts.map((p, _idx) => {
+                      if (_idx !== this.state.selectedItem) return p;
+
+                      return { ...p, precio: nuevoPrecio };
+                    }),
+                    showModal: false,
+                  });
                   this.prepareProducts();
                 }}
                 fill>
@@ -670,10 +680,14 @@ class Pos extends Component {
               </Button>
               <Button
                 bsStyle="success"
-                onClick={() => {
-                  let listProducts = this.state.listProducts;
-                  listProducts[this.state.selectedItem].descuento = descuento;
-                  this.setState({ listProducts, showModal: false });
+                onClick={async () => {
+                  await this.setState({
+                    listProducts: this.state.listProducts.map((p, _idx) => {
+                      if (_idx !== this.state.selectedItem) return p;
+                      return { ...p, descuento };
+                    }),
+                    showModal: false,
+                  });
                   this.prepareProducts();
                 }}
                 fill>
@@ -717,10 +731,14 @@ class Pos extends Component {
               </Button>
               <Button
                 bsStyle="success"
-                onClick={() => {
-                  let listProducts = this.state.listProducts;
-                  listProducts[this.state.selectedItem].cant = nuevaCant;
-                  this.setState({ listProducts, showModal: false });
+                onClick={async () => {
+                  await this.setState({
+                    listProducts: this.state.listProducts.map((p, _idx) => {
+                      if (_idx !== this.state.selectedItem) return p;
+                      return { ...p, cant: nuevaCant };
+                    }),
+                    showModal: false,
+                  });
                   this.prepareProducts();
                 }}
                 fill>
