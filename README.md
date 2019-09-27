@@ -1,6 +1,6 @@
 # HonduPOS made with ❤, ☕ and some 🍺
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/dmendoza99/HonduPOS) ![License](https://img.shields.io/github/license/Dmendoza99/HonduPOS.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/HonduPOS.svg)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/dmendoza99/HonduPOS) ![License](https://img.shields.io/github/license/Dmendoza99/HonduPOS.svg) ![Issues](https://img.shields.io/github/issues/Dmendoza99/HonduPOS.svg) [![Total alerts](https://img.shields.io/lgtm/alerts/g/Dmendoza99/HonduPOS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dmendoza99/HonduPOS/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Dmendoza99/HonduPOS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dmendoza99/HonduPOS/context:javascript)
 
 This is a small Point Of Sales (POS) for Honduran market with RTN Clients and CAI receipts.
 
