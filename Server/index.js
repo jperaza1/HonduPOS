@@ -102,10 +102,10 @@ app.post("/GetReport", async (req, res) => {
         "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto WHERE FACTURA.fecha LIKE ? GROUP BY DETALLE.id_producto",
         [
           "%" +
-            new Date(body.date).toLocaleDateString("default", { month: "short" }) +
-            "%" +
-            new Date(body.date).getFullYear() +
-            "%",
+          new Date(body.date).toLocaleDateString("default", { month: "short" }) +
+          "%" +
+          new Date(body.date).getFullYear() +
+          "%",
         ]
       ).then(data => {
         console.log(data);
@@ -171,10 +171,10 @@ app.post("/GetReport", async (req, res) => {
         "SELECT PRODUCTO.id_categoria, producto.nombre AS nombre,CATEGORIA.nombre AS categoria, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto INNER JOIN CATEGORIA ON PRODUCTO.id_categoria=CATEGORIA.id_categoria WHERE FACTURA.fecha LIKE ? GROUP BY PRODUCTO.id_categoria",
         [
           "%" +
-            new Date(body.date).toLocaleDateString("default", { month: "short" }) +
-            "%" +
-            new Date(body.date).getFullYear() +
-            "%",
+          new Date(body.date).toLocaleDateString("default", { month: "short" }) +
+          "%" +
+          new Date(body.date).getFullYear() +
+          "%",
         ]
       ).then(data => {
         console.log(data);
@@ -416,7 +416,7 @@ app.post("/CreateUser", async (req, res) => {
           res.send({ status: "FAILED" });
         }
       })
-      .catch(error => {});
+      .catch(error => { });
   } else {
     res.send({ status: "FAILED" });
   }
