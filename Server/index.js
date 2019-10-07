@@ -84,7 +84,6 @@ app.post("/GetReport", async (req, res) => {
         "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto WHERE FACTURA.fecha LIKE ? GROUP BY DETALLE.id_producto",
         [new Date(body.date).toDateString() + "%"]
       ).then(data => {
-        console.log(data);
         let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
@@ -108,7 +107,6 @@ app.post("/GetReport", async (req, res) => {
             "%",
         ]
       ).then(data => {
-        console.log(data);
         let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
@@ -133,7 +131,6 @@ app.post("/GetReport", async (req, res) => {
         "SELECT DETALLE.id_producto, nombre, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto WHERE FACTURA.fecha LIKE ? GROUP BY DETALLE.id_producto",
         ["%" + new Date(body.date).getFullYear() + "%"]
       ).then(data => {
-        console.log(data);
         let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
@@ -153,7 +150,6 @@ app.post("/GetReport", async (req, res) => {
         "SELECT PRODUCTO.id_categoria, producto.nombre AS nombre,CATEGORIA.nombre AS categoria, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto INNER JOIN CATEGORIA ON PRODUCTO.id_categoria=CATEGORIA.id_categoria WHERE FACTURA.fecha LIKE ? GROUP BY PRODUCTO.id_categoria",
         [new Date(body.date).toDateString() + "%"]
       ).then(data => {
-        console.log(data);
         let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
@@ -177,7 +173,6 @@ app.post("/GetReport", async (req, res) => {
             "%",
         ]
       ).then(data => {
-        console.log(data);
         let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
@@ -195,7 +190,6 @@ app.post("/GetReport", async (req, res) => {
         "SELECT PRODUCTO.id_categoria, producto.nombre AS nombre,CATEGORIA.nombre AS categoria, SUM(cantidad) as cantidad, fecha from FACTURA INNER JOIN DETALLE ON DETALLE.id_factura=FACTURA.num_factura INNER JOIN PRODUCTO ON DETALLE.id_producto=PRODUCTO.id_producto INNER JOIN CATEGORIA ON PRODUCTO.id_categoria=CATEGORIA.id_categoria WHERE FACTURA.fecha LIKE ? GROUP BY PRODUCTO.id_categoria",
         ["%" + new Date(body.date).getFullYear() + "%"]
       ).then(data => {
-        console.log(data);
         let final = { labels: [], series: [[]] };
         for (let i = 0; i < data.length; i++) {
           const deta = data[i];
@@ -250,7 +244,6 @@ app.post("/updateCategorie", async (req, res) => {
 app.post("/updatePaymentMethod", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
   db.run("UPDATE MODO_PAGO SET nombre=?, otros_detalles=? WHERE num_pago=?", [
     body.nombre,
     body.otros_detalles,
@@ -260,7 +253,6 @@ app.post("/updatePaymentMethod", async (req, res) => {
       res.send({ status: "OK" });
     })
     .catch(error => {
-      console.log(error);
       res.send({ status: "FAILED" });
     });
 });
@@ -268,7 +260,6 @@ app.post("/updatePaymentMethod", async (req, res) => {
 app.post("/updateClient", async (req, res) => {
   const db = await dbPromise;
   let body = req.body;
-  console.log(body);
   db.run(
     "UPDATE CLIENTE SET nombre=?, apellido=?, rtn=?, fecha_nacimiento=?, telefono=? WHERE id_cliente=?",
     [body.nombre, body.apellido, body.rtn, body.fecha_nacimiento, body.telefono, body.id_cliente]
@@ -277,7 +268,6 @@ app.post("/updateClient", async (req, res) => {
       res.send({ status: "OK" });
     })
     .catch(error => {
-      console.log(error);
       res.send({ status: "FAILED" });
     });
 });
@@ -338,7 +328,6 @@ app.post("/CreateProduct", async (req, res) => {
         res.send({ status: "OK" });
       })
       .catch(error => {
-        console.log(error);
         res.send({ status: "FAILED" });
       });
   } else {
