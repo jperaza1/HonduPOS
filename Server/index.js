@@ -51,6 +51,13 @@ app.get("/GetAllClients", async (req, res) => {
   });
 });
 
+app.get("/GetAllOpenOrders", async (req, res) => {
+  const db = await dbPromise;
+  db.all("SELECT * FROM FACTURA WHERE cerrada <> 0").then(data => {
+    res.send({ data: data });
+  });
+});
+
 app.get("/GetCompanyData", async (req, res) => {
   res.send(require("./Database/Empresa.json"));
 });
@@ -386,9 +393,8 @@ app.post("/CreateUser", async (req, res) => {
       .then(data => {
         if (data[0]["count(*)"] === 0) {
           db.run(
-            "INSERT INTO EMPLEADO(identidad,nombre,apellido,user,password) VALUES(?,?,?,?,?)",
+            "INSERT INTO EMPLEADO(nombre,apellido,user,password) VALUES(?,?,?,?)",
             [
-              body.identidad,
               body.nombre,
               body.apellido,
               body.user,
@@ -402,6 +408,7 @@ app.post("/CreateUser", async (req, res) => {
               res.send({ status: "FAILED" });
             });
         } else {
+          console.log("aqui")
           res.send({ status: "FAILED" });
         }
       })
