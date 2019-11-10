@@ -20,7 +20,15 @@
     "sqlite": "^3.0.3"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "electron-builder": "^20.44.4",
-    "nodemon": "^1.19.2"
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "nodemon": "^1.19.2",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
   }
 }
