@@ -20,6 +20,7 @@ import NotificationSystem from "react-notification-system";
 import { style } from "variables/Variables.jsx";
 import decode from "jwt-decode";
 import "../assets/css/app.css";
+import QRCode from "qrcode.react";
 
 class Pos extends Component {
   constructor(props) {
@@ -487,6 +488,7 @@ class Pos extends Component {
         );
       }
       case 2: {
+        console.log(this.state.listPayments);
         return (
           <Row>
             <Grid fluid>
@@ -495,6 +497,18 @@ class Pos extends Component {
                 <p>Apellido: {this.state.listClients[this.state.selectedClient].apellido}</p>
                 <p>RTN: {this.state.listClients[this.state.selectedClient].rtn}</p>
                 <p>Telefono: {this.state.listClients[this.state.selectedClient].telefono}</p>
+
+                {this.state.listPayments.map((payment, index) => (
+                  <>
+                    {payment.num_pago === 2 && (
+                      <div>
+                        <h4>Escanee para pagar!</h4>
+                        <QRCode value={`${payment.pago}`} />
+                        <h5>Total a Pagar: {payment.pago}</h5>
+                      </div>
+                    )}
+                  </>
+                ))}
               </div>
               <div className="navButtons">
                 <Button
